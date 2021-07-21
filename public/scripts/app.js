@@ -1,2 +1,2 @@
-(self.webpackChunk=self.webpackChunk||[]).push([[742],{165:function(){document.addEventListener("DOMContentLoaded",(function(){console.info("DOM Loaded.")}))},255:function(){}},function(n){"use strict";var e=function(e){return n(n.s=e)};n.O(0,[692],(function(){return e(165),e(255)}));n.O()}]);
+(globalThis.webpackChunk=globalThis.webpackChunk||[]).push([[742],{165:(e,t,n)=>{"use strict";var o=n(306);window.Alpine=o.Z,o.Z.store("loaded",!1),o.Z.start(),document.addEventListener("DOMContentLoaded",(function(){console.info($store)}))},255:()=>{}},e=>{"use strict";var t=t=>e(e.s=t);e.O(0,[692,941],(()=>(t(165),t(255))));e.O()}]);
 //# sourceMappingURL=app.js.map
