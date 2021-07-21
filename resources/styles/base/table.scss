@@ -1,0 +1,29 @@
+.table-stack {
+  & thead {
+    @media (--breakpoint-xs-sm) {
+      @apply hidden;
+    }
+  }
+
+  & tr,
+  & th,
+  & td {
+    @media (--breakpoint-xs-sm) {
+      @apply block;
+    }
+  }
+}
+
+.table-scroll {
+  @apply overflow-x-auto;
+}
+
+.table-responsive {
+  @apply block my-8 mx-0 w-full overflow-x-auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  & > table {
+    @apply m-0;
+  }
+}

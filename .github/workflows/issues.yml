@@ -1,0 +1,12 @@
+name: Issue closer
+on: [issues]
+jobs:
+  autoclose:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Autoclose issues that did not follow issue template
+      uses: avime/issue-closer@v1.1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-close-message: "Hi @${issue.user.login}, It looks like the issue template is missing from this issue."
+        issue-pattern: ".*guidelines for Contributing.*"

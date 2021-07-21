@@ -1,0 +1,81 @@
+[x-cloak] {
+  display: none;
+}
+
+body {
+  @apply font-sans;
+}
+
+.brand {
+  @apply text-3xl font-medium text-indigo-500;
+}
+
+.responsive-embed {
+  @apply relative overflow-hidden h-0;
+  padding-bottom: 75%;
+
+  &.widescreen {
+    padding-bottom: 56.25%;
+  }
+
+  & iframe,
+  & object,
+  & embed,
+  & video {
+    @apply absolute top-0 left-0 h-full w-full;
+  }
+}
+
+.skip-link {
+  @apply absolute block overflow-hidden;
+  z-index: 999;
+  clip: rect(1px,1px,1px,1px);
+  height: theme('spacing.px');
+  width: theme('spacing.px');
+
+  &:focus {
+    clip: auto;
+    height: auto;
+    overflow: visible;
+    width: auto;
+  }
+}
+
+.stretched-link::after {
+  @apply absolute inset-0 z-10 bg-transparent pointer-events-auto;
+  content: "";
+}
+
+.modal-open {
+  min-height: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+[id="site-header"],
+[id^="modal-"] {
+  & .cta-split [data-invoca-campaign-id],
+  & .form--callback [type="submit"] {
+    @apply bg-gradient-to-r from-purple-800 to-red-500;
+
+    &:hover,
+    &:active {
+      @apply to-purple-800;
+    }
+  }
+}
+
+.hero,
+.blog-header,
+.page-header,
+.post-header {
+  & .cta-split [data-invoca-campaign-id],
+  & .form--callback [type="submit"] {
+    @apply bg-black;
+
+    &:hover,
+    &:active {
+      @apply bg-gray-800;
+    }
+  }
+}

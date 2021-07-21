@@ -1,0 +1,19 @@
+/**
+ * Config
+ */
+ @import '_config/font-faces';
+ @import '_config/variables';
+
+ /**
+  * Base
+  */
+ @import 'tailwindcss/base';
+ @import 'base/global';
+ @import 'base/prose';
+ @import 'base/table';
+
+ /**
+  * Tailwind Components & Utils
+  */
+ @import 'tailwindcss/components';
+ @import 'tailwindcss/utilities';

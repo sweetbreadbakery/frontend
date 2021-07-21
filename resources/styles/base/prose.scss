@@ -1,0 +1,11 @@
+.prose a.font-bold {
+  font-weight: 700 !important;
+}
+
+.prose a.no-underline {
+  text-decoration: none !important;
+}
+
+.prose a.text-white {
+  color: theme('colors.white') !important;
+}
