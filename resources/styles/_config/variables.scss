@@ -2,12 +2,13 @@
  * Variables
  */
 
- @custom-media --breakpoint-xs-sm (max-width: 640px);
- @custom-media --breakpoint-sm (min-width: 640px);
- @custom-media --breakpoint-md (min-width: 768px);
- @custom-media --breakpoint-lg (min-width: 1024px);
- @custom-media --breakpoint-xl (min-width: 1280px);
+@custom-media --breakpoint-xs  (max-width: 640px);
+@custom-media --breakpoint-sm  (min-width: 640px);
+@custom-media --breakpoint-md  (min-width: 768px);
+@custom-media --breakpoint-lg  (min-width: 1024px);
+@custom-media --breakpoint-xl  (min-width: 1280px);
+@custom-media --breakpoint-2xl (min-width: 1536px);
 
- @custom-selector :--all-level-headings h1, h2, h3, h4, h5, h6;
- @custom-selector :--top-level-headings h1, h2, h3;
- @custom-selector :--low-level-headings h4, h5, h6;
+@custom-selector :--top-level-headings h1, h2, h3;
+@custom-selector :--low-level-headings h4, h5, h6;
+@custom-selector :--all-level-headings h1, h2, h3, h4, h5, h6;
