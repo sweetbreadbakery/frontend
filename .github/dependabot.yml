@@ -1,4 +1,3 @@
-
 version: 2
 updates:
 - package-ecosystem: npm
@@ -61,12 +60,6 @@ updates:
   - dependency-name: browser-sync
     versions:
     - 2.26.14
-  - dependency-name: ini
-    versions:
-    - 1.3.8
-  - dependency-name: vue-template-compiler
-    versions:
-    - 2.6.12
   - dependency-name: eslint-plugin-import
     versions:
     - 2.22.1
