@@ -20,6 +20,7 @@
 
 .table-responsive {
   @apply block my-8 mx-0 w-full overflow-x-auto;
+
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 

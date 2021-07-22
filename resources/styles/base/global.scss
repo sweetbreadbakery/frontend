@@ -12,6 +12,7 @@ body {
 
 .responsive-embed {
   @apply relative overflow-hidden h-0;
+
   padding-bottom: 75%;
 
   &.widescreen {
@@ -28,8 +29,9 @@ body {
 
 .skip-link {
   @apply absolute block overflow-hidden;
+
   z-index: 999;
-  clip: rect(1px,1px,1px,1px);
+  clip: rect(1px, 1px, 1px, 1px);
   height: theme('spacing.px');
   width: theme('spacing.px');
 
@@ -43,6 +45,7 @@ body {
 
 .stretched-link::after {
   @apply absolute inset-0 z-10 bg-transparent pointer-events-auto;
+
   content: "";
 }
 
