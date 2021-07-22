@@ -1308,11 +1308,6 @@
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.5.1.tgz#b5fde2f0f79c1e120307c415a4c1d5eb15a6f278"
   integrity sha512-4vSVUiOPJLmr45S8rMGy7WDvpWxfFxfP/Qx/cxZFCfvoypTYpPPL1X8VIZMe0WTA+Jr7blUxwUSEZNkjoMTgSw==
 
-"@wordpress/browserslist-config@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@wordpress/browserslist-config/-/browserslist-config-4.1.0.tgz#d6ae9d43709b2355eaccc4131fb47a0f2ae072c1"
-  integrity sha512-RSJhgY2xmz6yAdDNhz/NvAO6JS+91vv9cVL7VDG2CftbyjTXBef05vWt3FzZhfeF0xUrYdpZL1PVpxmJiKvbEg==
-
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
@@ -5795,10 +5790,10 @@ postcss@^7.0.14, postcss@^7.0.2, postcss@^7.0.21, postcss@^7.0.26, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.15, postcss@^8.3.0:
-  version "8.3.5"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.5.tgz#982216b113412bc20a86289e91eb994952a5b709"
-  integrity sha512-NxTuJocUhYGsMiMFHDUkmjSKT3EdH4/WbGF6GCi1NDGk+vbcUTun4fpbOqaPtD8IIsztA2ilZm2DhYCuyN58gA==
+postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.15, postcss@^8.3.6:
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
+  integrity sha512-wG1cc/JhRgdqB6WHEuyLTedf3KIRuD0hG6ldkFEZNCjRxiC+3i6kkWUUbiJQayP28iwG35cEmAbe98585BYV0A==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
