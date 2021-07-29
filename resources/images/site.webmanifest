@@ -1,6 +1,6 @@
 {
   "name": "Avime",
-  "short_name": "",
+  "short_name": "Avime",
   "icons": [
     {
       "src": "/images/android-chrome-192x192.png",
@@ -18,5 +18,6 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#62d0ff",
-  "description": "Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!"
+  "description": "Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!",
+  "prefer_related_applications": false
 }
