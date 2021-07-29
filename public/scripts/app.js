@@ -1,2 +1,0 @@
-(globalThis.webpackChunk=globalThis.webpackChunk||[]).push([[742],{165:(e,o,t)=>{"use strict";var a=t(306);window.Alpine=a.Z,a.Z.store("avime",{loaded:!1,complete:function(){this.loaded=!0}}),a.Z.start(),document.addEventListener("DOMContentLoaded",(function(){a.Z.store("avime").complete(),console.info("Alpine.js Loaded: "+a.Z.store("avime").loaded)}))},255:()=>{}},e=>{"use strict";var o=o=>e(e.s=o);e.O(0,[692,941],(()=>(o(165),o(255))));e.O()}]);
-//# sourceMappingURL=app.js.map
