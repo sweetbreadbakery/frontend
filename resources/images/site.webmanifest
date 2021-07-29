@@ -3,17 +3,20 @@
   "short_name": "",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/images/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/images/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "theme_color": "#62d0ff",
+  "start_url": "/?source=pwa",
   "background_color": "#62d0ff",
-  "display": "standalone"
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#62d0ff",
+  "description": "Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!"
 }
