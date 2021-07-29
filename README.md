@@ -1,1 +1,1 @@
-# Avime Landing Page
+# [avime.moe](https://avime.moe)
