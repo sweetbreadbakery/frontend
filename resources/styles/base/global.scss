@@ -2,6 +2,16 @@
   display: none;
 }
 
+html {
+  font-smooth: never;
+  -moz-osx-font-smoothing: none;
+  -webkit-font-smoothing: none;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
 body {
   @apply font-sans;
 }
