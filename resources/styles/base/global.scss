@@ -59,36 +59,6 @@ body {
   content: "";
 }
 
-.modal-open {
-  min-height: 100%;
-  overflow: hidden;
-  user-select: none;
-}
-
-[id="site-header"],
-[id^="modal-"] {
-  & .cta-split [data-invoca-campaign-id],
-  & .form--callback [type="submit"] {
-    @apply bg-gradient-to-r from-purple-800 to-red-500;
-
-    &:hover,
-    &:active {
-      @apply to-purple-800;
-    }
-  }
-}
-
-.hero,
-.blog-header,
-.page-header,
-.post-header {
-  & .cta-split [data-invoca-campaign-id],
-  & .form--callback [type="submit"] {
-    @apply bg-black;
-
-    &:hover,
-    &:active {
-      @apply bg-gray-800;
-    }
-  }
+.text-shadow-heading {
+  text-shadow: 2px 0 0 theme('colors.blue.500'), 0 2px 0 theme('colors.blue.500'), -2px 0 0 theme('colors.blue.500'), 0 -2px 0 theme('colors.blue.500');
 }
