@@ -34,427 +34,741 @@
     <link rel="preload" href="/scripts/app.js" as="script">
     <link rel="stylesheet" href="/styles/app.css">
   </head>
-  <body class="min-h-screen bg-blue-300 bg-gradient-to-t from-blue-100 to-blue-300">
-    <div class="" id="app" role="application">
-      <header class="relative py-16 text-white bg-blue-400 lg:py-36">
-        <div class="relative z-10 flex flex-wrap items-center justify-center max-w-screen-lg mx-auto">
-          <div class="w-full lg:w-1/2 lg:pr-24">
-            <h1 class="mb-8 text-center"><img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128"></h1>
-            <p class="text-lg text-justify uppercase">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
-          </div>
 
-          <div class="bg-blue-500 border-2 border-blue-700 p-2 rounded-md h-[300px] w-[300px]">
-            <picture class="block p-2 bg-gray-300 rounded">
-              <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Fused Avimes">
-            </picture>
+  <body class="min-h-screen bg-blue-300 bg-gradient-to-t from-blue-100 to-blue-300">
+    <div class="uppercase" id="app" role="application">
+      <header class="relative py-16 text-white bg-blue-400 lg:py-36">
+        <div class="relative z-10 mx-auto max-w-7xl">
+          <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+            <div class="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
+              <div>
+                <h1 class="mb-8 text-center"><img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128"></h1>
+                <p class="mt-3 text-base text-justify text-white sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
+                <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
+                  <div class="rounded-md shadow">
+                    <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">Get started</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
+              <div class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+                <div class="px-4 py-8 sm:px-10">
+                  <div>
+                    <div class="bg-blue-500 border-2 border-blue-700 p-2 rounded-md h-[300px] w-[300px]">
+                      <picture class="block p-2 bg-gray-300 rounded">
+                        <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Fused Avimes">
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="absolute inset-0 z-0 w-full h-full opacity-20" style="background-image: url('/images/avime_grid.png');"></div>
       </header>
 
-      <section class="py-12 bg-blue-100" id="staff">
-        <div class="relative z-10 max-w-screen-lg mx-auto">
-          <h2 class="mb-8 text-3xl tracking-wider text-yellow-500 lowercase text-shadow-heading font-heading">About Us</h2>
+      <section class="py-16 overflow-hidden lg:py-24" id="about">
+        <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
+          <div class="relative">
+            <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
+            <p class="max-w-3xl mx-auto mt-4 text-xl text-center text-gray-500">We're excited to announce our first Avime roadmap! Here's what we have planned for SEASON 1!!!</p>
+          </div>
+
+          <div class="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+            <div class="relative mt-10 -mx-4 lg:mt-0" aria-hidden="true">
+              <img class="relative mx-auto" width="490" src="/images/avime_grid.png" alt="">
+            </div>
+
+            <div class="relative">
+              <p class="mt-3 text-lg text-gray-500">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled.</p>
+              <p class="mt-3 text-lg text-gray-500">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
+
+              <ul class="text-gray-500">
+                <li>Background</li>
+                <li>Body</li>
+                <li>Face</li>
+                <li>Clothes</li>
+                <li>Hair</li>
+                <li>Accessory</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="text-gray-500">You will need 1 trait NFT from EACH category to create an Avime.</p>
+          <p class="text-gray-500">EXAMPLE:</p>
+
+          <dl class="mb-8 space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
+            <div>
+              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 1 Time</dt>
+              <dd class="mt-2 text-base text-gray-500">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
+            </div>
+
+            <div>
+              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 3 Times</dt>
+              <dd class="mt-2 text-base text-gray-500">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
+            </div>
+
+            <div>
+              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 5 Times</dt>
+              <dd class="mt-2 text-base text-gray-500">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
+            </div>
+          </dl>
+
+          <p class="text-gray-500">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
         </div>
       </section>
 
-      <section class="py-12 bg-blue-100" id="faqs">
-        <div class="relative z-10 max-w-screen-lg mx-auto">
-          <h2 class="mb-8 text-3xl tracking-wider text-yellow-500 lowercase text-shadow-heading font-heading">Frequently Asked Questions</h2>
+      <section class="py-12 bg-blue-100 lg:py-20" id="faqs">
+        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
+          <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:mb-16 lg:text-4xl text-shadow-heading font-heading">Frequently Asked Questions</h2>
+
+          <div class="overflow-hidden bg-yellow-200 border border-black rounded-md shadow-inner-white">
+            <div class="px-4 py-5 sm:p-6">
+              <dl class="space-y-6 divide-y divide-yellow-400">
+                <div x-data="{ open: false }">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-0" @click="open = !open" aria-expanded="true" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">What is Avime?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform -rotate-180" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-0" x-show="open">
+                    <p class="text-lg text-black">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-1" @click="open = !open" aria-expanded="true" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">What do you mean no IPFS?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform -rotate-180" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-1" x-show="open">
+                    <p class="text-lg text-black">The source of the Avime images and data are recorded entirely on the Ethereum blockchain, through our unique smart contract. Which means ownership of an Avime, and the image itself, are fully on-chain.</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-2" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">How are they customizable?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-2" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">We created Avime with the intent for everyone to make characters that truly resonate with them. Avime allows you to mix and match your character the way that you want. There will be two smart contracts: an initial minting contract and a fusion contract. When minting, you’ll receive 6 individual traits that are required for creating an Avime; a background, body, face, clothes, hair, and accessory. Each trait is its own NFT that can be bought, sold, or traded on the open market. When you’ve collected the traits you want to use, you can fuse them together to mint your Avime! All traits are burned in the process, and there will only ever be enough traits to create 10k Avime, so choose wisely and make sure your combination is the one you really want. All assets including your finished Avime are stored directly on chain!</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-3" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Wen mint? How much?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-3" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">Mint price and drop date are currently TBD.</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-4" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Can I pick my body when customizing?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-4" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">Yes! Before fusing your Avime you will have the choice to pick between male and female body frames. The same traits can be used on both body types, but alter its appearance accordingly.</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-5" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Can I pick what traits I want to mint?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-5" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">All traits are randomly generated with varying rarity. So although you can't directly pick what you get on mint, you will receive 6 traits that can be traded for ones you wan most.</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-6" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Can I preview my Avime before fusion?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-6" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">Definitely. Our site will allow you to mix and match different traits present in your wallet. You don't have to fuse your traits before seeing the outcome, meaning there's no guesswork in deciding how traits will work together.</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-7" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Can I kiss my Avime?</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-7" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">It's your Avime, we won't judge!</p>
+                  </dd>
+                </div>
+
+                <div x-data="{ open: false }" class="pt-6">
+                  <dt class="text-base">
+                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-8" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                      <span class="font-bold">Can you make an Avime of best girl Rei Ayanami, so I can kiss her every day and night???</span>
+                      <span class="flex items-center ml-6 h-7">
+                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </dt>
+                  <dd class="pr-12 mt-2 text-justify" id="faq-8" x-show="open" style="display: none;">
+                    <p class="text-lg text-black">We won't have exact 1/1 character parts for copyright reasons but we definitely have parts that can give you the look and feel of some of your favorite parts if you arrange them creatively. We wanted to include many different tropes, archetypes, and styles to help you create Avime with the look and feel you're aiming for.</p>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="py-12 bg-blue-100" id="roadmap">
-        <div class="relative z-10 max-w-screen-lg mx-auto">
-          <h2 class="mb-8 text-3xl tracking-wider text-yellow-500 lowercase text-shadow-heading font-heading">Avime Roadmap</h2>
-          <ul class="p-2 text-black bg-gray-50 rounded-xl sm:p-5 xl:p-6">
-            <li>
-              <article class="relative grid items-start p-3 overflow-hidden md:grid-cols-8 xl:grid-cols-9 rounded-xl sm:p-5 xl:p-6 hover:bg-white">
-                <h3 class="mb-1 font-semibold text-black uppercase md:col-start-3 md:col-span-6 xl:col-start-2 xl:col-span-7 ml-9 md:ml-0">20% Minted</h3>
-                <div class="flex items-center row-start-1 mb-1 font-medium md:col-start-1 md:col-span-1 md:row-end-3 md:mb-0">
-                  <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-cyan-400"><circle cx="6" cy="6" r="6" fill="currentColor"></circle><circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path></svg>
+      <section class="py-12 bg-blue-100 lg:py-20" id="roadmap">
+        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
+          <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">
+            <span class="block">Avime Roadmap</span>
+            <span class="relative inline-block px-2 py-1 mb-2 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
+          </h2>
+
+          <div class="p-3 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
+            <div class="relative grid grid-cols-1 gap-6 p-8 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md lg:gap-4 lg:grid-cols-2">
+              <article class="relative z-10 col-span-1 text-center lg:col-start-1 lg:row-start-1 lg:pr-6">
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">20% Minted</h3>
+
+                <div class="relative z-10 p-2 text-center text-black bg-yellow-200 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
+                  <p class="font-medium text-justify">Airdrop individual Avime trait NFTs to 30 lucky holders.</p>
+                  <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] left-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
-                <p class="md:col-start-3 md:col-span-6 xl:col-span-7 ml-9 md:ml-0">Airdrop individual Avime trait NFTs to 30 lucky holders.</p>
               </article>
 
-              <article class="relative grid items-start p-3 overflow-hidden md:grid-cols-8 xl:grid-cols-9 rounded-xl sm:p-5 xl:p-6 hover:bg-white">
-                <h3 class="mb-1 font-semibold text-black uppercase md:col-start-3 md:col-span-6 xl:col-start-2 xl:col-span-7 ml-9 md:ml-0">40% Minted</h3>
-                <div class="flex items-center row-start-1 mb-1 font-medium md:col-start-1 md:col-span-1 md:row-end-3 md:mb-0">
-                  <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-300"><circle cx="6" cy="6" r="6" fill="currentColor"></circle><path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path><path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path></svg>
+              <article class="relative z-10 col-span-1 text-center lg:col-start-2 lg:row-start-2 lg:pl-6">
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">40% Minted</h3>
+
+                <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
+                  <p class="font-medium text-justify">Auction off a custom honoray 1/1 Avime for charity.</p>
+                  <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] right-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
-                <p class="md:col-start-3 md:col-span-6 xl:col-span-7 ml-9 md:ml-0">Auction off a custom honoray 1/1 Avime for charity.</p>
               </article>
 
-              <article class="relative grid items-start p-3 overflow-hidden md:grid-cols-8 xl:grid-cols-9 rounded-xl sm:p-5 xl:p-6 hover:bg-white">
-                <h3 class="mb-1 font-semibold text-black uppercase md:col-start-3 md:col-span-6 xl:col-start-2 xl:col-span-7 ml-9 md:ml-0">60% Minted</h3>
-                <div class="flex items-center row-start-1 mb-1 font-medium md:col-start-1 md:col-span-1 md:row-end-3 md:mb-0">
-                  <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-300"><circle cx="6" cy="6" r="6" fill="currentColor"></circle><path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path><path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path></svg>
+              <article class="relative z-10 col-span-1 text-center lg:row-start-3 lg:pr-6">
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">60% Minted</h3>
+
+                <div class="relative z-10 p-2 text-center text-black bg-yellow-400 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
+                  <p class="font-medium text-justify">Begin development on Avime Season 2!</p>
+                  <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] left-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
-                <p class="md:col-start-3 md:col-span-6 xl:col-span-7 ml-9 md:ml-0">Begin development on Avime Season 2!</p>
               </article>
 
-              <article class="relative grid items-start p-3 overflow-hidden md:grid-cols-8 xl:grid-cols-9 rounded-xl sm:p-5 xl:p-6 hover:bg-white">
-                <h3 class="mb-1 font-semibold text-black uppercase md:col-start-3 md:col-span-6 xl:col-start-2 xl:col-span-7 ml-9 md:ml-0">80% Minted</h3>
-                <div class="flex items-center row-start-1 mb-1 font-medium md:col-start-1 md:col-span-1 md:row-end-3 md:mb-0">
-                  <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-300"><circle cx="6" cy="6" r="6" fill="currentColor"></circle><path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path><path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path></svg>
+              <article class="relative z-10 col-span-1 text-center lg:col-start-2 lg:row-start-4 lg:pl-6">
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">80% Minted</h3>
+
+                <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
+                  <p class="font-medium text-justify">Use a percentage of secondary sales to create a liquidity pool on NFTX or NFT20.</p>
+                  <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] right-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
-                <p class="md:col-start-3 md:col-span-6 xl:col-span-7 ml-9 md:ml-0">Use a percentage of secondary sales to create a liquidity pool on NFTX or NFT20</p>
               </article>
 
-              <article class="relative grid items-start p-3 overflow-hidden md:grid-cols-8 xl:grid-cols-9 rounded-xl sm:p-5 xl:p-6 hover:bg-white">
-                <h3 class="mb-1 font-semibold text-black uppercase md:col-start-3 md:col-span-6 xl:col-start-2 xl:col-span-7 ml-9 md:ml-0">100% Minted</h3>
-                <div class="flex items-center row-start-1 mb-1 font-medium md:col-start-1 md:col-span-1 md:row-end-3 md:mb-0">
-                  <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-300"><circle cx="6" cy="6" r="6" fill="currentColor"></circle><path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-200"></path></svg>
+              <article class="relative z-10 col-span-1 text-center lg:translate-x-1/2 lg:row-start-5">
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">100% Minted</h3>
+
+                <div class="relative z-10 p-2 text-center text-black bg-yellow-500 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
+                  <p class="font-medium text-justify">Verify contract code. Begin development of 2D sprite sheets of Avime to use in a metaverse.</p>
                 </div>
-                <p class="md:col-start-3 md:col-span-6 xl:col-span-7 ml-9 md:ml-0">Verify contract code. Begin development of 2D sprite sheets of Avime to use in a metaverse.</p>
               </article>
-            </li>
-          </ul>
+
+              <div class="absolute top-0 z-0 w-4 h-full col-span-1 -translate-x-1/2 bg-yellow-500 border-l border-r left-1/2 border-l-black border-r-white"></div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <footer class="bg-blue-900">
-        <div class="relative z-10 max-w-screen-lg mx-auto">
-          <p>Something something something...</p>
-          <ul class="flex items-center justify-between space-x-4">
-            <li class="block">
-              <a class="block" href="https://twitter.com/avimenft" title="Follow us on Twitter" rel="noopener" target="_blank">
-                <svg class="w-8 h-8 fill-current" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                  <g>
-                    <rect x="15" y="14" width="1" height="1"/>
-                    <rect x="15" y="13" width="1" height="1"/>
-                    <rect x="15" y="12" width="1" height="1"/>
-                    <rect x="15" y="11" width="1" height="1"/>
-                    <rect x="15" y="10" width="1" height="1"/>
-                    <rect x="15" y="9" width="1" height="1"/>
-                    <rect x="15" y="8" width="1" height="1"/>
-                    <rect x="15" y="7" width="1" height="1"/>
-                    <rect x="15" y="6" width="1" height="1"/>
-                    <rect x="15" y="5" width="1" height="1"/>
-                    <rect x="15" y="4" width="1" height="1"/>
-                    <rect x="15" y="3" width="1" height="1"/>
-                    <rect x="15" y="2" width="1" height="1"/>
-                    <rect x="15" y="1" width="1" height="1"/>
-                    <rect x="14" y="15" width="1" height="1"/>
-                    <rect x="14" y="14" width="1" height="1"/>
-                    <rect x="14" y="13" width="1" height="1"/>
-                    <rect x="14" y="12" width="1" height="1"/>
-                    <rect x="14" y="11" width="1" height="1"/>
-                    <rect x="14" y="10" width="1" height="1"/>
-                    <rect x="14" y="9" width="1" height="1"/>
-                    <rect x="14" y="8" width="1" height="1"/>
-                    <rect x="14" y="7" width="1" height="1"/>
-                    <rect x="14" y="6" width="1" height="1"/>
-                    <rect x="14" y="5" width="1" height="1"/>
-                    <rect x="14" y="4" width="1" height="1"/>
-                    <rect x="14" y="3" width="1" height="1"/>
-                    <rect x="14" y="2" width="1" height="1"/>
-                    <rect x="14" y="1" width="1" height="1"/>
-                    <rect x="14" width="1" height="1"/>
-                    <rect x="13" y="15" width="1" height="1"/>
-                    <rect x="13" y="14" width="1" height="1"/>
-                    <rect x="13" y="13" width="1" height="1"/>
-                    <rect x="13" y="12" width="1" height="1"/>
-                    <rect x="13" y="11" width="1" height="1"/>
-                    <rect x="13" y="10" width="1" height="1"/>
-                    <rect x="13" y="9" width="1" height="1"/>
-                    <rect x="13" y="8" width="1" height="1"/>
-                    <rect x="13" y="7" width="1" height="1"/>
-                    <rect x="13" y="6" width="1" height="1"/>
-                    <rect x="13" y="5" width="1" height="1"/>
-                    <rect x="13" y="3" width="1" height="1"/>
-                    <rect x="13" y="2" width="1" height="1"/>
-                    <rect x="13" y="1" width="1" height="1"/>
-                    <rect x="13" width="1" height="1"/>
-                    <rect x="12" y="15" width="1" height="1"/>
-                    <rect x="12" y="14" width="1" height="1"/>
-                    <rect x="12" y="13" width="1" height="1"/>
-                    <rect x="12" y="12" width="1" height="1"/>
-                    <rect x="12" y="11" width="1" height="1"/>
-                    <rect x="12" y="10" width="1" height="1"/>
-                    <rect x="12" y="9" width="1" height="1"/>
-                    <rect x="12" y="8" width="1" height="1"/>
-                    <rect x="12" y="7" width="1" height="1"/>
-                    <rect x="12" y="3" width="1" height="1"/>
-                    <rect x="12" y="2" width="1" height="1"/>
-                    <rect x="12" y="1" width="1" height="1"/>
-                    <rect x="12" width="1" height="1"/>
-                    <rect x="11" y="15" width="1" height="1"/>
-                    <rect x="11" y="14" width="1" height="1"/>
-                    <rect x="11" y="13" width="1" height="1"/>
-                    <rect x="11" y="12" width="1" height="1"/>
-                    <rect x="11" y="11" width="1" height="1"/>
-                    <rect x="11" y="10" width="1" height="1"/>
-                    <rect x="11" y="9" width="1" height="1"/>
-                    <rect x="11" y="8" width="1" height="1"/>
-                    <rect x="11" y="2" width="1" height="1"/>
-                    <rect x="11" y="1" width="1" height="1"/>
-                    <rect x="11" width="1" height="1"/>
-                    <rect x="10" y="15" width="1" height="1"/>
-                    <rect x="10" y="14" width="1" height="1"/>
-                    <rect x="10" y="13" width="1" height="1"/>
-                    <rect x="10" y="12" width="1" height="1"/>
-                    <rect x="10" y="11" width="1" height="1"/>
-                    <rect x="10" y="1" width="1" height="1"/>
-                    <rect x="10" width="1" height="1"/>
-                    <rect x="9" y="15" width="1" height="1"/>
-                    <rect x="9" y="14" width="1" height="1"/>
-                    <rect x="9" y="13" width="1" height="1"/>
-                    <rect x="9" y="12" width="1" height="1"/>
-                    <rect x="9" y="1" width="1" height="1"/>
-                    <rect x="9" width="1" height="1"/>
-                    <rect x="8" y="15" width="1" height="1"/>
-                    <rect x="8" y="14" width="1" height="1"/>
-                    <rect x="8" y="13" width="1" height="1"/>
-                    <rect x="8" y="2" width="1" height="1"/>
-                    <rect x="8" y="1" width="1" height="1"/>
-                    <rect x="8" width="1" height="1"/>
-                    <rect x="7" y="15" width="1" height="1"/>
-                    <rect x="7" y="14" width="1" height="1"/>
-                    <rect x="7" y="13" width="1" height="1"/>
-                    <rect x="7" y="3" width="1" height="1"/>
-                    <rect x="7" y="2" width="1" height="1"/>
-                    <rect x="7" y="1" width="1" height="1"/>
-                    <rect x="7" width="1" height="1"/>
-                    <rect x="6" y="15" width="1" height="1"/>
-                    <rect x="6" y="14" width="1" height="1"/>
-                    <rect x="6" y="13" width="1" height="1"/>
-                    <rect x="6" y="4" width="1" height="1"/>
-                    <rect x="6" y="3" width="1" height="1"/>
-                    <rect x="6" y="2" width="1" height="1"/>
-                    <rect x="6" y="1" width="1" height="1"/>
-                    <rect x="6" width="1" height="1"/>
-                    <rect x="5" y="15" width="1" height="1"/>
-                    <rect x="5" y="14" width="1" height="1"/>
-                    <rect x="5" y="3" width="1" height="1"/>
-                    <rect x="5" y="2" width="1" height="1"/>
-                    <rect x="5" y="1" width="1" height="1"/>
-                    <rect x="5" width="1" height="1"/>
-                    <rect x="4" y="15" width="1" height="1"/>
-                    <rect x="4" y="14" width="1" height="1"/>
-                    <rect x="4" y="10" width="1" height="1"/>
-                    <rect x="4" y="3" width="1" height="1"/>
-                    <rect x="4" y="2" width="1" height="1"/>
-                    <rect x="4" y="1" width="1" height="1"/>
-                    <rect x="4" width="1" height="1"/>
-                    <rect x="3" y="15" width="1" height="1"/>
-                    <rect x="3" y="14" width="1" height="1"/>
-                    <rect x="3" y="11" width="1" height="1"/>
-                    <rect x="3" y="10" width="1" height="1"/>
-                    <rect x="3" y="9" width="1" height="1"/>
-                    <rect x="3" y="2" width="1" height="1"/>
-                    <rect x="3" y="1" width="1" height="1"/>
-                    <rect x="3" width="1" height="1"/>
-                    <rect x="2" y="15" width="1" height="1"/>
-                    <rect x="2" y="14" width="1" height="1"/>
-                    <rect x="2" y="13" width="1" height="1"/>
-                    <rect x="2" y="11" width="1" height="1"/>
-                    <rect x="2" y="10" width="1" height="1"/>
-                    <rect x="2" y="9" width="1" height="1"/>
-                    <rect x="2" y="8" width="1" height="1"/>
-                    <rect x="2" y="7" width="1" height="1"/>
-                    <rect x="2" y="1" width="1" height="1"/>
-                    <rect x="2" width="1" height="1"/>
-                    <rect x="1" y="15" width="1" height="1"/>
-                    <rect x="1" y="14" width="1" height="1"/>
-                    <rect x="1" y="13" width="1" height="1"/>
-                    <rect x="1" y="12" width="1" height="1"/>
-                    <rect x="1" y="11" width="1" height="1"/>
-                    <rect x="1" y="10" width="1" height="1"/>
-                    <rect x="1" y="9" width="1" height="1"/>
-                    <rect x="1" y="8" width="1" height="1"/>
-                    <rect x="1" y="7" width="1" height="1"/>
-                    <rect x="1" y="6" width="1" height="1"/>
-                    <rect x="1" y="5" width="1" height="1"/>
-                    <rect x="1" y="4" width="1" height="1"/>
-                    <rect x="1" y="3" width="1" height="1"/>
-                    <rect x="1" y="2" width="1" height="1"/>
-                    <rect x="1" y="1" width="1" height="1"/>
-                    <rect x="1" width="1" height="1"/>
-                    <rect y="14" width="1" height="1"/>
-                    <rect y="13" width="1" height="1"/>
-                    <rect y="12" width="1" height="1"/>
-                    <rect y="11" width="1" height="1"/>
-                    <rect y="10" width="1" height="1"/>
-                    <rect y="9" width="1" height="1"/>
-                    <rect y="8" width="1" height="1"/>
-                    <rect y="7" width="1" height="1"/>
-                    <rect y="6" width="1" height="1"/>
-                    <rect y="5" width="1" height="1"/>
-                    <rect y="4" width="1" height="1"/>
-                    <rect y="3" width="1" height="1"/>
-                    <rect y="2" width="1" height="1"/>
-                    <rect y="1" width="1" height="1"/>
-                  </g>
-                </svg>
-              </a>
-            </li>
-            <li class="block">
-              <a class="block" href="https://discord.gg/ZbRwhKXnSy" title="Join our Discord server" rel="noopener" target="_blank">
-                <svg class="w-8 h-8 fill-current" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                  <g>
-                    <rect x="15" y="14" width="1" height="1"/>
-                    <rect x="15" y="13" width="1" height="1"/>
-                    <rect x="15" y="12" width="1" height="1"/>
-                    <rect x="15" y="11" width="1" height="1"/>
-                    <rect x="15" y="10" width="1" height="1"/>
-                    <rect x="15" y="9" width="1" height="1"/>
-                    <rect x="15" y="8" width="1" height="1"/>
-                    <rect x="15" y="7" width="1" height="1"/>
-                    <rect x="15" y="6" width="1" height="1"/>
-                    <rect x="15" y="5" width="1" height="1"/>
-                    <rect x="15" y="4" width="1" height="1"/>
-                    <rect x="15" y="3" width="1" height="1"/>
-                    <rect x="15" y="2" width="1" height="1"/>
-                    <rect x="15" y="1" width="1" height="1"/>
-                    <rect x="14" y="15" width="1" height="1"/>
-                    <rect x="14" y="14" width="1" height="1"/>
-                    <rect x="14" y="13" width="1" height="1"/>
-                    <rect x="14" y="12" width="1" height="1"/>
-                    <rect x="14" y="11" width="1" height="1"/>
-                    <rect x="14" y="10" width="1" height="1"/>
-                    <rect x="14" y="9" width="1" height="1"/>
-                    <rect x="14" y="8" width="1" height="1"/>
-                    <rect x="14" y="7" width="1" height="1"/>
-                    <rect x="14" y="6" width="1" height="1"/>
-                    <rect x="14" y="5" width="1" height="1"/>
-                    <rect x="14" y="4" width="1" height="1"/>
-                    <rect x="14" y="3" width="1" height="1"/>
-                    <rect x="14" y="2" width="1" height="1"/>
-                    <rect x="14" y="1" width="1" height="1"/>
-                    <rect x="14" width="1" height="1"/>
-                    <rect x="13" y="15" width="1" height="1"/>
-                    <rect x="13" y="14" width="1" height="1"/>
-                    <rect x="13" y="13" width="1" height="1"/>
-                    <rect x="13" y="12" width="1" height="1"/>
-                    <rect x="13" y="4" width="1" height="1"/>
-                    <rect x="13" y="3" width="1" height="1"/>
-                    <rect x="13" y="2" width="1" height="1"/>
-                    <rect x="13" y="1" width="1" height="1"/>
-                    <rect x="13" width="1" height="1"/>
-                    <rect x="12" y="15" width="1" height="1"/>
-                    <rect x="12" y="14" width="1" height="1"/>
-                    <rect x="12" y="13" width="1" height="1"/>
-                    <rect x="12" y="3" width="1" height="1"/>
-                    <rect x="12" y="2" width="1" height="1"/>
-                    <rect x="12" y="1" width="1" height="1"/>
-                    <rect x="12" width="1" height="1"/>
-                    <rect x="11" y="15" width="1" height="1"/>
-                    <rect x="11" y="14" width="1" height="1"/>
-                    <rect x="11" y="13" width="1" height="1"/>
-                    <rect x="11" y="2" width="1" height="1"/>
-                    <rect x="11" y="1" width="1" height="1"/>
-                    <rect x="11" width="1" height="1"/>
-                    <rect x="10" y="15" width="1" height="1"/>
-                    <rect x="10" y="14" width="1" height="1"/>
-                    <rect x="10" y="13" width="1" height="1"/>
-                    <rect x="10" y="11" width="1" height="1"/>
-                    <rect x="10" y="9" width="1" height="1"/>
-                    <rect x="10" y="8" width="1" height="1"/>
-                    <rect x="10" y="2" width="1" height="1"/>
-                    <rect x="10" y="1" width="1" height="1"/>
-                    <rect x="10" width="1" height="1"/>
-                    <rect x="9" y="15" width="1" height="1"/>
-                    <rect x="9" y="14" width="1" height="1"/>
-                    <rect x="9" y="13" width="1" height="1"/>
-                    <rect x="9" y="12" width="1" height="1"/>
-                    <rect x="9" y="9" width="1" height="1"/>
-                    <rect x="9" y="8" width="1" height="1"/>
-                    <rect x="9" y="2" width="1" height="1"/>
-                    <rect x="9" y="1" width="1" height="1"/>
-                    <rect x="9" width="1" height="1"/>
-                    <rect x="8" y="15" width="1" height="1"/>
-                    <rect x="8" y="14" width="1" height="1"/>
-                    <rect x="8" y="13" width="1" height="1"/>
-                    <rect x="8" y="12" width="1" height="1"/>
-                    <rect x="8" y="3" width="1" height="1"/>
-                    <rect x="8" y="2" width="1" height="1"/>
-                    <rect x="8" y="1" width="1" height="1"/>
-                    <rect x="8" width="1" height="1"/>
-                    <rect x="7" y="15" width="1" height="1"/>
-                    <rect x="7" y="14" width="1" height="1"/>
-                    <rect x="7" y="13" width="1" height="1"/>
-                    <rect x="7" y="12" width="1" height="1"/>
-                    <rect x="7" y="3" width="1" height="1"/>
-                    <rect x="7" y="2" width="1" height="1"/>
-                    <rect x="7" y="1" width="1" height="1"/>
-                    <rect x="7" width="1" height="1"/>
-                    <rect x="6" y="15" width="1" height="1"/>
-                    <rect x="6" y="14" width="1" height="1"/>
-                    <rect x="6" y="13" width="1" height="1"/>
-                    <rect x="6" y="12" width="1" height="1"/>
-                    <rect x="6" y="9" width="1" height="1"/>
-                    <rect x="6" y="8" width="1" height="1"/>
-                    <rect x="6" y="2" width="1" height="1"/>
-                    <rect x="6" y="1" width="1" height="1"/>
-                    <rect x="6" width="1" height="1"/>
-                    <rect x="5" y="15" width="1" height="1"/>
-                    <rect x="5" y="14" width="1" height="1"/>
-                    <rect x="5" y="13" width="1" height="1"/>
-                    <rect x="5" y="11" width="1" height="1"/>
-                    <rect x="5" y="9" width="1" height="1"/>
-                    <rect x="5" y="8" width="1" height="1"/>
-                    <rect x="5" y="2" width="1" height="1"/>
-                    <rect x="5" y="1" width="1" height="1"/>
-                    <rect x="5" width="1" height="1"/>
-                    <rect x="4" y="15" width="1" height="1"/>
-                    <rect x="4" y="14" width="1" height="1"/>
-                    <rect x="4" y="13" width="1" height="1"/>
-                    <rect x="4" y="2" width="1" height="1"/>
-                    <rect x="4" y="1" width="1" height="1"/>
-                    <rect x="4" width="1" height="1"/>
-                    <rect x="3" y="15" width="1" height="1"/>
-                    <rect x="3" y="14" width="1" height="1"/>
-                    <rect x="3" y="13" width="1" height="1"/>
-                    <rect x="3" y="3" width="1" height="1"/>
-                    <rect x="3" y="2" width="1" height="1"/>
-                    <rect x="3" y="1" width="1" height="1"/>
-                    <rect x="3" width="1" height="1"/>
-                    <rect x="2" y="15" width="1" height="1"/>
-                    <rect x="2" y="14" width="1" height="1"/>
-                    <rect x="2" y="13" width="1" height="1"/>
-                    <rect x="2" y="12" width="1" height="1"/>
-                    <rect x="2" y="4" width="1" height="1"/>
-                    <rect x="2" y="3" width="1" height="1"/>
-                    <rect x="2" y="2" width="1" height="1"/>
-                    <rect x="2" y="1" width="1" height="1"/>
-                    <rect x="2" width="1" height="1"/>
-                    <rect x="1" y="15" width="1" height="1"/>
-                    <rect x="1" y="14" width="1" height="1"/>
-                    <rect x="1" y="13" width="1" height="1"/>
-                    <rect x="1" y="12" width="1" height="1"/>
-                    <rect x="1" y="11" width="1" height="1"/>
-                    <rect x="1" y="10" width="1" height="1"/>
-                    <rect x="1" y="9" width="1" height="1"/>
-                    <rect x="1" y="8" width="1" height="1"/>
-                    <rect x="1" y="7" width="1" height="1"/>
-                    <rect x="1" y="6" width="1" height="1"/>
-                    <rect x="1" y="5" width="1" height="1"/>
-                    <rect x="1" y="4" width="1" height="1"/>
-                    <rect x="1" y="3" width="1" height="1"/>
-                    <rect x="1" y="2" width="1" height="1"/>
-                    <rect x="1" y="1" width="1" height="1"/>
-                    <rect x="1" width="1" height="1"/>
-                    <rect y="14" width="1" height="1"/>
-                    <rect y="13" width="1" height="1"/>
-                    <rect y="12" width="1" height="1"/>
-                    <rect y="11" width="1" height="1"/>
-                    <rect y="10" width="1" height="1"/>
-                    <rect y="9" width="1" height="1"/>
-                    <rect y="8" width="1" height="1"/>
-                    <rect y="7" width="1" height="1"/>
-                    <rect y="6" width="1" height="1"/>
-                    <rect y="5" width="1" height="1"/>
-                    <rect y="4" width="1" height="1"/>
-                    <rect y="3" width="1" height="1"/>
-                    <rect y="2" width="1" height="1"/>
-                    <rect y="1" width="1" height="1"/>
-                  </g>
-                </svg>
-              </a>
-            </li>
-          </ul>
+      <section class="py-12 bg-blue-300 lg:py-20" id="team">
+        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
+          <div class="space-y-12 text-center">
+            <div class="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
+              <h2 class="text-3xl tracking-wider text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">Meet our team</h2>
+              <p class="text-xl text-white">Ornare sagittis, suspendisse in hendrerit quis. Sed dui aliquet lectus sit pretium egestas vel mattis neque.</p>
+            </div>
+
+            <ul role="list" class="mx-auto space-y-16 sm:grid sm:grid-cols-2 sm:gap-16 sm:space-y-0 lg:grid-cols-5">
+              <li>
+                <div class="space-y-6">
+                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="//placehold.it/192x192" alt="">
+                  <div class="space-y-2">
+                    <div class="space-y-1 text-lg font-medium leading-6">
+                      <h3>Derp Herpenstein</h3>
+                      <p class="text-indigo-600">Blockchain Developer</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="space-y-6">
+                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="//placehold.it/192x192" alt="">
+                  <div class="space-y-2">
+                    <div class="space-y-1 text-lg font-medium leading-6">
+                      <h3>rawdawg</h3>
+                      <p class="text-indigo-600">Community Manager</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="space-y-6">
+                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="//placehold.it/192x192" alt="">
+                  <div class="space-y-2">
+                    <div class="space-y-1 text-lg font-medium leading-6">
+                      <h3>bread</h3>
+                      <p class="text-indigo-600">Artist</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="space-y-6">
+                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="//placehold.it/192x192" alt="">
+                  <div class="space-y-2">
+                    <div class="space-y-1 text-lg font-medium leading-6">
+                      <h3>Madotsuki</h3>
+                      <p class="text-indigo-600">Community Manager</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="space-y-6">
+                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="//placehold.it/192x192" alt="">
+                  <div class="space-y-2">
+                    <div class="space-y-1 text-lg font-medium leading-6">
+                      <h3>accell</h3>
+                      <p class="text-indigo-600">Front-End Developer</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-blue-900" id="footer">
+        <div class="px-4 py-12 mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
+          <nav class="flex flex-wrap justify-center -mx-5 -my-2" aria-label="Footer">
+            <div class="px-5 py-2">
+              <a href="#about" class="text-base text-white hover:text-gray-900">About</a>
+            </div>
+
+            <div class="px-5 py-2">
+              <a href="#faqs" class="text-base text-white hover:text-gray-900">FAQ</a>
+            </div>
+
+            <div class="px-5 py-2">
+              <a href="#roadmap" class="text-base text-white hover:text-gray-900">Roadmap</a>
+            </div>
+
+            <div class="px-5 py-2">
+              <a href="#team" class="text-base text-white hover:text-gray-900">Team</a>
+            </div>
+          </nav>
+
+          <div class="flex justify-center mt-8 space-x-6">
+            <a class="text-white" href="https://discord.gg/ZbRwhKXnSy" rel="noopener" target="_blank">
+              <span class="sr-only">Discord</span>
+              <svg class="w-8 h-8 fill-current" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <g>
+                  <rect x="15" y="14" width="1" height="1"/>
+                  <rect x="15" y="13" width="1" height="1"/>
+                  <rect x="15" y="12" width="1" height="1"/>
+                  <rect x="15" y="11" width="1" height="1"/>
+                  <rect x="15" y="10" width="1" height="1"/>
+                  <rect x="15" y="9" width="1" height="1"/>
+                  <rect x="15" y="8" width="1" height="1"/>
+                  <rect x="15" y="7" width="1" height="1"/>
+                  <rect x="15" y="6" width="1" height="1"/>
+                  <rect x="15" y="5" width="1" height="1"/>
+                  <rect x="15" y="4" width="1" height="1"/>
+                  <rect x="15" y="3" width="1" height="1"/>
+                  <rect x="15" y="2" width="1" height="1"/>
+                  <rect x="15" y="1" width="1" height="1"/>
+                  <rect x="14" y="15" width="1" height="1"/>
+                  <rect x="14" y="14" width="1" height="1"/>
+                  <rect x="14" y="13" width="1" height="1"/>
+                  <rect x="14" y="12" width="1" height="1"/>
+                  <rect x="14" y="11" width="1" height="1"/>
+                  <rect x="14" y="10" width="1" height="1"/>
+                  <rect x="14" y="9" width="1" height="1"/>
+                  <rect x="14" y="8" width="1" height="1"/>
+                  <rect x="14" y="7" width="1" height="1"/>
+                  <rect x="14" y="6" width="1" height="1"/>
+                  <rect x="14" y="5" width="1" height="1"/>
+                  <rect x="14" y="4" width="1" height="1"/>
+                  <rect x="14" y="3" width="1" height="1"/>
+                  <rect x="14" y="2" width="1" height="1"/>
+                  <rect x="14" y="1" width="1" height="1"/>
+                  <rect x="14" width="1" height="1"/>
+                  <rect x="13" y="15" width="1" height="1"/>
+                  <rect x="13" y="14" width="1" height="1"/>
+                  <rect x="13" y="13" width="1" height="1"/>
+                  <rect x="13" y="12" width="1" height="1"/>
+                  <rect x="13" y="4" width="1" height="1"/>
+                  <rect x="13" y="3" width="1" height="1"/>
+                  <rect x="13" y="2" width="1" height="1"/>
+                  <rect x="13" y="1" width="1" height="1"/>
+                  <rect x="13" width="1" height="1"/>
+                  <rect x="12" y="15" width="1" height="1"/>
+                  <rect x="12" y="14" width="1" height="1"/>
+                  <rect x="12" y="13" width="1" height="1"/>
+                  <rect x="12" y="3" width="1" height="1"/>
+                  <rect x="12" y="2" width="1" height="1"/>
+                  <rect x="12" y="1" width="1" height="1"/>
+                  <rect x="12" width="1" height="1"/>
+                  <rect x="11" y="15" width="1" height="1"/>
+                  <rect x="11" y="14" width="1" height="1"/>
+                  <rect x="11" y="13" width="1" height="1"/>
+                  <rect x="11" y="2" width="1" height="1"/>
+                  <rect x="11" y="1" width="1" height="1"/>
+                  <rect x="11" width="1" height="1"/>
+                  <rect x="10" y="15" width="1" height="1"/>
+                  <rect x="10" y="14" width="1" height="1"/>
+                  <rect x="10" y="13" width="1" height="1"/>
+                  <rect x="10" y="11" width="1" height="1"/>
+                  <rect x="10" y="9" width="1" height="1"/>
+                  <rect x="10" y="8" width="1" height="1"/>
+                  <rect x="10" y="2" width="1" height="1"/>
+                  <rect x="10" y="1" width="1" height="1"/>
+                  <rect x="10" width="1" height="1"/>
+                  <rect x="9" y="15" width="1" height="1"/>
+                  <rect x="9" y="14" width="1" height="1"/>
+                  <rect x="9" y="13" width="1" height="1"/>
+                  <rect x="9" y="12" width="1" height="1"/>
+                  <rect x="9" y="9" width="1" height="1"/>
+                  <rect x="9" y="8" width="1" height="1"/>
+                  <rect x="9" y="2" width="1" height="1"/>
+                  <rect x="9" y="1" width="1" height="1"/>
+                  <rect x="9" width="1" height="1"/>
+                  <rect x="8" y="15" width="1" height="1"/>
+                  <rect x="8" y="14" width="1" height="1"/>
+                  <rect x="8" y="13" width="1" height="1"/>
+                  <rect x="8" y="12" width="1" height="1"/>
+                  <rect x="8" y="3" width="1" height="1"/>
+                  <rect x="8" y="2" width="1" height="1"/>
+                  <rect x="8" y="1" width="1" height="1"/>
+                  <rect x="8" width="1" height="1"/>
+                  <rect x="7" y="15" width="1" height="1"/>
+                  <rect x="7" y="14" width="1" height="1"/>
+                  <rect x="7" y="13" width="1" height="1"/>
+                  <rect x="7" y="12" width="1" height="1"/>
+                  <rect x="7" y="3" width="1" height="1"/>
+                  <rect x="7" y="2" width="1" height="1"/>
+                  <rect x="7" y="1" width="1" height="1"/>
+                  <rect x="7" width="1" height="1"/>
+                  <rect x="6" y="15" width="1" height="1"/>
+                  <rect x="6" y="14" width="1" height="1"/>
+                  <rect x="6" y="13" width="1" height="1"/>
+                  <rect x="6" y="12" width="1" height="1"/>
+                  <rect x="6" y="9" width="1" height="1"/>
+                  <rect x="6" y="8" width="1" height="1"/>
+                  <rect x="6" y="2" width="1" height="1"/>
+                  <rect x="6" y="1" width="1" height="1"/>
+                  <rect x="6" width="1" height="1"/>
+                  <rect x="5" y="15" width="1" height="1"/>
+                  <rect x="5" y="14" width="1" height="1"/>
+                  <rect x="5" y="13" width="1" height="1"/>
+                  <rect x="5" y="11" width="1" height="1"/>
+                  <rect x="5" y="9" width="1" height="1"/>
+                  <rect x="5" y="8" width="1" height="1"/>
+                  <rect x="5" y="2" width="1" height="1"/>
+                  <rect x="5" y="1" width="1" height="1"/>
+                  <rect x="5" width="1" height="1"/>
+                  <rect x="4" y="15" width="1" height="1"/>
+                  <rect x="4" y="14" width="1" height="1"/>
+                  <rect x="4" y="13" width="1" height="1"/>
+                  <rect x="4" y="2" width="1" height="1"/>
+                  <rect x="4" y="1" width="1" height="1"/>
+                  <rect x="4" width="1" height="1"/>
+                  <rect x="3" y="15" width="1" height="1"/>
+                  <rect x="3" y="14" width="1" height="1"/>
+                  <rect x="3" y="13" width="1" height="1"/>
+                  <rect x="3" y="3" width="1" height="1"/>
+                  <rect x="3" y="2" width="1" height="1"/>
+                  <rect x="3" y="1" width="1" height="1"/>
+                  <rect x="3" width="1" height="1"/>
+                  <rect x="2" y="15" width="1" height="1"/>
+                  <rect x="2" y="14" width="1" height="1"/>
+                  <rect x="2" y="13" width="1" height="1"/>
+                  <rect x="2" y="12" width="1" height="1"/>
+                  <rect x="2" y="4" width="1" height="1"/>
+                  <rect x="2" y="3" width="1" height="1"/>
+                  <rect x="2" y="2" width="1" height="1"/>
+                  <rect x="2" y="1" width="1" height="1"/>
+                  <rect x="2" width="1" height="1"/>
+                  <rect x="1" y="15" width="1" height="1"/>
+                  <rect x="1" y="14" width="1" height="1"/>
+                  <rect x="1" y="13" width="1" height="1"/>
+                  <rect x="1" y="12" width="1" height="1"/>
+                  <rect x="1" y="11" width="1" height="1"/>
+                  <rect x="1" y="10" width="1" height="1"/>
+                  <rect x="1" y="9" width="1" height="1"/>
+                  <rect x="1" y="8" width="1" height="1"/>
+                  <rect x="1" y="7" width="1" height="1"/>
+                  <rect x="1" y="6" width="1" height="1"/>
+                  <rect x="1" y="5" width="1" height="1"/>
+                  <rect x="1" y="4" width="1" height="1"/>
+                  <rect x="1" y="3" width="1" height="1"/>
+                  <rect x="1" y="2" width="1" height="1"/>
+                  <rect x="1" y="1" width="1" height="1"/>
+                  <rect x="1" width="1" height="1"/>
+                  <rect y="14" width="1" height="1"/>
+                  <rect y="13" width="1" height="1"/>
+                  <rect y="12" width="1" height="1"/>
+                  <rect y="11" width="1" height="1"/>
+                  <rect y="10" width="1" height="1"/>
+                  <rect y="9" width="1" height="1"/>
+                  <rect y="8" width="1" height="1"/>
+                  <rect y="7" width="1" height="1"/>
+                  <rect y="6" width="1" height="1"/>
+                  <rect y="5" width="1" height="1"/>
+                  <rect y="4" width="1" height="1"/>
+                  <rect y="3" width="1" height="1"/>
+                  <rect y="2" width="1" height="1"/>
+                  <rect y="1" width="1" height="1"/>
+                </g>
+              </svg>
+            </a>
+
+            <a class="text-white" href="https://twitter.com/avimenft" rel="noopener" target="_blank">
+              <span class="sr-only">Twitter</span>
+              <svg class="w-8 h-8 fill-current" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <g>
+                  <rect x="15" y="14" width="1" height="1"/>
+                  <rect x="15" y="13" width="1" height="1"/>
+                  <rect x="15" y="12" width="1" height="1"/>
+                  <rect x="15" y="11" width="1" height="1"/>
+                  <rect x="15" y="10" width="1" height="1"/>
+                  <rect x="15" y="9" width="1" height="1"/>
+                  <rect x="15" y="8" width="1" height="1"/>
+                  <rect x="15" y="7" width="1" height="1"/>
+                  <rect x="15" y="6" width="1" height="1"/>
+                  <rect x="15" y="5" width="1" height="1"/>
+                  <rect x="15" y="4" width="1" height="1"/>
+                  <rect x="15" y="3" width="1" height="1"/>
+                  <rect x="15" y="2" width="1" height="1"/>
+                  <rect x="15" y="1" width="1" height="1"/>
+                  <rect x="14" y="15" width="1" height="1"/>
+                  <rect x="14" y="14" width="1" height="1"/>
+                  <rect x="14" y="13" width="1" height="1"/>
+                  <rect x="14" y="12" width="1" height="1"/>
+                  <rect x="14" y="11" width="1" height="1"/>
+                  <rect x="14" y="10" width="1" height="1"/>
+                  <rect x="14" y="9" width="1" height="1"/>
+                  <rect x="14" y="8" width="1" height="1"/>
+                  <rect x="14" y="7" width="1" height="1"/>
+                  <rect x="14" y="6" width="1" height="1"/>
+                  <rect x="14" y="5" width="1" height="1"/>
+                  <rect x="14" y="4" width="1" height="1"/>
+                  <rect x="14" y="3" width="1" height="1"/>
+                  <rect x="14" y="2" width="1" height="1"/>
+                  <rect x="14" y="1" width="1" height="1"/>
+                  <rect x="14" width="1" height="1"/>
+                  <rect x="13" y="15" width="1" height="1"/>
+                  <rect x="13" y="14" width="1" height="1"/>
+                  <rect x="13" y="13" width="1" height="1"/>
+                  <rect x="13" y="12" width="1" height="1"/>
+                  <rect x="13" y="11" width="1" height="1"/>
+                  <rect x="13" y="10" width="1" height="1"/>
+                  <rect x="13" y="9" width="1" height="1"/>
+                  <rect x="13" y="8" width="1" height="1"/>
+                  <rect x="13" y="7" width="1" height="1"/>
+                  <rect x="13" y="6" width="1" height="1"/>
+                  <rect x="13" y="5" width="1" height="1"/>
+                  <rect x="13" y="3" width="1" height="1"/>
+                  <rect x="13" y="2" width="1" height="1"/>
+                  <rect x="13" y="1" width="1" height="1"/>
+                  <rect x="13" width="1" height="1"/>
+                  <rect x="12" y="15" width="1" height="1"/>
+                  <rect x="12" y="14" width="1" height="1"/>
+                  <rect x="12" y="13" width="1" height="1"/>
+                  <rect x="12" y="12" width="1" height="1"/>
+                  <rect x="12" y="11" width="1" height="1"/>
+                  <rect x="12" y="10" width="1" height="1"/>
+                  <rect x="12" y="9" width="1" height="1"/>
+                  <rect x="12" y="8" width="1" height="1"/>
+                  <rect x="12" y="7" width="1" height="1"/>
+                  <rect x="12" y="3" width="1" height="1"/>
+                  <rect x="12" y="2" width="1" height="1"/>
+                  <rect x="12" y="1" width="1" height="1"/>
+                  <rect x="12" width="1" height="1"/>
+                  <rect x="11" y="15" width="1" height="1"/>
+                  <rect x="11" y="14" width="1" height="1"/>
+                  <rect x="11" y="13" width="1" height="1"/>
+                  <rect x="11" y="12" width="1" height="1"/>
+                  <rect x="11" y="11" width="1" height="1"/>
+                  <rect x="11" y="10" width="1" height="1"/>
+                  <rect x="11" y="9" width="1" height="1"/>
+                  <rect x="11" y="8" width="1" height="1"/>
+                  <rect x="11" y="2" width="1" height="1"/>
+                  <rect x="11" y="1" width="1" height="1"/>
+                  <rect x="11" width="1" height="1"/>
+                  <rect x="10" y="15" width="1" height="1"/>
+                  <rect x="10" y="14" width="1" height="1"/>
+                  <rect x="10" y="13" width="1" height="1"/>
+                  <rect x="10" y="12" width="1" height="1"/>
+                  <rect x="10" y="11" width="1" height="1"/>
+                  <rect x="10" y="1" width="1" height="1"/>
+                  <rect x="10" width="1" height="1"/>
+                  <rect x="9" y="15" width="1" height="1"/>
+                  <rect x="9" y="14" width="1" height="1"/>
+                  <rect x="9" y="13" width="1" height="1"/>
+                  <rect x="9" y="12" width="1" height="1"/>
+                  <rect x="9" y="1" width="1" height="1"/>
+                  <rect x="9" width="1" height="1"/>
+                  <rect x="8" y="15" width="1" height="1"/>
+                  <rect x="8" y="14" width="1" height="1"/>
+                  <rect x="8" y="13" width="1" height="1"/>
+                  <rect x="8" y="2" width="1" height="1"/>
+                  <rect x="8" y="1" width="1" height="1"/>
+                  <rect x="8" width="1" height="1"/>
+                  <rect x="7" y="15" width="1" height="1"/>
+                  <rect x="7" y="14" width="1" height="1"/>
+                  <rect x="7" y="13" width="1" height="1"/>
+                  <rect x="7" y="3" width="1" height="1"/>
+                  <rect x="7" y="2" width="1" height="1"/>
+                  <rect x="7" y="1" width="1" height="1"/>
+                  <rect x="7" width="1" height="1"/>
+                  <rect x="6" y="15" width="1" height="1"/>
+                  <rect x="6" y="14" width="1" height="1"/>
+                  <rect x="6" y="13" width="1" height="1"/>
+                  <rect x="6" y="4" width="1" height="1"/>
+                  <rect x="6" y="3" width="1" height="1"/>
+                  <rect x="6" y="2" width="1" height="1"/>
+                  <rect x="6" y="1" width="1" height="1"/>
+                  <rect x="6" width="1" height="1"/>
+                  <rect x="5" y="15" width="1" height="1"/>
+                  <rect x="5" y="14" width="1" height="1"/>
+                  <rect x="5" y="3" width="1" height="1"/>
+                  <rect x="5" y="2" width="1" height="1"/>
+                  <rect x="5" y="1" width="1" height="1"/>
+                  <rect x="5" width="1" height="1"/>
+                  <rect x="4" y="15" width="1" height="1"/>
+                  <rect x="4" y="14" width="1" height="1"/>
+                  <rect x="4" y="10" width="1" height="1"/>
+                  <rect x="4" y="3" width="1" height="1"/>
+                  <rect x="4" y="2" width="1" height="1"/>
+                  <rect x="4" y="1" width="1" height="1"/>
+                  <rect x="4" width="1" height="1"/>
+                  <rect x="3" y="15" width="1" height="1"/>
+                  <rect x="3" y="14" width="1" height="1"/>
+                  <rect x="3" y="11" width="1" height="1"/>
+                  <rect x="3" y="10" width="1" height="1"/>
+                  <rect x="3" y="9" width="1" height="1"/>
+                  <rect x="3" y="2" width="1" height="1"/>
+                  <rect x="3" y="1" width="1" height="1"/>
+                  <rect x="3" width="1" height="1"/>
+                  <rect x="2" y="15" width="1" height="1"/>
+                  <rect x="2" y="14" width="1" height="1"/>
+                  <rect x="2" y="13" width="1" height="1"/>
+                  <rect x="2" y="11" width="1" height="1"/>
+                  <rect x="2" y="10" width="1" height="1"/>
+                  <rect x="2" y="9" width="1" height="1"/>
+                  <rect x="2" y="8" width="1" height="1"/>
+                  <rect x="2" y="7" width="1" height="1"/>
+                  <rect x="2" y="1" width="1" height="1"/>
+                  <rect x="2" width="1" height="1"/>
+                  <rect x="1" y="15" width="1" height="1"/>
+                  <rect x="1" y="14" width="1" height="1"/>
+                  <rect x="1" y="13" width="1" height="1"/>
+                  <rect x="1" y="12" width="1" height="1"/>
+                  <rect x="1" y="11" width="1" height="1"/>
+                  <rect x="1" y="10" width="1" height="1"/>
+                  <rect x="1" y="9" width="1" height="1"/>
+                  <rect x="1" y="8" width="1" height="1"/>
+                  <rect x="1" y="7" width="1" height="1"/>
+                  <rect x="1" y="6" width="1" height="1"/>
+                  <rect x="1" y="5" width="1" height="1"/>
+                  <rect x="1" y="4" width="1" height="1"/>
+                  <rect x="1" y="3" width="1" height="1"/>
+                  <rect x="1" y="2" width="1" height="1"/>
+                  <rect x="1" y="1" width="1" height="1"/>
+                  <rect x="1" width="1" height="1"/>
+                  <rect y="14" width="1" height="1"/>
+                  <rect y="13" width="1" height="1"/>
+                  <rect y="12" width="1" height="1"/>
+                  <rect y="11" width="1" height="1"/>
+                  <rect y="10" width="1" height="1"/>
+                  <rect y="9" width="1" height="1"/>
+                  <rect y="8" width="1" height="1"/>
+                  <rect y="7" width="1" height="1"/>
+                  <rect y="6" width="1" height="1"/>
+                  <rect y="5" width="1" height="1"/>
+                  <rect y="4" width="1" height="1"/>
+                  <rect y="3" width="1" height="1"/>
+                  <rect y="2" width="1" height="1"/>
+                  <rect y="1" width="1" height="1"/>
+                </g>
+              </svg>
+            </a>
+          </div>
+
+          <p class="mt-8 text-base text-center text-white">&copy; 2021 Something something something...</p>
         </div>
       </footer>
     </div>
