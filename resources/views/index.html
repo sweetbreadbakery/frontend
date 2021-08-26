@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="text-white bg-blue-300 js-focus-visible">
+<html lang="en-us" class="text-white bg-blue-300 js-focus-visible">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -44,24 +44,15 @@
               <div>
                 <h1 class="mb-8 text-center"><img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128"></h1>
                 <p class="mt-3 text-base text-justify text-white sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
-                <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-                  <div class="rounded-md shadow">
-                    <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">Get started</a>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <div class="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-              <div class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-                <div class="px-4 py-8 sm:px-10">
-                  <div>
-                    <div class="bg-blue-500 border-2 border-blue-700 p-2 rounded-md h-[300px] w-[300px]">
-                      <picture class="block p-2 bg-gray-300 rounded">
-                        <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Fused Avimes">
-                      </picture>
-                    </div>
-                  </div>
+            <div class="flex items-center justify-center mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
+              <div class="p-3 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
+                <div class="relative gap-6 p-4 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
+                  <picture class="block bg-gray-300 border-2 border-black rounded">
+                    <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Fused Avimes">
+                  </picture>
                 </div>
               </div>
             </div>
@@ -71,54 +62,91 @@
         <div class="absolute inset-0 z-0 w-full h-full opacity-20" style="background-image: url('/images/avime_grid.png');"></div>
       </header>
 
+      <section class="bg-blue-500" id="cta">
+        <div class="max-w-2xl px-4 py-16 mx-auto text-center sm:py-20 sm:px-6 lg:px-8">
+          <h2 class="text-3xl tracking-wider text-white lowercase lg:text-4xl font-heading">Waifu NFTs? Say no more.</h2>
+          <p class="mt-4 text-lg leading-6 text-blue-200">Connect your wallet below to mint your 6 traits!</p>
+          <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto">
+            Connect Wallet
+          </a>
+        </div>
+      </section>
+
       <section class="py-16 overflow-hidden lg:py-24" id="about">
         <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
-          <div class="relative">
-            <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
-            <p class="max-w-3xl mx-auto mt-4 text-xl text-center text-gray-500">We're excited to announce our first Avime roadmap! Here's what we have planned for SEASON 1!!!</p>
-          </div>
+          <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
+          <p class="max-w-3xl mx-auto mt-4 text-xl text-center text-gray-500">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
 
-          <div class="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
-            <div class="relative mt-10 -mx-4 lg:mt-0" aria-hidden="true">
-              <img class="relative mx-auto" width="490" src="/images/avime_grid.png" alt="">
+          <div class="grid grid-cols-2 gap-4 my-8 lg:my-12 lg:grid-cols-3">
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Background</h3>
+
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+              </picture>
             </div>
 
-            <div class="relative">
-              <p class="mt-3 text-lg text-gray-500">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled.</p>
-              <p class="mt-3 text-lg text-gray-500">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Body</h3>
 
-              <ul class="text-gray-500">
-                <li>Background</li>
-                <li>Body</li>
-                <li>Face</li>
-                <li>Clothes</li>
-                <li>Hair</li>
-                <li>Accessory</li>
-              </ul>
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Body Trait">
+              </picture>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Face</h3>
+
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Face Trait">
+              </picture>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Clothes</h3>
+
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Clothing Trait">
+              </picture>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Hair</h3>
+
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Hair Trait">
+              </picture>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+              <h3 class="text-black">Accessory</h3>
+
+              <picture class="block bg-gray-300 border-2 border-black rounded">
+                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Accessory Trait">
+              </picture>
             </div>
           </div>
 
-          <p class="text-gray-500">You will need 1 trait NFT from EACH category to create an Avime.</p>
-          <p class="text-gray-500">EXAMPLE:</p>
+          <p class="max-w-4xl mx-auto my-4 text-xl text-center text-gray-500">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled. You will need 1 trait NFT from EACH category to create an Avime.</p>
 
           <dl class="mb-8 space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
             <div>
-              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 1 Time</dt>
-              <dd class="mt-2 text-base text-gray-500">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
+              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 1 Time</dt>
+              <dd class="mt-2 text-xl text-gray-500">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
             </div>
 
             <div>
-              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 3 Times</dt>
-              <dd class="mt-2 text-base text-gray-500">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
+              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 3 Times</dt>
+              <dd class="mt-2 text-xl text-gray-500">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
             </div>
 
             <div>
-              <dt class="mt-5 text-lg font-medium leading-6 text-gray-900">Minting 5 Times</dt>
-              <dd class="mt-2 text-base text-gray-500">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
+              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 5 Times</dt>
+              <dd class="mt-2 text-xl text-gray-500">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
             </div>
           </dl>
 
-          <p class="text-gray-500">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
+          <p class="max-w-4xl mx-auto text-xl text-center text-gray-500">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
         </div>
       </section>
 
@@ -340,19 +368,18 @@
       <section class="py-12 bg-blue-300 lg:py-20" id="team">
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <div class="space-y-12 text-center">
-            <div class="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
-              <h2 class="text-3xl tracking-wider text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">Meet our team</h2>
-              <p class="text-xl text-white">Ornare sagittis, suspendisse in hendrerit quis. Sed dui aliquet lectus sit pretium egestas vel mattis neque.</p>
+            <div class="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-4xl">
+              <h2 class="text-3xl tracking-wider text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">Meet the team</h2>
             </div>
 
-            <ul role="list" class="mx-auto space-y-16 sm:grid sm:grid-cols-2 sm:gap-16 sm:space-y-0 lg:grid-cols-5">
+            <ul role="list" class="mx-auto space-y-16 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:grid-cols-5">
               <li>
                 <div class="space-y-6">
                   <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="http://placehold.it/192x192" alt="">
                   <div class="space-y-2">
                     <div class="space-y-1 text-lg font-medium leading-6">
                       <h3>Derp Herpenstein</h3>
-                      <p class="text-indigo-600">Blockchain Developer</p>
+                      <p class="text-blue-600">Back-End Developer</p>
                     </div>
                   </div>
                 </div>
@@ -364,7 +391,7 @@
                   <div class="space-y-2">
                     <div class="space-y-1 text-lg font-medium leading-6">
                       <h3>rawdawg</h3>
-                      <p class="text-indigo-600">Community Manager</p>
+                      <p class="text-blue-600">Project Lead</p>
                     </div>
                   </div>
                 </div>
@@ -376,7 +403,7 @@
                   <div class="space-y-2">
                     <div class="space-y-1 text-lg font-medium leading-6">
                       <h3>bread</h3>
-                      <p class="text-indigo-600">Artist</p>
+                      <p class="text-blue-600">Artist</p>
                     </div>
                   </div>
                 </div>
@@ -388,7 +415,7 @@
                   <div class="space-y-2">
                     <div class="space-y-1 text-lg font-medium leading-6">
                       <h3>Madotsuki</h3>
-                      <p class="text-indigo-600">Community Manager</p>
+                      <p class="text-blue-600">Community Manager</p>
                     </div>
                   </div>
                 </div>
@@ -400,7 +427,7 @@
                   <div class="space-y-2">
                     <div class="space-y-1 text-lg font-medium leading-6">
                       <h3>accell</h3>
-                      <p class="text-indigo-600">Front-End Developer</p>
+                      <p class="text-blue-600">Front-End Developer</p>
                     </div>
                   </div>
                 </div>
