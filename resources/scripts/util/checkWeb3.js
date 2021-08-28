@@ -9,12 +9,14 @@ export async function checkWeb3(ethereum, web3) {
       document.getElementById('eth-login').innerHTML = 'Please check Web3 wallet';
 
       if (account) {
+        window.Alpine.store('avime').connect();
         document.getElementById('eth-login').classList.remove('is-disabled');
         document.getElementById('eth-login').innerHTML = `Wallet: ${account.substring(0, 6)}...${account.slice(account.length - 4)}`;
         document.getElementById('eth-login').classList.add('is-success');
       } else {
+        window.Alpine.store('avime').disconnect();
         document.getElementById('eth-login').classList.remove('is-disabled');
-        document.getElementById('eth-login').innerHTML = 'Connect to Web3 wallet';
+        document.getElementById('eth-login').innerHTML = 'Connect Wallet';
       }
     } else {
       document.getElementById('eth-login').innerHTML = 'Error loading Web3';

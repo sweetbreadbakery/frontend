@@ -1,3 +1,4 @@
+import Alpine from 'alpinejs';
 import { s01Abi } from './util/s01Abi';
 import { fusionAbi } from './util/fusionAbi';
 import { checkWeb3 } from './util/checkWeb3';
@@ -11,10 +12,12 @@ const ethereum = window.ethereum;
 const web3 = new window.Web3(ethereum);
 
 /**
- * Init Alpine.js
+ * Set Alpine.js store data
  */
-window.Alpine.store('avime', {
+Alpine.store('avime', {
   loaded: false,
+  walletConnected: false,
+  s00Address: '0x103c044cc93Dd1cDac816B9d886ca1F3F7f5D623',
   s01Address: '0xf250E5827Aa59eB6F82bf60d153bC79197DAb0F7',
   fusionAddress: '0x0Cd2D6c0eb6bf5d92751cB2eA73DA643256E5678',
   myAvime: [],
@@ -32,18 +35,30 @@ window.Alpine.store('avime', {
   s01Contract: null,
   fusionContact: null,
   walletAddress: '',
-  complete() {
-    this.loaded = true;
-    // this.s01Contract = new web3.eth.Contract(s01Abi, this.s01Address);
-    // this.fusionContract = new web3.eth.Contract(fusionAbi, this.fusionAddress);
-    // setTimeout(this.checkWebAccount, 500, ethereum, web3);
-  },
   checkWeb3: checkWeb3,
   checkWebAccount: checkWebAccount,
   updateMyAvime: updateMyAvime,
   T0_current: null,
   T0_data: [],
+  complete() {
+    this.loaded = true;
+    this.s01Contract = new web3.eth.Contract(s01Abi, this.s01Address);
+    this.fusionContract = new web3.eth.Contract(fusionAbi, this.fusionAddress);
+    setTimeout(this.checkWebAccount, 500, ethereum, web3);
+  },
+  connect() {
+    this.walletConnected = true;
+  },
+  disconnect() {
+    this.walletConnected = false;
+  },
 });
+
+/**
+ * Init Alpine.js
+ */
+window.Alpine = Alpine;
+Alpine.start();
 
 /**
  * Init everything else...
@@ -51,13 +66,13 @@ window.Alpine.store('avime', {
 document.addEventListener('DOMContentLoaded', () => {
   window.Alpine.store('avime').complete();
 
-  // document.getElementById('eth-login').addEventListener('click', function () {
-  //   try {
-  //     ethereum.request({ method: 'eth_requestAccounts' });
-  //   } catch (err) {
-  //     this.innerHTML = 'Web3 Wallet Not Available';
-  //   }
+  document.getElementById('eth-login').addEventListener('click', function () {
+    try {
+      ethereum.request({ method: 'eth_requestAccounts' });
+    } catch (err) {
+      this.innerHTML = 'Web3 Wallet Not Available';
+    }
 
-  //   window.Alpine.store('avime').checkWeb3(ethereum, web3);
-  // });
+    window.Alpine.store('avime').checkWeb3(ethereum, web3);
+  });
 });

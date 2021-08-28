@@ -6,12 +6,12 @@ export async function updateMyAvime(ethereum, web3) {
       .balanceOf(window.Alpine.store('avime').walletAddress)
       .call();
 
-    document.getElementById("trait_table_background").innerHTML = null;
-    document.getElementById("trait_table_body").innerHTML = null;
-    document.getElementById("trait_table_face").innerHTML = null;
-    document.getElementById("trait_table_hair").innerHTML = null;
-    document.getElementById("trait_table_clothes").innerHTML = null;
-    document.getElementById("trait_table_accessory").innerHTML = null;
+    document.getElementById('trait_table_background').innerHTML = null;
+    document.getElementById('trait_table_body').innerHTML = null;
+    document.getElementById('trait_table_face').innerHTML = null;
+    document.getElementById('trait_table_hair').innerHTML = null;
+    document.getElementById('trait_table_clothes').innerHTML = null;
+    document.getElementById('trait_table_accessory').innerHTML = null;
 
 
     let traitHashes = await window.Alpine.store('avime').s01Contract.methods.getTraitHashes().call();
