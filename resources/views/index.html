@@ -72,50 +72,86 @@
           <div class="p-8 bg-blue-500 rounded " id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
             <p>Minting Interface</p>
 
-            <div class="bg-blue-600" id="mint-box" x-data="{ selected: null }">
+            <div class="bg-blue-600 " id="mint-box" x-data="{ selected: 'mint' }">
               <ul class="flex" id="mint-menu">
-                <li class="" id="traits-mint-select" x-on:click="selected = mint">Mint Traits Tab</li>
-                <li class="" id="traits-fuse-select" x-on:click="selected = fuse">Fuse Traits Tab</li>
+                <li class="" id="traits-mint-select" x-on:click="(selected = 'mint')">Mint Traits Tab</li>
+                <li class="" id="traits-fuse-select" x-on:click="(selected = 'fuse')">Fuse Traits Tab</li>
               </ul>
 
-              <div class="bg-blue-700 rounded-sm" id="mint-panels">
-                <div class="" id="traits-mint-panel" x-show="selected = mint">
-                  <p>Mint Traits Panel</p>
+              <div class="relative" id="traits-mint-panel" x-show="(selected === 'mint')">
+                <p>Mint Traits Panel</p>
 
-                  <ul class="" id="mint-traits-list">
-                    <li id="mint-traits-tab-background">
-                      <span>Background</span>
+                <p>
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto">Mint 6 Traits</button>
+                </p>
 
-                      <ul class="grid grid-cols-8 gap-4" id="mint-traits-background-list">
-                        <template x-for="i in 16">
-                          <li class="bg-blue-900 rounded" x-text="('Background #' + i)"></li>
-                        </template>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
+                <ul class="relative flex flex-row w-full h-72" id="mint-traits-list" x-data="{ tab: 'background' }">
+                  <li class="z-10 flex-1" id="mint-traits-tab-background" :class="{ 'z-10': (tab === 'background') }">
+                    <button class="" x-on:click="(tab = 'background')">Background</button>
 
-                <div class="" id="traits-fuse-panel" x-show="selected = fuse" x-cloak style="display: none;">
-                  <p>Fuse Traits Panel</p>
-                </div>
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-background-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Background #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" id="mint-traits-tab-body" :class="{ 'z-10': (tab === 'body') }">
+                    <button class="" x-on:click="(tab = 'body')">Body</button>
+
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-body-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Body #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" id="mint-traits-tab-face" :class="{ 'z-10': (tab === 'face') }">
+                    <button class="" x-on:click="(tab = 'face')">Face</button>
+
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-face-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Face #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" id="mint-traits-tab-clothes" :class="{ 'z-10': (tab === 'clothes') }">
+                    <button class="" x-on:click="(tab = 'clothes')">Clothes</button>
+
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-clothes-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Clothes #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" id="mint-traits-tab-hair" :class="{ 'z-10': (tab === 'hair') }">
+                    <button class="" x-on:click="(tab = 'hair')">Hair</button>
+
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-hair-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Hair #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" id="mint-traits-tab-accessory" :class="{ 'z-10': (tab === 'accessory') }">
+                    <button class="" x-on:click="(tab = 'accessory')">Accessory</button>
+
+                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-accessory-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Accessory #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="relative" id="traits-fuse-panel" x-show="(selected === 'fuse')">
+                <p>Fuse Traits Panel</p>
               </div>
             </div>
-
-            <h3>My Fused Avime</h3>
-            <table id="fused_avime_table"></table>
-            <h3>My Avime S01 Traits</h3>
-            <p>Background</p>
-            <table id="trait_table_background"></table>
-            <p>Body</p>
-            <table id="trait_table_body"></table>
-            <p>Face</p>
-            <table id="trait_table_face"></table>
-            <p>Clothes</p>
-            <table id="trait_table_clothes"></table>
-            <p>Hair</p>
-            <table id="trait_table_hair"></table>
-            <p>Accessory</p>
-            <table id="trait_table_accessory"></table>
           </div>
         </div>
       </section>
