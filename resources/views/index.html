@@ -69,7 +69,7 @@
 
           <div class="p-8 bg-blue-500 border border-blue-600 rounded" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
             <p class="flex items-center justify-between mb-4">
-              <span class="block">Wallet: 0x8935...8fE7</span>
+              <span class="block">Wallet: <span x-text="$store.avime.walletAddress"></span></span>
               <button class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-blue-600 bg-white border border-transparent rounded hover:bg-blue-50 sm:w-auto" id="eth-logout">Disconnect Wallet</button>
             </p>
 
