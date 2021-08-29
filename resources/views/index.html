@@ -61,85 +61,84 @@
         <div class="absolute inset-0 z-0 w-full h-full opacity-20" style="background-image: url('/images/avime_grid.png');"></div>
       </header>
 
-      <section class="bg-blue-500" id="mint" x-data x-init="$watch('$store.avime.walletConnected', value => console.log(value))">
+      <section class="bg-blue-500 border-t border-b border-black shadow-inner-blue-box" id="mint" x-data x-init="$watch('$store.avime.walletConnected', value => console.log(value))">
         <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-7xl">
           <h2 class="text-3xl tracking-wider text-white lowercase lg:text-4xl font-heading" x-show="!$store.avime.walletConnected">Waifu NFTs? Say no more.</h2>
           <p class="mt-4 text-lg leading-6 text-blue-200" x-show="!$store.avime.walletConnected">Connect your wallet below to mint your 6 traits!</p>
-          <a href="#" class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="eth-login">
-            Connect Wallet
-          </a>
+          <a class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="eth-login" href="#" x-show="!$store.avime.walletConnected">Connect Wallet</a>
 
-          <div class="p-8 bg-blue-500 rounded " id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
-            <p>Minting Interface</p>
+          <div class="p-8 bg-blue-500 border border-blue-600 rounded" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
+            <p class="flex items-center justify-between mb-4">
+              <span class="block">Wallet: 0x8935...8fE7</span>
+              <button class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-blue-600 bg-white border border-transparent rounded hover:bg-blue-50 sm:w-auto" id="eth-logout">Disconnect Wallet</button>
+            </p>
 
             <div class="bg-blue-600 " id="mint-box" x-data="{ selected: 'mint' }">
-              <ul class="flex" id="mint-menu">
-                <li class="" id="traits-mint-select" x-on:click="(selected = 'mint')">Mint Traits Tab</li>
-                <li class="" id="traits-fuse-select" x-on:click="(selected = 'fuse')">Fuse Traits Tab</li>
+              <ul class="flex bg-blue-700" id="mint-menu">
+                <li class="p-4" :class="{ 'bg-blue-600': (selected === 'mint') }" id="traits-mint-select" x-on:click="(selected = 'mint')">Mint Traits Tab</li>
+                <li class="p-4" :class="{ 'bg-blue-600': (selected === 'fuse') }" id="traits-fuse-select" x-on:click="(selected = 'fuse')">Fuse Traits Tab</li>
               </ul>
 
               <div class="relative" id="traits-mint-panel" x-show="(selected === 'mint')">
-                <p>Mint Traits Panel</p>
-
-                <p>
+                <p class="mb-8">
                   <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto">Mint 6 Traits</button>
                 </p>
 
                 <ul class="relative flex flex-row w-full h-72" id="mint-traits-list" x-data="{ tab: 'background' }">
-                  <li class="z-10 flex-1" id="mint-traits-tab-background" :class="{ 'z-10': (tab === 'background') }">
-                    <button class="" x-on:click="(tab = 'background')">Background</button>
+                  <li class="z-10 flex-1 text-center bg-blue-700" :class="{ 'bg-blue-700': (tab === 'background'), 'z-10': (tab === 'background') }" id="mint-traits-tab-background">
+                    <button class="block w-full p-2" x-on:click="(tab = 'background')">Background</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-background-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4 bg-blue-700" id="mint-traits-background-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Background #' + i)"></li>
                       </template>
                     </ul>
                   </li>
 
-                  <li class="flex-1" id="mint-traits-tab-body" :class="{ 'z-10': (tab === 'body') }">
-                    <button class="" x-on:click="(tab = 'body')">Body</button>
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'body'), 'z-10': (tab === 'body') }" id="mint-traits-tab-body">
+                    <button class="block w-full p-2" x-on:click="(tab = 'body')">Body</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-body-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-body-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Body #' + i)"></li>
                       </template>
                     </ul>
                   </li>
 
-                  <li class="flex-1" id="mint-traits-tab-face" :class="{ 'z-10': (tab === 'face') }">
-                    <button class="" x-on:click="(tab = 'face')">Face</button>
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'face'), 'z-10': (tab === 'face') }" id="mint-traits-tab-face">
+                    <button class="block w-full p-2" x-on:click="(tab = 'face')">Face</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-face-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-face-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Face #' + i)"></li>
                       </template>
                     </ul>
                   </li>
 
-                  <li class="flex-1" id="mint-traits-tab-clothes" :class="{ 'z-10': (tab === 'clothes') }">
-                    <button class="" x-on:click="(tab = 'clothes')">Clothes</button>
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'clothes'), 'z-10': (tab === 'clothes') }" id="mint-traits-tab-clothes">
+                    <button class="block w-full p-2" x-on:click="(tab = 'clothes')">Clothes</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-clothes-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-clothes-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Clothes #' + i)"></li>
                       </template>
                     </ul>
                   </li>
 
-                  <li class="flex-1" id="mint-traits-tab-hair" :class="{ 'z-10': (tab === 'hair') }">
-                    <button class="" x-on:click="(tab = 'hair')">Hair</button>
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'hair'), 'z-10': (tab === 'hair') }" id="mint-traits-tab-hair">
+                    <button class="block w-full p-2" x-on:click="(tab = 'hair')">Hair</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-hair-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-hair-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Hair #' + i)"></li>
                       </template>
                     </ul>
                   </li>
 
-                  <li class="flex-1" id="mint-traits-tab-accessory" :class="{ 'z-10': (tab === 'accessory') }">
-                    <button class="" x-on:click="(tab = 'accessory')">Accessory</button>
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'accessory'), 'z-10': (tab === 'accessory') }" id="mint-traits-tab-accessory">
+                    <button class="block w-full p-2" x-on:click="(tab = 'accessory')">Accessory</button>
 
-                    <ul class="absolute top-[32px] left-0 grid w-full h-full grid-cols-8 gap-4" id="mint-traits-accessory-list">
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-accessory-list">
                       <template x-for="i in 16">
                         <li class="bg-blue-900 rounded" x-text="('Accessory #' + i)"></li>
                       </template>
@@ -148,8 +147,94 @@
                 </ul>
               </div>
 
-              <div class="relative" id="traits-fuse-panel" x-show="(selected === 'fuse')">
-                <p>Fuse Traits Panel</p>
+              <div class="relative pt-8" id="traits-fuse-panel" x-show="(selected === 'fuse')">
+                <div class="grid grid-cols-1 gap-8 mb-8 lg:grid-cols-2">
+                  <div class="flex flex-col items-center justify-center">
+                    <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
+                      <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
+                        <picture class="block bg-gray-300 border-2 border-black rounded">
+                          <img class="block w-[160] h-[160] lg:w-[320px] lg:h-[320px] bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Fused Avimes">
+                        </picture>
+                      </div>
+                    </div>
+
+                    <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Fuse Avime</button>
+                  </div>
+
+                  <div class="text-center">
+                    <p class="mb-4 uppercase">Selected Traits (<span x-text="0"></span>/6)</p>
+
+                    <div class="grid grid-cols-2 grid-rows-3 gap-4">
+                      <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
+                        <div class="bg-blue-800 rounded" x-text="trait"></div>
+                      </template>
+                    </div>
+
+                    <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Fuse Avime</button>
+                  </div>
+                </div>
+
+                <ul class="relative flex flex-row w-full h-72" id="fuse-traits-list" x-data="{ tab: 'background' }">
+                  <li class="z-10 flex-1 text-center bg-blue-700" :class="{ 'bg-blue-700': (tab === 'background'), 'z-10': (tab === 'background') }" id="mint-traits-tab-background">
+                    <button class="block w-full p-2" x-on:click="(tab = 'background')">Background</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4 bg-blue-700" id="mint-traits-background-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Background #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'body'), 'z-10': (tab === 'body') }" id="mint-traits-tab-body">
+                    <button class="block w-full p-2" x-on:click="(tab = 'body')">Body</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-body-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Body #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'face'), 'z-10': (tab === 'face') }" id="mint-traits-tab-face">
+                    <button class="block w-full p-2" x-on:click="(tab = 'face')">Face</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-face-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Face #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'clothes'), 'z-10': (tab === 'clothes') }" id="mint-traits-tab-clothes">
+                    <button class="block w-full p-2" x-on:click="(tab = 'clothes')">Clothes</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-clothes-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Clothes #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'hair'), 'z-10': (tab === 'hair') }" id="mint-traits-tab-hair">
+                    <button class="block w-full p-2" x-on:click="(tab = 'hair')">Hair</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-hair-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Hair #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+
+                  <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'accessory'), 'z-10': (tab === 'accessory') }" id="mint-traits-tab-accessory">
+                    <button class="block w-full p-2" x-on:click="(tab = 'accessory')">Accessory</button>
+
+                    <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-accessory-list">
+                      <template x-for="i in 16">
+                        <li class="bg-blue-900 rounded" x-text="('Accessory #' + i)"></li>
+                      </template>
+                    </ul>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -163,51 +248,63 @@
 
           <div class="grid grid-cols-2 gap-4 my-8 lg:my-12 lg:grid-cols-3">
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Background</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Background</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
 
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Body</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Body</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Body Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
 
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Face</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Face</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Face Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
 
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Clothes</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Clothes</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Clothing Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
 
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Hair</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Hair</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Hair Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
 
             <div class="flex flex-col items-center justify-center">
-              <h3 class="text-black">Accessory</h3>
+              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
+                <h3 class="uppercase">Accessory</h3>
 
-              <picture class="block bg-gray-300 border-2 border-black rounded">
-                <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Accessory Trait">
-              </picture>
+                <picture class="block bg-gray-300 border border-black rounded">
+                  <img class="block w-full h-full bg-gray-400 rounded-sm" src="/images/avime_hero.png" alt="Background Trait">
+                </picture>
+              </div>
             </div>
           </div>
 
