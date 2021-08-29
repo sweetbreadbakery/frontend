@@ -36,7 +36,7 @@
 
   <body class="min-h-screen bg-blue-300 bg-gradient-to-t from-blue-100 to-blue-300">
     <div id="app" role="application">
-      <header class="relative text-white bg-blue-400">
+      <header class="relative text-white bg-blue-400" id="hero">
         <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:py-36 lg:px-8 lg:max-w-6xl">
           <h1 class="mb-8 text-center lg:mb-12">
             <img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128">
@@ -45,19 +45,19 @@
           <div class="p-3 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg lg:mb-12 shadow-inner-blue-box w-max">
             <div class="relative gap-6 p-4 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md w-max">
               <picture class="block bg-gray-300 border-2 border-black rounded w-max">
-                <img class="block w-[160] h-[160] bg-gray-400 rounded-sm lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.gif" alt="Fused Avimes">
+                <img class="block w-[160px] h-[160px] bg-gray-400 rounded-sm lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.gif" alt="Fused Avimes">
               </picture>
             </div>
           </div>
 
-          <ul class="mt-3 text-2xl leading-8 tracking-wider text-center text-white lowercase font-heading">
-            <li class="mb-2 last:mb-0">Ten thousand entirely customizable<br>anime-inspired NFT avatars.</li>
-            <li class="mb-1 text-xl">Fully encoded on the Ethereum blockchain.</li>
-            <li class="text-xl">No IPFS, baka!</li>
+          <ul class="max-w-xl mx-auto mt-3 text-2xl leading-8 tracking-wider text-center text-white lowercase lg:text-3xl font-heading">
+            <li class="mb-4">10,000 entirely customizable anime-inspired NFT avatars.</li>
+            <li class="text-lg">Fully encoded on the Ethereum blockchain.</li>
+            <li class="text-lg">No IPFS, baka!</li>
           </ul>
         </div>
 
-        <div class="absolute inset-0 z-0 w-full h-full opacity-20" style="background-image: url('/images/avime_grid.png');"></div>
+        <div class="absolute inset-0 z-0 w-full h-full opacity-10" id="hero-bg"></div>
       </header>
 
       <section class="bg-blue-500 border-t border-b border-black" id="mint" x-data>
@@ -74,7 +74,7 @@
               <p>Wallet: <span x-text="$store.avime.walletAddress"></span></p>
             </div>
 
-            <hr class="my-8 border-t-2 border-b-2 border-b-blue-100 border-t-blue-900">
+            <hr class="my-8 border-t border-b border-b-blue-100 border-t-blue-900">
 
             <div class="grid grid-cols-1 gap-8 mb-8 lg:grid-cols-2">
               <div class="flex flex-col items-center justify-center">
@@ -205,166 +205,41 @@
       </section>
 
       <section class="py-12 bg-blue-100 lg:py-20" id="faqs" x-data>
-        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
-          <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:mb-16 lg:text-4xl text-shadow-heading font-heading">Frequently Asked Questions</h2>
+        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
+          <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:mb-16 lg:text-4xl text-shadow-heading font-heading">Frequently Asked Questions</h2>
 
-          <div class="overflow-hidden bg-yellow-200 border border-black rounded-md shadow-inner-white">
+          <div class="overflow-hidden bg-yellow-400 border-2 border-blue-500 rounded-md shadow-inner-yellow-box">
             <div class="px-4 py-5 sm:p-6">
-              <dl class="space-y-6 divide-y divide-yellow-400">
-                <div x-data="{ open: false }">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-0" @click="open = !open" aria-expanded="true" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">What is Avime?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform -rotate-180" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-0" x-show="open">
-                    <p class="text-lg text-black">Ten thousand entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
-                  </dd>
-                </div>
+              <dl class="">
+                <template x-for="item in $store.avime.faqs" :key="item.id">
+                  <div class="" x-data="{ open: false }">
+                    <dt class="text-base">
+                      <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" x-on:click="open = !open" x-bind:aria-controls="('faq-' + item.id)" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                        <span class="font-normal" x-text="item.question"></span>
+                        <span class="flex items-center ml-6 h-7">
+                          <svg class="w-6 h-6 transform -rotate-180" xmlns="http://www.w3.org/2000/svg" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" x-state:on="Open" x-state:off="Closed" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                        </span>
+                      </button>
+                    </dt>
 
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-1" @click="open = !open" aria-expanded="true" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">What do you mean no IPFS?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform -rotate-180" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-1" x-show="open">
-                    <p class="text-lg text-black">The source of the Avime images and data are recorded entirely on the Ethereum blockchain, through our unique smart contract. Which means ownership of an Avime, and the image itself, are fully on-chain.</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-2" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">How are they customizable?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-2" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">We created Avime with the intent for everyone to make characters that truly resonate with them. Avime allows you to mix and match your character the way that you want. There will be two smart contracts: an initial minting contract and a fusion contract. When minting, you’ll receive 6 individual traits that are required for creating an Avime; a background, body, face, clothes, hair, and accessory. Each trait is its own NFT that can be bought, sold, or traded on the open market. When you’ve collected the traits you want to use, you can fuse them together to mint your Avime! All traits are burned in the process, and there will only ever be enough traits to create 10k Avime, so choose wisely and make sure your combination is the one you really want. All assets including your finished Avime are stored directly on chain!</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-3" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Wen mint? How much?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-3" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">Mint price and drop date are currently TBD.</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-4" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Can I pick my body when customizing?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-4" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">Yes! Before fusing your Avime you will have the choice to pick between male and female body frames. The same traits can be used on both body types, but alter its appearance accordingly.</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-5" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Can I pick what traits I want to mint?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-5" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">All traits are randomly generated with varying rarity. So although you can't directly pick what you get on mint, you will receive 6 traits that can be traded for ones you wan most.</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-6" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Can I preview my Avime before fusion?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-6" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">Definitely. Our site will allow you to mix and match different traits present in your wallet. You don't have to fuse your traits before seeing the outcome, meaning there's no guesswork in deciding how traits will work together.</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-7" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Can I kiss my Avime?</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-7" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">It's your Avime, we won't judge!</p>
-                  </dd>
-                </div>
-
-                <div x-data="{ open: false }" class="pt-6">
-                  <dt class="text-base">
-                    <button type="button" class="flex items-start justify-between w-full text-left text-blue-500 uppercase" aria-controls="faq-8" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-                      <span class="font-normal">Can you make an Avime of best girl Rei Ayanami, so I can kiss her every day and night???</span>
-                      <span class="flex items-center ml-6 h-7">
-                        <svg class="w-6 h-6 transform rotate-0" x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </span>
-                    </button>
-                  </dt>
-                  <dd class="pr-12 mt-2 text-justify" id="faq-8" x-show="open" style="display: none;">
-                    <p class="text-lg text-black">We won't have exact 1/1 character parts for copyright reasons but we definitely have parts that can give you the look and feel of some of your favorite parts if you arrange them creatively. We wanted to include many different tropes, archetypes, and styles to help you create Avime with the look and feel you're aiming for.</p>
-                  </dd>
-                </div>
+                    <dd class="pr-12 mt-2 text-justify" x-bind:id="('faq-' + item.id)" x-show="open">
+                      <p class="text-lg text-black" x-text="item.answer"></p>
+                    </dd>
+                  </div>
+                </template>
               </dl>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="py-12 bg-blue-100 lg:py-20" id="roadmap">
+      <section class="py-12 bg-blue-100 lg:py-20" id="roadmap" x-data>
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
           <div class="pt-3 pl-3 pr-3 mx-auto overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg shadow-inner-blue-box w-max">
             <div class="pt-6 pb-4 pl-8 pr-8 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 rounded-t-md">
-              <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">
+              <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">
                 <span class="block">Avime Roadmap</span>
                 <span class="relative inline-block px-2 py-1 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
               </h2>
@@ -423,7 +298,7 @@
         </div>
       </section>
 
-      <section class="py-12 bg-blue-300 lg:py-20" id="team">
+      <section class="py-12 bg-blue-300 lg:py-20" id="team" x-data>
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <div class="space-y-12 text-center">
             <div class="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-4xl">
@@ -431,65 +306,18 @@
             </div>
 
             <ul role="list" class="mx-auto space-y-16 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:grid-cols-5">
-              <li>
-                <div class="space-y-6">
-                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="/images/avime_hero.png" alt="">
-                  <div class="space-y-2">
-                    <div class="space-y-1 text-lg font-medium leading-6">
-                      <h3>Derp Herpenstein</h3>
-                      <p class="text-blue-600">Back-End Developer</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
+              <template x-for="staff in $store.avime.staff">
+                <li>
+                  <div class="p-1 bg-blue-500 border border-black rounded">
+                    <picture class="mx-auto border border-black rounded-sm shadow-inner-white">
+                      <img class="w-[160px] h-[160px] rounded-sm" x-bind:src="staff.image" x-bind:alt="('Photo of ' + staff.name)">
+                    </picture>
 
-              <li>
-                <div class="space-y-6">
-                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="/images/avime_hero.png" alt="">
-                  <div class="space-y-2">
-                    <div class="space-y-1 text-lg font-medium leading-6">
-                      <h3>rawdawg</h3>
-                      <p class="text-blue-600">Project Lead</p>
-                    </div>
+                    <h3 x-text="staff.name">Name</h3>
+                    <p x-text="staff.title">Title</p>
                   </div>
-                </div>
-              </li>
-
-              <li>
-                <div class="space-y-6">
-                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="/images/avime_hero.png" alt="">
-                  <div class="space-y-2">
-                    <div class="space-y-1 text-lg font-medium leading-6">
-                      <h3>bread</h3>
-                      <p class="text-blue-600">Artist</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div class="space-y-6">
-                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="/images/avime_hero.png" alt="">
-                  <div class="space-y-2">
-                    <div class="space-y-1 text-lg font-medium leading-6">
-                      <h3>Madotsuki</h3>
-                      <p class="text-blue-600">Community Manager</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div class="space-y-6">
-                  <img class="w-40 h-40 mx-auto rounded-full xl:w-48 xl:h-48" src="/images/avime_hero.png" alt="">
-                  <div class="space-y-2">
-                    <div class="space-y-1 text-lg font-medium leading-6">
-                      <h3>accell</h3>
-                      <p class="text-blue-600">Front-End Developer</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              </template>
             </ul>
           </div>
         </div>
@@ -499,19 +327,19 @@
         <div class="px-4 py-12 mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
           <nav class="flex flex-wrap justify-center -mx-5 -my-2" aria-label="Footer">
             <div class="px-5 py-2">
-              <a href="#about" class="text-base text-white hover:text-gray-900">About</a>
+              <a href="#about" class="text-base text-white uppercase hover:text-gray-900">About</a>
             </div>
 
             <div class="px-5 py-2">
-              <a href="#faqs" class="text-base text-white hover:text-gray-900">FAQ</a>
+              <a href="#faqs" class="text-base text-white uppercase hover:text-gray-900">FAQ</a>
             </div>
 
             <div class="px-5 py-2">
-              <a href="#roadmap" class="text-base text-white hover:text-gray-900">Roadmap</a>
+              <a href="#roadmap" class="text-base text-white uppercase hover:text-gray-900">Roadmap</a>
             </div>
 
             <div class="px-5 py-2">
-              <a href="#team" class="text-base text-white hover:text-gray-900">Team</a>
+              <a href="#team" class="text-base text-white uppercase hover:text-gray-900">Team</a>
             </div>
           </nav>
 
@@ -853,7 +681,7 @@
             </a>
           </div>
 
-          <p class="mt-8 text-base text-center text-white">&copy; 2021 Something something something...</p>
+          <p class="mt-8 text-base text-center text-white">&copy; 2021 Avime</p>
         </div>
       </footer>
     </div>

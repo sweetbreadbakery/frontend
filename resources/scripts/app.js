@@ -1,4 +1,6 @@
 import Alpine from 'alpinejs';
+import { faqs } from './util/faqs';
+import { staff } from './util/staff';
 import { s01Abi } from './util/s01Abi';
 import { fusionAbi } from './util/fusionAbi';
 import { checkWeb3 } from './util/checkWeb3';
@@ -40,6 +42,8 @@ Alpine.store('avime', {
   updateMyAvime: updateMyAvime,
   T0_current: null,
   T0_data: [],
+  staff: staff,
+  faqs: faqs,
   complete() {
     this.loaded = true;
     this.s01Contract = new web3.eth.Contract(s01Abi, this.s01Address);

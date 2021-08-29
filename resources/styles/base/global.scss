@@ -86,6 +86,11 @@ body {
               inset 1px -1px 0px 1px theme('colors.blue.600');
 }
 
+.shadow-inner-yellow-box {
+  box-shadow: inset -1px 1px 0px 1px theme('colors.yellow.100'),
+              inset 1px -1px 0px 1px theme('colors.yellow.600');
+}
+
 .heading-label::after {
   content: '';
   position: absolute;
@@ -100,6 +105,16 @@ body {
   transform: translate(-50%, -50%);
 }
 
+[id="hero-bg"] {
+  background-image: url('/images/hero_bg.png');
+  background-attachment: fixed;
+  background-size: 430px;
+
+  @screen lg {
+    background-size: 860px;
+  }
+}
+
 section[id="mint"] {
   background-color: #1c7bac;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23166c98' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
@@ -112,16 +127,8 @@ section[id="mint"] {
               1px -1px 0px 1px theme('colors.blue.600');
 }
 
-section[id="about"] {
-  background-color: #ffffff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23999999' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-}
-
-section[id="faqs"] {
-  background-color: #b3ebef;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2324a5ae' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-}
-
+section[id="about"],
+section[id="faqs"],
 section[id="roadmap"] {
   background-color: #f5eddd;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23b89f6f' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
