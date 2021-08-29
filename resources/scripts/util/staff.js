@@ -8,25 +8,25 @@ export const staff = [
   {
     'name': 'rawdawg',
     'title': 'Project Lead',
-    'url': '#rawdawg',
+    'url': 'https://twitter.com/Raw__Dawg',
     'image': '/images/avime/staff/rawdawg.png',
   },
   {
-    'name': 'bread',
+    'name': 'sweetbread',
     'title': 'Avime\'s Artist',
-    'url': '#bread',
+    'url': 'https://twitter.com/sweetbread_eth',
     'image': '/images/avime/staff/bread.png',
   },
   {
     'name': 'Madotsuki',
     'title': 'Community Manager',
-    'url': '#madotsuki',
+    'url': 'https://twitter.com/MagusDevon',
     'image': '/images/avime/staff/madotsuki.png',
   },
   {
     'name': 'accell',
     'title': 'Front-End Developer',
-    'url': '#accell',
+    'url': 'https://twitter.com/accellz0r',
     'image': '/images/avime/staff/accell.png',
   },
 ];
