@@ -7,17 +7,17 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <title>Avime</title>
-    <meta name="description" content="Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
+    <meta name="description" content="Ten thousand entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
     <meta name="twitter:title" content="Avime">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@avimenft">
-    <meta name="twitter:description" content="Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
+    <meta name="twitter:description" content="Ten thousand entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
     <meta name="twitter:image" content="https://avime.moe/images/twitter-large-card.jpg">
     <meta name="twitter:creator" content="@avimenft">
     <meta property="og:title" content="Avime">
     <meta property="og:url" content="https://avime.moe">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
+    <meta property="og:description" content="Ten thousand entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!">
     <meta property="og:image" content="https://avime.moe/images/twitter-large-card.jpg">
     <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -36,42 +36,43 @@
 
   <body class="min-h-screen bg-blue-300 bg-gradient-to-t from-blue-100 to-blue-300">
     <div id="app" role="application">
-      <header class="relative py-16 text-white bg-blue-400 lg:py-36">
-        <div class="relative z-10 mx-auto max-w-7xl">
-          <div class="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div class="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
-              <div>
-                <h1 class="mb-8 text-center"><img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128"></h1>
-                <p class="mt-3 text-base text-justify text-white sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
-              </div>
-            </div>
+      <header class="relative text-white bg-blue-400">
+        <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:py-36 lg:px-8 lg:max-w-6xl">
+          <h1 class="mb-8 text-center lg:mb-12">
+            <img class="block max-w-xs mx-auto" src="/images/logo.png" alt="Avime" width="320" height="128">
+          </h1>
 
-            <div class="flex items-center justify-center mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-              <div class="p-3 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
-                <div class="relative gap-6 p-4 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
-                  <picture class="block bg-gray-300 border-2 border-black rounded">
-                    <img class="block w-[160] h-[160] bg-gray-400 rounded-sm lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.png" alt="Fused Avimes">
-                  </picture>
-                </div>
-              </div>
+          <div class="p-3 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg lg:mb-12 shadow-inner-blue-box w-max">
+            <div class="relative gap-6 p-4 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md w-max">
+              <picture class="block bg-gray-300 border-2 border-black rounded w-max">
+                <img class="block w-[160] h-[160] bg-gray-400 rounded-sm lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.gif" alt="Fused Avimes">
+              </picture>
             </div>
           </div>
+
+          <ul class="mt-3 text-2xl leading-8 tracking-wider text-center text-white lowercase font-heading">
+            <li class="mb-2 last:mb-0">Ten thousand entirely customizable<br>anime-inspired NFT avatars.</li>
+            <li class="mb-1 text-xl">Fully encoded on the Ethereum blockchain.</li>
+            <li class="text-xl">No IPFS, baka!</li>
+          </ul>
         </div>
 
         <div class="absolute inset-0 z-0 w-full h-full opacity-20" style="background-image: url('/images/avime_grid.png');"></div>
       </header>
 
-      <section class="bg-blue-500 border-t border-b border-black" id="mint" x-data x-init="$watch('$store.avime.walletConnected', value => console.log(value))">
-        <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-7xl">
-          <h2 class="text-3xl tracking-wider text-white lowercase lg:text-4xl font-heading" x-show="!$store.avime.walletConnected">Waifu NFTs? Say no more.</h2>
-          <p class="mt-4 text-lg leading-6 text-blue-200" x-show="!$store.avime.walletConnected">Connect your wallet below to mint your 6 traits!</p>
-          <a class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="eth-login" href="#" x-show="!$store.avime.walletConnected">Connect Wallet</a>
+      <section class="bg-blue-500 border-t border-b border-black" id="mint" x-data>
+        <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
+          <div x-show="!$store.avime.walletConnected">
+            <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Waifu NFTs? Say no more.</h2>
+            <p class="mt-4 text-lg leading-6 text-white">Connect your wallet below to mint your 6 traits!</p>
+            <a class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 uppercase bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="eth-login" href="#">Connect Wallet</a>
+          </div>
 
           <div class="p-8 bg-blue-500 border border-black rounded" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
-            <p class="flex items-center justify-between">
-              <span class="block">Wallet: <span x-text="$store.avime.walletAddress"></span></span>
-              <button class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-blue-600 bg-white border border-transparent rounded hover:bg-blue-50 sm:w-auto" id="eth-logout">Disconnect Wallet</button>
-            </p>
+            <div class="flex items-center justify-between">
+              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Minting Avime</h2>
+              <p>Wallet: <span x-text="$store.avime.walletAddress"></span></p>
+            </div>
 
             <hr class="my-8 border-t-2 border-b-2 border-b-blue-100 border-t-blue-900">
 
@@ -87,16 +88,20 @@
               </div>
 
               <div class="text-center">
-                <p class="mb-4 uppercase">Selected Traits (<span x-text="0"></span>/6)</p>
+                <p class="mb-4 leading-none uppercase">Selected Traits (<span x-text="0"></span>/6)</p>
 
-                <div class="grid grid-cols-2 grid-rows-3 gap-4">
+                <div class="grid grid-cols-3 gap-4 mx-auto mb-4 w-max">
                   <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
-                    <div class="bg-blue-800 rounded" x-text="trait"></div>
+                    <div class="border border-black rounded black">
+                      <img class="rounded-sm w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+                    </div>
                   </template>
                 </div>
 
-                <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Fuse Avime</button>
-                <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-blue-600 bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Mint Traits</button>
+                <p class="flex mx-auto space-x-4 w-max">
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-blue-600 uppercase bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Fuse Avime</button>
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-blue-600 uppercase bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Mint Traits</button>
+                </p>
               </div>
             </div>
 
@@ -165,71 +170,15 @@
         </div>
       </section>
 
-      <section class="py-16 overflow-hidden lg:py-24" id="about">
+      <section class="py-16 overflow-hidden lg:py-24" id="about" x-data>
         <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
           <p class="max-w-3xl mx-auto mt-4 text-xl text-center text-gray-500">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
 
-          <div class="grid grid-cols-2 gap-4 my-8 lg:my-12 lg:grid-cols-3">
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Background</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Body</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Face</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Clothes</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Hair</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
-
-            <div class="flex flex-col items-center justify-center">
-              <div class="px-2 pt-1 pb-2 mb-2 font-medium tracking-wide text-center text-white bg-blue-500 border border-black rounded shadow-inner-white">
-                <h3 class="uppercase">Accessory</h3>
-
-                <picture class="block bg-gray-300 border border-black rounded">
-                  <img class="block w-[43px] h-[43px] bg-gray-400 rounded-sm lg:w-[86px] lg:h-[86px]" src="/images/avime_hero.png" alt="Background Trait">
-                </picture>
-              </div>
-            </div>
+          <div class="grid grid-cols-2 gap-4 mx-auto my-8 lg:my-12 xl:grid-cols-3 w-max">
+            <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
+              <img class="block w-[calc(362px/2)] h-[calc(361px/2)] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/cards/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+            </template>
           </div>
 
           <p class="max-w-4xl mx-auto my-4 text-xl text-center text-gray-500">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled. You will need 1 trait NFT from EACH category to create an Avime.</p>
@@ -255,7 +204,7 @@
         </div>
       </section>
 
-      <section class="py-12 bg-blue-100 lg:py-20" id="faqs">
+      <section class="py-12 bg-blue-100 lg:py-20" id="faqs" x-data>
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:mb-16 lg:text-4xl text-shadow-heading font-heading">Frequently Asked Questions</h2>
 
@@ -274,7 +223,7 @@
                     </button>
                   </dt>
                   <dd class="pr-12 mt-2 text-justify" id="faq-0" x-show="open">
-                    <p class="text-lg text-black">Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
+                    <p class="text-lg text-black">Ten thousand entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!</p>
                   </dd>
                 </div>
 
@@ -412,16 +361,20 @@
       </section>
 
       <section class="py-12 bg-blue-100 lg:py-20" id="roadmap">
-        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
-          <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">
-            <span class="block">Avime Roadmap</span>
-            <span class="relative inline-block px-2 py-1 mb-2 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
-          </h2>
+        <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
+          <div class="pt-3 pl-3 pr-3 mx-auto overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg shadow-inner-blue-box w-max">
+            <div class="pt-6 pb-4 pl-8 pr-8 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 rounded-t-md">
+              <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading font-heading">
+                <span class="block">Avime Roadmap</span>
+                <span class="relative inline-block px-2 py-1 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
+              </h2>
+            </div>
+          </div>
 
           <div class="p-3 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
             <div class="relative grid grid-cols-1 gap-6 p-8 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md lg:gap-4 lg:grid-cols-2">
               <article class="relative z-10 col-span-1 text-center lg:col-start-1 lg:row-start-1 lg:pr-6">
-                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">20% Minted</h3>
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">20% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-200 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
                   <p class="font-medium text-justify">Airdrop individual Avime trait NFTs to 30 lucky holders.</p>
@@ -430,7 +383,7 @@
               </article>
 
               <article class="relative z-10 col-span-1 text-center lg:col-start-2 lg:row-start-2 lg:pl-6">
-                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">40% Minted</h3>
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">40% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
                   <p class="font-medium text-justify">Auction off a custom honoray 1/1 Avime for charity.</p>
@@ -439,7 +392,7 @@
               </article>
 
               <article class="relative z-10 col-span-1 text-center lg:row-start-3 lg:pr-6">
-                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">60% Minted</h3>
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">60% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-400 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
                   <p class="font-medium text-justify">Begin development on Avime Season 2!</p>
@@ -448,7 +401,7 @@
               </article>
 
               <article class="relative z-10 col-span-1 text-center lg:col-start-2 lg:row-start-4 lg:pl-6">
-                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">80% Minted</h3>
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">80% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
                   <p class="font-medium text-justify">Use a percentage of secondary sales to create a liquidity pool on NFTX or NFT20.</p>
@@ -457,7 +410,7 @@
               </article>
 
               <article class="relative z-10 col-span-1 text-center lg:translate-x-1/2 lg:row-start-5">
-                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white bg-blue-500 border border-black rounded shadow-inner-white">100% Minted</h3>
+                <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">100% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-500 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
                   <p class="font-medium text-justify">Verify contract code. Begin development of 2D sprite sheets of Avime to use in a metaverse.</p>

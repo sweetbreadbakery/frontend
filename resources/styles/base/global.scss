@@ -70,6 +70,13 @@ body {
                0 -2px 0 theme('colors.blue.500');
 }
 
+.text-shadow-heading-darker {
+  text-shadow: 2px 0 0 theme('colors.blue.600'),
+               0 2px 0 theme('colors.blue.600'),
+               -2px 0 0 theme('colors.blue.600'),
+               0 -2px 0 theme('colors.blue.600');
+}
+
 .shadow-inner-white {
   box-shadow: inset 0px 0px 0px 1px theme('colors.white');
 }
