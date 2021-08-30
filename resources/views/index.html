@@ -42,8 +42,8 @@
             <img class="block w-[160px] h-[64px] max-w-xs mx-auto lg:w-[320px] lg:h-[120px]" src="/images/logo.png" alt="Avime" width="160" height="64">
           </h1>
 
-          <div class="p-3 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-xl lg:mb-12 shadow-inner-blue-box w-max">
-            <div class="relative gap-6 p-4 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-lg w-max">
+          <div class="p-2 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-xl lg:mb-12 shadow-inner-blue-box w-max">
+            <div class="relative gap-6 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-lg w-max">
               <picture class="block bg-gray-300 border-2 border-black rounded-md w-max">
                 <img class="block w-[160px] h-[160px] bg-gray-400 rounded lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.gif" alt="Fused Avimes">
               </picture>
@@ -68,16 +68,25 @@
             <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inner-white" id="eth-login">Connect Wallet</button>
           </div>
 
-          <div class="p-8 bg-blue-500 border border-black rounded" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
-            <div class="flex items-center justify-between">
-              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-500 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Minting Avime</h2>
-              <p>Wallet: <span x-text="$store.avime.walletAddress"></span></p>
+          <div class="p-4 bg-blue-500 border border-black rounded lg:p-8" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
+            <div class="flex flex-col items-center justify-between lg:flex-row">
+              <div class="mb-4 text-center lg:text-left lg:mb-0">
+                <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Minting Avime</h2>
+                <p class="leading-none">Wallet: <span x-text="$store.avime.walletAddress"></span></p>
+              </div>
+
+              <p class="text-center lg:text-left">
+                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime">Mint Traits</button>
+                <span class="block">Mint Price: 0.05 ETH</span>
+              </p>
             </div>
 
-            <hr class="my-8 border-t border-b border-b-blue-100 border-t-blue-900">
+            <hr class="my-4 border-t border-b lg:my-8 border-b-blue-100 border-t-blue-900">
 
-            <div class="grid grid-cols-1 gap-8 mb-8 lg:grid-cols-2">
+            <div class="flex flex-col mx-auto mb-8 space-y-8 lg:flex-row w-max lg:space-y-0 lg:space-x-8">
               <div class="flex flex-col items-center justify-center">
+                <p class="mb-4 leading-none uppercase">Fusion Preview</p>
+
                 <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
                   <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
                     <picture class="block bg-gray-300 border-2 border-black rounded">
@@ -87,84 +96,46 @@
                 </div>
               </div>
 
-              <div class="text-center">
-                <p class="mb-4 leading-none uppercase">Selected Traits (<span x-text="0"></span>/6)</p>
+              <div class="flex flex-col text-center">
+                <p class="mb-4 leading-none uppercase">Selected Traits (<span x-text="$store.avime.fusion.selected.count"></span>/6)</p>
 
                 <div class="grid grid-cols-3 gap-4 mx-auto mb-4 w-max">
                   <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
-                    <div class="border border-black rounded black">
-                      <img class="rounded-sm w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
-                    </div>
+                    <button class="image-bevel">
+                      <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+                    </button>
                   </template>
                 </div>
 
-                <p class="flex mx-auto space-x-4 w-max">
-                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-blue-600 uppercase bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Fuse Avime</button>
-                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-blue-600 uppercase bg-white border border-transparent rounded-md hover:bg-blue-50 sm:w-auto" id="fuse-avime">Mint Traits</button>
+                <p class="mb-4 leading-none uppercase">Selected Gender</p>
+
+                <p class="flex mx-auto mb-4 space-x-4 w-max">
+                  <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inner-white" :class="{ 'bg-yellow-500 text-black hover:bg-yellow-600': $store.avime.fusion.selected.gender === 'f'}" x-on:click="($store.avime.fusion.selected.gender = 'f')">Female</button>
+                  <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inner-white" :class="{ 'bg-yellow-500 text-black hover:bg-yellow-600': $store.avime.fusion.selected.gender === 'm'}" x-on:click="($store.avime.fusion.selected.gender = 'm')">Male</button>
+                </p>
+
+                <p class="flex mt-auto">
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime">Fuse Your Avime</button>
                 </p>
               </div>
             </div>
 
-            <ul class="relative flex flex-row w-full h-72" id="fuse-traits-list" x-data="{ tab: 'background' }">
-              <li class="z-10 flex-1 text-center bg-blue-700" :class="{ 'bg-blue-700': (tab === 'background'), 'z-10': (tab === 'background') }" id="mint-traits-tab-background">
-                <button class="block w-full p-2" x-on:click="(tab = 'background')">Background</button>
+            <ul class="relative flex flex-col w-full lg:flex-row lg:h-72" id="fuse-traits-list" x-data="{ tab: 'Background' }">
+              <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
+                <li class="z-10 flex-1 text-center" :class="{ 'z-10': (tab === trait) }" x-bind:id="('mint-traits-tab-' + trait.toLowerCase())">
+                  <button class="block w-full p-2 bg-blue-500 border-t border-l border-r rounded-t" :class="{ 'bg-blue-500 border-black shadow-inner-blue-100': (tab === trait), 'border-transparent': (tab !== trait) }" x-on:click="(tab = trait)" x-text="trait"></button>
 
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4 bg-blue-700" id="mint-traits-background-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Background #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
-
-              <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'body'), 'z-10': (tab === 'body') }" id="mint-traits-tab-body">
-                <button class="block w-full p-2" x-on:click="(tab = 'body')">Body</button>
-
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-body-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Body #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
-
-              <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'face'), 'z-10': (tab === 'face') }" id="mint-traits-tab-face">
-                <button class="block w-full p-2" x-on:click="(tab = 'face')">Face</button>
-
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-face-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Face #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
-
-              <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'clothes'), 'z-10': (tab === 'clothes') }" id="mint-traits-tab-clothes">
-                <button class="block w-full p-2" x-on:click="(tab = 'clothes')">Clothes</button>
-
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-clothes-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Clothes #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
-
-              <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'hair'), 'z-10': (tab === 'hair') }" id="mint-traits-tab-hair">
-                <button class="block w-full p-2" x-on:click="(tab = 'hair')">Hair</button>
-
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-hair-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Hair #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
-
-              <li class="flex-1" :class="{ 'bg-blue-700': (tab === 'accessory'), 'z-10': (tab === 'accessory') }" id="mint-traits-tab-accessory">
-                <button class="block w-full p-2" x-on:click="(tab = 'accessory')">Accessory</button>
-
-                <ul class="absolute top-[40px] p-4 left-0 grid overflow-scroll w-full h-64 grid-cols-8 gap-4" id="mint-traits-accessory-list">
-                  <template x-for="i in 16">
-                    <li class="bg-blue-900 rounded" x-text="('Accessory #' + i)"></li>
-                  </template>
-                </ul>
-              </li>
+                  <ul class="static lg:absolute top-[40px] p-4 left-0 grid w-max h-max grid-cols-4 lg:grid-cols-8 gap-4 bg-blue-500 border border-black rounded-b" x-bind:id="('mint-traits-list-' + trait.toLowerCase())" x-show="(tab === trait)" x-cloak style="display: none;">
+                    <template x-for="i in 16">
+                      <li>
+                        <button class="image-bevel">
+                          <img class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="(trait + ' Trait Thumbnail')">
+                        </button>
+                      </li>
+                    </template>
+                  </ul>
+                </li>
+              </template>
             </ul>
           </div>
         </div>
@@ -173,11 +144,11 @@
       <section class="py-16 overflow-hidden text-black lg:py-24" id="about" x-data>
         <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
-          <p class="max-w-3xl mx-auto mt-4 text-xl text-center">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
+          <p class="mt-4 text-xl text-center">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
 
-          <div class="grid grid-cols-2 gap-4 mx-auto my-8 lg:my-12 xl:grid-cols-3 w-max">
+          <div class="grid grid-cols-1 gap-2 mx-auto my-8 sm:grid-cols-2 lg:my-12 xl:grid-cols-3 w-max">
             <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
-              <img class="block w-[calc(362px/2)] h-[calc(361px/2)] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/cards/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+              <img class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/cards/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
             </template>
           </div>
 
@@ -223,7 +194,7 @@
                     </button>
                   </dt>
 
-                  <dd class="p-4 text-justify" x-bind:id="('faq-' + item.id)" x-show="open">
+                  <dd class="p-4" x-bind:id="('faq-' + item.id)" x-show="open">
                     <p class="text-lg text-yellow-900" x-text="item.answer"></p>
                   </dd>
                 </div>
@@ -235,8 +206,8 @@
 
       <section class="py-12 lg:py-20" id="roadmap" x-data>
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
-          <div class="pt-3 pl-3 pr-3 mx-auto overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg shadow-inner-blue-box w-max">
-            <div class="pt-6 pb-4 pl-8 pr-8 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 rounded-t-md">
+          <div class="pt-2 pl-2 pr-2 mx-auto -mb-1 overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg sm:mb-0 sm:pt-3 sm:pl-3 sm:pr-3 shadow-inner-blue-box w-max">
+            <div class="pt-4 pb-3 pl-2 pr-2 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 sm:pb-4 sm:pt-6 sm:pl-8 sm:pr-8 rounded-t-md">
               <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">
                 <span class="block">Avime Roadmap</span>
                 <span class="relative inline-block px-2 py-1 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
@@ -244,13 +215,13 @@
             </div>
           </div>
 
-          <div class="p-3 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inner-blue-box">
+          <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inner-blue-box">
             <div class="relative grid grid-cols-1 gap-6 p-8 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md lg:gap-4 lg:grid-cols-2">
               <article class="relative z-10 col-span-1 text-center lg:col-start-1 lg:row-start-1 lg:pr-6">
                 <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">20% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-200 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
-                  <p class="font-medium text-justify">Airdrop individual Avime trait NFTs to 30 lucky holders.</p>
+                  <p class="font-medium">Airdrop individual Avime trait NFTs to 30 lucky holders.</p>
                   <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] left-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
               </article>
@@ -259,7 +230,7 @@
                 <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">40% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
-                  <p class="font-medium text-justify">Auction off a custom honoray 1/1 Avime for charity.</p>
+                  <p class="font-medium">Auction off a custom honoray 1/1 Avime for charity.</p>
                   <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] right-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
               </article>
@@ -268,7 +239,7 @@
                 <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">60% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-400 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
-                  <p class="font-medium text-justify">Begin development on Avime Season 2!</p>
+                  <p class="font-medium">Begin development on Avime Season 2!</p>
                   <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] left-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
               </article>
@@ -277,7 +248,7 @@
                 <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">80% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-300 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
-                  <p class="font-medium text-justify">Use a percentage of secondary sales to create a liquidity pool on NFTX or NFT20.</p>
+                  <p class="font-medium">Use a percentage of secondary sales to create a liquidity pool on NFTX or NFT20.</p>
                   <div class="absolute z-0 h-4 hidden lg:block transform -translate-y-1/2 bg-yellow-500 border-t border-b w-[25px] right-[calc(100%+1px)] border-t-white border-b-black top-1/2"></div>
                 </div>
               </article>
@@ -286,7 +257,7 @@
                 <h3 class="inline-block px-2 py-1 mb-2 font-medium tracking-wide text-white uppercase bg-blue-500 border border-black rounded shadow-inner-white">100% Minted</h3>
 
                 <div class="relative z-10 p-2 text-center text-black bg-yellow-500 border border-black rounded sm:p-5 xl:p-6 shadow-inner-white">
-                  <p class="font-medium text-justify">Verify contract code. Begin development of 2D sprite sheets of Avime to use in a metaverse.</p>
+                  <p class="font-medium">Verify contract code. Begin development of 2D sprite sheets of Avime to use in a metaverse.</p>
                 </div>
               </article>
 
@@ -303,7 +274,7 @@
               <h2 class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Meet the team</h2>
             </div>
 
-            <ul role="list" class="grid grid-cols-2 gap-4 mx-auto w-max lg:grid-cols-3 xl:grid-cols-5">
+            <ul role="list" class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 w-max lg:grid-cols-3 xl:grid-cols-5">
               <template x-for="staff in $store.avime.staff">
                 <li>
                   <a class="block p-1 text-black bg-blue-500 border border-black rounded-md shadow-inner-blue-100" target="_blank" rel="noopener" x-bind:href="staff.url">

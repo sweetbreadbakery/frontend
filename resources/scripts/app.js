@@ -11,7 +11,7 @@ import { updateMyAvime } from './util/updateMyAvime';
  * Init Web3
  */
 const ethereum = window.ethereum;
-const web3 = new window.Web3(new window.Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/aefe6ab3ce96433ba12fa12cd1c37988'));
+const web3 = new window.Web3(ethereum);
 
 /**
  * Set Alpine.js store data
@@ -19,9 +19,9 @@ const web3 = new window.Web3(new window.Web3.providers.HttpProvider('https://rin
 Alpine.store('avime', {
   loaded: false,
   walletConnected: false,
-  s00Address: '0xbB814A990E7f6c6854777B396dc1814A12202357', // RINKBY  S00 ADDRESS
-  s01Address: '0x25fCAcDF36a647DA97c8F214b8331caEaD0c66ac', // RINKBY  S01 Address
-  fusionAddress: '0x03bcA6278A4c3e1231D41EC98a66cF06dF2C4797', // RINKBY FUSION Address
+  s00Address: '0xbB814A990E7f6c6854777B396dc1814A12202357',
+  s01Address: '0x25fCAcDF36a647DA97c8F214b8331caEaD0c66ac',
+  fusionAddress: '0x03bcA6278A4c3e1231D41EC98a66cF06dF2C4797',
   myAvime: [],
   traitName: ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory'],
   selectedTraits: [0, 0, 0, 0, 0, 0],
@@ -46,6 +46,20 @@ Alpine.store('avime', {
   staff: staff,
   faqs: faqs,
   season0Data: null,
+  fusion: {
+    selected: {
+      count: 6,
+      gender: 'f',
+      traits: {
+        background: null,
+        body: null,
+        face: null,
+        clothes: null,
+        hair: null,
+        accessory: null,
+      },
+    },
+  },
   complete() {
     this.loaded = true;
     this.s00Contract = new web3.eth.Contract(s01Abi, this.s00Address);

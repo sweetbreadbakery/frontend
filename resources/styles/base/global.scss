@@ -64,6 +64,7 @@ body {
 }
 
 .text-shadow-heading {
+  -webkit-text-stroke: 1px #fd9999;
   text-shadow: 2px 0 0 theme('colors.blue.500'),
                0 2px 0 theme('colors.blue.500'),
                -2px 0 0 theme('colors.blue.500'),
@@ -71,6 +72,7 @@ body {
 }
 
 .text-shadow-heading-darker {
+  -webkit-text-stroke: 1px #fd9999;
   text-shadow: 2px 0 0 theme('colors.blue.600'),
                0 2px 0 theme('colors.blue.600'),
                -2px 0 0 theme('colors.blue.600'),
@@ -93,6 +95,21 @@ body {
 .shadow-inner-yellow-box {
   box-shadow: inset -1px 1px 0px 1px theme('colors.yellow.100'),
               inset 1px -1px 0px 1px theme('colors.yellow.600');
+}
+
+.image-bevel {
+  @apply relative overflow-hidden rounded;
+
+  &::after {
+    @apply absolute inset-0 flex w-full h-full items-center justify-center border border-black rounded;
+
+    content: '';
+    box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75);
+  }
+}
+
+.heading-label {
+  -webkit-text-stroke: 0;
 }
 
 .heading-label::after {
@@ -148,6 +165,6 @@ section[id="team"] {
 
 footer[id="footer"] {
   background-color: #05202f;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230a2f43' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%230a2f43' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
   background-attachment: fixed;
 }

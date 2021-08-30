@@ -3,8 +3,6 @@ export async function checkWeb3(ethereum, web3) {
   const account = currentAccounts[0];
   window.Alpine.store('avime').walletAddress = account;
 
-  console.log(currentAccounts);
-
   try {
     if (ethereum) {
       document.getElementById('eth-login').classList.add('is-disabled');
