@@ -56,6 +56,11 @@ body {
   content: "";
 }
 
+.body-scroll-lock {
+  touch-action: none;
+  overflow: hidden;
+}
+
 .text-shadow-blue {
   text-shadow: 1px 0 0 theme('colors.blue.500'),
                0 1px 0 theme('colors.blue.500'),
@@ -85,6 +90,10 @@ body {
 
 .shadow-inner-blue-100 {
   box-shadow: inset 0px 0px 0px 1px theme('colors.blue.100');
+}
+
+.shadow-inner-blue-900 {
+  box-shadow: inset 0px 0px 0px 1px theme('colors.blue.900');
 }
 
 .shadow-inner-blue-box {

@@ -68,7 +68,7 @@
             <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inner-white" id="eth-login">Connect Wallet</button>
           </div>
 
-          <div class="p-4 bg-blue-500 border border-black rounded lg:p-8" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
+          <div class="p-4 bg-blue-500 border border-black rounded lg:p-7" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
             <div class="flex flex-col items-center justify-between lg:flex-row">
               <div class="mb-4 text-center lg:text-left lg:mb-0">
                 <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Minting Avime</h2>
@@ -76,8 +76,7 @@
               </div>
 
               <p class="text-center lg:text-left">
-                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime">Mint Traits</button>
-                <span class="block">Mint Price: 0.05 ETH</span>
+                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="mint-traits">Mint 6 Traits (Price: 0.05 ETH)</button>
               </p>
             </div>
 
@@ -99,7 +98,7 @@
               <div class="flex flex-col text-center">
                 <p class="mb-4 leading-none uppercase">Selected Traits (<span x-text="$store.avime.fusion.selected.count"></span>/6)</p>
 
-                <div class="grid grid-cols-3 gap-4 mx-auto mb-4 w-max">
+                <div class="grid grid-cols-3 gap-4 mx-auto mb-4 lg:mb-8 w-max">
                   <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
                     <button class="image-bevel">
                       <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
@@ -109,31 +108,42 @@
 
                 <p class="mb-4 leading-none uppercase">Selected Gender</p>
 
-                <p class="flex mx-auto mb-4 space-x-4 w-max">
-                  <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inner-white" :class="{ 'bg-yellow-500 text-black hover:bg-yellow-600': $store.avime.fusion.selected.gender === 'f'}" x-on:click="($store.avime.fusion.selected.gender = 'f')">Female</button>
-                  <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inner-white" :class="{ 'bg-yellow-500 text-black hover:bg-yellow-600': $store.avime.fusion.selected.gender === 'm'}" x-on:click="($store.avime.fusion.selected.gender = 'm')">Male</button>
+                <p class="grid grid-cols-2 gap-4">
+                  <template x-for="gender in ['Female', 'Male']">
+                    <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inner-blue-100" :class="{ 'bg-blue-600 border-blue-100 shadow-inner-blue-900': $store.avime.fusion.selected.gender === gender}" x-on:click="($store.avime.fusion.selected.gender = gender)" x-text="gender"></button>
+                  </template>
                 </p>
 
-                <p class="flex mt-auto">
-                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime">Fuse Your Avime</button>
-                </p>
+                <div class="flex mt-auto" x-data="{modal: false}">
+                  <button class="scroll-lock inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime" x-on:click="modal = !modal" :aria-expanded="modal ? 'true' : 'false'">Fuse Your Avime</button>
+
+                  <div class="modal-wrapper" :class="{ 'active': modal }">
+                    <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
+                    <div class="modal-panel p-3 b-thin rounded bg-color-background" :class="{ 'active': modal }">
+                      <p>Modal content.</p>
+                      <button class="float-right scroll-unlock" x-on:click="modal = false">Close</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <ul class="relative flex flex-col w-full lg:flex-row lg:h-72" id="fuse-traits-list" x-data="{ tab: 'Background' }">
+            <ul class="relative flex flex-col w-full lg:flex-row lg:h-[253px]" id="fuse-traits-list" x-data="{ tab: 'Background' }">
               <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
                 <li class="z-10 flex-1 text-center" :class="{ 'z-10': (tab === trait) }" x-bind:id="('mint-traits-tab-' + trait.toLowerCase())">
-                  <button class="block w-full p-2 bg-blue-500 border-t border-l border-r rounded-t" :class="{ 'bg-blue-500 border-black shadow-inner-blue-100': (tab === trait), 'border-transparent': (tab !== trait) }" x-on:click="(tab = trait)" x-text="trait"></button>
+                  <button class="block w-full p-2 uppercase bg-blue-500 border-t border-l border-r rounded-t" :class="{ 'bg-blue-500 border-black shadow-inner-blue-100': (tab === trait), 'border-transparent': (tab !== trait) }" x-on:click="(tab = trait)" x-text="trait"></button>
 
-                  <ul class="static lg:absolute top-[40px] p-4 left-0 grid w-max h-max grid-cols-4 lg:grid-cols-8 gap-4 bg-blue-500 border border-black rounded-b" x-bind:id="('mint-traits-list-' + trait.toLowerCase())" x-show="(tab === trait)" x-cloak style="display: none;">
-                    <template x-for="i in 16">
-                      <li>
-                        <button class="image-bevel">
-                          <img class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="(trait + ' Trait Thumbnail')">
-                        </button>
-                      </li>
-                    </template>
-                  </ul>
+                  <div class="static lg:absolute top-[40px] p-1 left-0 w-full bg-blue-600 border border-black lg:rounded-b" x-show="(tab === trait)" x-cloak style="display: none;">
+                    <ul class="flex flex-wrap items-center justify-center mx-auto" x-bind:id="('mint-traits-list-' + trait.toLowerCase())">
+                      <template x-for="i in 20">
+                        <li class="flex items-center justify-center p-2 h-max">
+                          <button class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]">
+                            <img class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="('/images/traits/thumbnails/' + trait.toLowerCase() + '.png')" x-bind:alt="(trait + ' Trait Thumbnail')">
+                          </button>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
                 </li>
               </template>
             </ul>
@@ -206,7 +216,7 @@
 
       <section class="py-12 lg:py-20" id="roadmap" x-data>
         <div class="relative z-10 max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
-          <div class="pt-2 pl-2 pr-2 mx-auto -mb-1 overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg sm:mb-0 sm:pt-3 sm:pl-3 sm:pr-3 shadow-inner-blue-box w-max">
+          <div class="pt-2 pl-2 pr-2 mx-auto -mb-1 overflow-hidden bg-blue-500 border-t border-l border-r border-black rounded-t-lg sm:pt-3 sm:pl-3 sm:pr-3 shadow-inner-blue-box w-max">
             <div class="pt-4 pb-3 pl-2 pr-2 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 sm:pb-4 sm:pt-6 sm:pl-8 sm:pr-8 rounded-t-md">
               <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">
                 <span class="block">Avime Roadmap</span>

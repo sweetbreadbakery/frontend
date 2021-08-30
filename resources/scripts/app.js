@@ -49,7 +49,7 @@ Alpine.store('avime', {
   fusion: {
     selected: {
       count: 6,
-      gender: 'f',
+      gender: 'Female',
       traits: {
         background: null,
         body: null,
