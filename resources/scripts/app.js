@@ -6,6 +6,7 @@ import { fusionAbi } from './util/fusionAbi';
 import { checkWeb3 } from './util/checkWeb3';
 import { checkWebAccount } from './util/checkWebAccount';
 import { updateMyAvime } from './util/updateMyAvime';
+import { getRandomIntInclusive } from './util/getRandomIntInclusive';
 
 /**
  * Init Web3
@@ -26,6 +27,15 @@ Alpine.store('fusion', {
     clothes: 'default',
     hair: 'default',
     accessory: 'default',
+  },
+  randomize(gender) {
+    this.traits.background = getRandomIntInclusive(1, 15);
+    this.traits.body = getRandomIntInclusive(1, 15);
+    this.traits.face = getRandomIntInclusive(1, 15);
+    this.traits.clothes = getRandomIntInclusive(1, 15);
+    this.traits.hair = getRandomIntInclusive(1, 15);
+    this.traits.accessory = getRandomIntInclusive(1, 15);
+    this.gender = (gender === 'Female') ? 'Male' : 'Female';
   },
 });
 

@@ -124,7 +124,7 @@
               </div>
             </div>
 
-            <ul class="relative flex flex-col w-full lg:flex-row lg:h-[253px]" id="fuse-traits-list" x-data="{ tab: 'Background' }">
+            <ul class="relative flex flex-col w-full mb-4 lg:flex-row lg:h-[253px]" id="fuse-traits-list" x-data="{ tab: 'Background' }">
               <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
                 <li class="z-20 flex-1 text-center border-t border-l border-r rounded-t lg:first:rounded-t-none lg:first:rounded-tl lg:last:rounded-t-none lg:last:rounded-tr" :class="{ 'z-10 border-transparent': (tab !== trait), 'z-20 bg-blue-600 border-black shadow-tab-blue-100': (tab === trait) }" x-bind:id="('mint-traits-tab-' + trait.toLowerCase())">
                   <button class="relative z-10 block w-full p-2 uppercase rounded-t bg-inherit" x-on:click="(tab = trait)" x-text="trait"></button>
@@ -143,6 +143,8 @@
                 </li>
               </template>
             </ul>
+
+            <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" x-on:click="$store.fusion.randomize($store.fusion.gender)">Randomize</button>
           </div>
         </div>
       </section>
