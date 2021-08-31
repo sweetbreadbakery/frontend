@@ -696,7 +696,7 @@
 
             <div class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 xl:grid-cols-3 w-max">
               <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
-                <img class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]" x-bind:src="(('/images/traits/' + trait.toLowerCase() + '/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+                <img class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/' + trait.toLowerCase() + '/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
               </template>
             </div>
 
