@@ -114,16 +114,8 @@
                   </template>
                 </p>
 
-                <div class="flex mt-auto" x-data="{modal: false}">
-                  <button class="scroll-lock inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="fuse-avime" x-on:click="modal = !modal" :aria-expanded="modal ? 'true' : 'false'">Fuse Your Avime</button>
-
-                  <div class="modal-wrapper" :class="{ 'active': modal }">
-                    <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
-                    <div class="modal-panel p-3 b-thin rounded bg-color-background" :class="{ 'active': modal }">
-                      <p>Modal content.</p>
-                      <button class="float-right scroll-unlock" x-on:click="modal = false">Close</button>
-                    </div>
-                  </div>
+                <div class="flex mt-auto" x-data="{}">
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inner-white" id="fuse-avime" x-on:click="$dispatch('modal-ex')">Fuse Your Avime</button>
                 </div>
               </div>
             </div>
@@ -668,6 +660,27 @@
           </p>
         </div>
       </footer>
+    </div>
+
+    <div x-data="{ modal: false }">
+      <div class="modal-wrapper" :class="{ 'active': modal }" x-on:modal-ex.window="modal = !modal">
+        <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
+        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': modal }">
+          <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inner-blue-box">
+            <p>Modal content.</p>
+
+            <div class="p-2 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-xl lg:mb-12 shadow-inner-blue-box w-max">
+              <div class="relative gap-6 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-lg w-max">
+                <picture class="block bg-gray-300 border-2 border-black rounded-md w-max">
+                  <img class="block w-[160px] h-[160px] bg-gray-400 rounded lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.png" alt="Fused Avimes">
+                </picture>
+              </div>
+            </div>
+
+            <button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inner-white scroll-unlock" x-on:click="modal = false">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="/scripts/web3.js" defer></script>

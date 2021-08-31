@@ -1,0 +1,7 @@
+[build]
+base    = "."
+command = "yarn && yarn build:production"
+public  = "public"
+
+[context.branch-deploy]
+command = "cp _branchdeploy_headers public/_headers"
