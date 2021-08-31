@@ -131,7 +131,7 @@
 
                   <div class="static lg:absolute top-[40px] p-1 left-0 w-full bg-blue-600 border border-black lg:rounded-b shadow-blue-100" x-show="(tab === trait)" x-cloak style="display: none;">
                     <ul class="flex flex-wrap items-center justify-center mx-auto" x-bind:id="('mint-traits-list-' + trait.toLowerCase())">
-                      <template x-for="i in 14">
+                      <template x-for="i in 15">
                         <li class="flex items-center justify-center p-2 h-max">
                           <button class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:id="('trait-' + trait.toLowerCase() + '-' + i)" x-on:click="$store.fusion.traits[trait.toLowerCase()] = i">
                             <img class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="(`/images/traits/${trait.toLowerCase()}/thumbnails/${i}.png`)" x-bind:alt="(trait + ' Trait ' + i)" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
