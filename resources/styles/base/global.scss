@@ -88,18 +88,62 @@ body {
 
 .text-shadow-heading {
   -webkit-text-stroke: 1px #fd9999;
-  text-shadow: 2px 0 0 theme('colors.blue.500'),
-               0 2px 0 theme('colors.blue.500'),
-               -2px 0 0 theme('colors.blue.500'),
-               0 -2px 0 theme('colors.blue.500');
+  text-shadow: /* first layer at 1px */
+               -1px -1px 0px theme('colors.blue.500'),
+               0px -1px 0px theme('colors.blue.500'),
+               1px -1px 0px theme('colors.blue.500'),
+               -1px 0px 0px theme('colors.blue.500'),
+               1px 0px 0px theme('colors.blue.500'),
+               -1px 1px 0px theme('colors.blue.500'),
+               0px  1px 0px theme('colors.blue.500'),
+               1px  1px 0px theme('colors.blue.500'),
+               /* second layer at 2px */
+               -2px -2px 0px theme('colors.blue.500'),
+               -1px -2px 0px theme('colors.blue.500'),
+               0px -2px 0px theme('colors.blue.500'),
+               1px -2px 0px theme('colors.blue.500'),
+               2px -2px 0px theme('colors.blue.500'),
+               2px -1px 0px theme('colors.blue.500'),
+               2px 0px 0px theme('colors.blue.500'),
+               2px 1px 0px theme('colors.blue.500'),
+               2px 2px 0px theme('colors.blue.500'),
+               1px 2px 0px theme('colors.blue.500'),
+               0px 2px 0px theme('colors.blue.500'),
+               -1px 2px 0px theme('colors.blue.500'),
+               -2px 2px 0px theme('colors.blue.500'),
+               -2px 1px 0px theme('colors.blue.500'),
+               -2px 0px 0px theme('colors.blue.500'),
+               -2px -1px 0px theme('colors.blue.500');
 }
 
 .text-shadow-heading-darker {
   -webkit-text-stroke: 1px #fd9999;
-  text-shadow: 2px 0 0 theme('colors.blue.600'),
-               0 2px 0 theme('colors.blue.600'),
-               -2px 0 0 theme('colors.blue.600'),
-               0 -2px 0 theme('colors.blue.600');
+  text-shadow: /* first layer at 1px */
+               -1px -1px 0px theme('colors.blue.600'),
+               0px -1px 0px theme('colors.blue.600'),
+               1px -1px 0px theme('colors.blue.600'),
+               -1px 0px 0px theme('colors.blue.600'),
+               1px 0px 0px theme('colors.blue.600'),
+               -1px 1px 0px theme('colors.blue.600'),
+               0px  1px 0px theme('colors.blue.600'),
+               1px  1px 0px theme('colors.blue.600'),
+               /* second layer at 2px */
+               -2px -2px 0px theme('colors.blue.600'),
+               -1px -2px 0px theme('colors.blue.600'),
+               0px -2px 0px theme('colors.blue.600'),
+               1px -2px 0px theme('colors.blue.600'),
+               2px -2px 0px theme('colors.blue.600'),
+               2px -1px 0px theme('colors.blue.600'),
+               2px 0px 0px theme('colors.blue.600'),
+               2px 1px 0px theme('colors.blue.600'),
+               2px 2px 0px theme('colors.blue.600'),
+               1px 2px 0px theme('colors.blue.600'),
+               0px 2px 0px theme('colors.blue.600'),
+               -1px 2px 0px theme('colors.blue.600'),
+               -2px 2px 0px theme('colors.blue.600'),
+               -2px 1px 0px theme('colors.blue.600'),
+               -2px 0px 0px theme('colors.blue.600'),
+               -2px -1px 0px theme('colors.blue.600');
 }
 
 .shadow-inner-white {

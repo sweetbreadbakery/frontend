@@ -76,7 +76,7 @@
               </div>
 
               <p class="text-center lg:text-left">
-                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="mint-traits">Mint 6 Traits (Price: 0.05 ETH)</button>
+                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inner-white" id="mint-traits" x-on:click="$dispatch('modal-mint')">Mint 6 Traits (Price: 0.09 ETH)</button>
               </p>
             </div>
 
@@ -115,7 +115,7 @@
                 </p>
 
                 <div class="flex mt-auto" x-data="{}">
-                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inner-white" id="fuse-avime" x-on:click="$dispatch('modal-ex')">Fuse Your Avime</button>
+                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inner-white" id="fuse-avime" x-on:click="$dispatch('modal-fuse')">Fuse Your Avime</button>
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@
       <section class="py-16 overflow-hidden text-black lg:py-24" id="about" x-data>
         <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
           <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">About Avime</h2>
-          <p class="mt-4 text-xl text-center">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
+          <p class="mt-4 text-base text-center">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
 
           <div class="grid grid-cols-1 gap-2 mx-auto my-8 sm:grid-cols-2 lg:my-12 xl:grid-cols-3 w-max">
             <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
@@ -154,26 +154,26 @@
             </template>
           </div>
 
-          <p class="max-w-4xl mx-auto my-4 text-xl text-center">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled. You will need 1 trait NFT from EACH category to create an Avime.</p>
+          <p class="max-w-4xl mx-auto my-4 text-base text-center">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled. You will need 1 trait NFT from EACH category to create an Avime.</p>
 
           <dl class="mb-8 space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
             <div>
-              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 1 Time</dt>
-              <dd class="mt-2 text-xl">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
+              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 1 Time</dt>
+              <dd class="mt-2 text-base">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
             </div>
 
             <div>
-              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 3 Times</dt>
-              <dd class="mt-2 text-xl">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
+              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 3 Times</dt>
+              <dd class="mt-2 text-base">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
             </div>
 
             <div>
-              <dt class="mt-5 text-xl font-medium leading-6 text-gray-900">Minting 5 Times</dt>
-              <dd class="mt-2 text-xl">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
+              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 5 Times</dt>
+              <dd class="mt-2 text-base">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
             </div>
           </dl>
 
-          <p class="max-w-4xl mx-auto text-xl text-center">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
+          <p class="max-w-4xl mx-auto text-base text-center">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
         </div>
       </section>
 
@@ -197,7 +197,7 @@
                   </dt>
 
                   <dd class="p-4" x-bind:id="('faq-' + item.id)" x-show="open">
-                    <p class="text-lg text-yellow-900" x-text="item.answer"></p>
+                    <p class="text-yellow-900" x-text="item.answer"></p>
                   </dd>
                 </div>
               </template>
@@ -212,7 +212,7 @@
             <div class="pt-4 pb-3 pl-2 pr-2 overflow-hidden text-black bg-blue-100 border-t-2 border-l-2 border-r-2 border-blue-600 sm:pb-4 sm:pt-6 sm:pl-8 sm:pr-8 rounded-t-md">
               <h2 class="relative z-10 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">
                 <span class="block">Avime Roadmap</span>
-                <span class="relative inline-block px-2 py-1 font-sans text-xl font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
+                <span class="relative inline-block px-2 py-1 font-sans text-base font-medium tracking-wide text-white uppercase heading-label text-shadow-blue">Season 1</span>
               </h2>
             </div>
           </div>
@@ -662,12 +662,13 @@
       </footer>
     </div>
 
-    <div x-data="{ modal: false }">
-      <div class="modal-wrapper" :class="{ 'active': modal }" x-on:modal-ex.window="modal = !modal">
+    <div id="modals" x-data="{ modal: false }">
+      <div class="modal-wrapper" id="fuse-modal" :class="{ 'active': (modal === 'fuse') }" x-on:modal-fuse.window="(modal = 'fuse')">
         <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
-        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': modal }">
+
+        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': (modal === 'fuse') }">
           <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inner-blue-box">
-            <p>Modal content.</p>
+            <p class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Modal content.</p>
 
             <div class="p-2 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-xl lg:mb-12 shadow-inner-blue-box w-max">
               <div class="relative gap-6 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-lg w-max">
@@ -677,7 +678,25 @@
               </div>
             </div>
 
-            <button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inner-white scroll-unlock" x-on:click="modal = false">Close</button>
+            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inner-white scroll-unlock" x-on:click="modal = false">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-wrapper" id="mint-modal" :class="{ 'active': (modal === 'mint') }" x-on:modal-mint.window="(modal = 'mint')">
+        <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
+
+        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': (modal === 'mint') }">
+          <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inner-blue-box">
+            <p class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your traits, sir.</p>
+
+            <div class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 xl:grid-cols-3 w-max">
+              <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
+                <img class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/cards/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+              </template>
+            </div>
+
+            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inner-white scroll-unlock" x-on:click="modal = false">Close</button>
           </div>
         </div>
       </div>
