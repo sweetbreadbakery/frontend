@@ -20,6 +20,10 @@
 
 @layer utilities {
   @variants responsive {
+    .bg-inherit {
+      background-color: inherit;
+    }
+
     .grid-cols-17 {
       grid-template-columns: repeat(17, minmax(0, 1fr));
     }

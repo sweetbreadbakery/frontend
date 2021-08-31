@@ -16,6 +16,19 @@ const web3 = new window.Web3(ethereum);
 /**
  * Set Alpine.js store data
  */
+Alpine.store('fusion', {
+  selected: 0,
+  gender: 'Female',
+  traits: {
+    background: 'default',
+    body: 'default',
+    face: 'default',
+    clothes: 'default',
+    hair: 'default',
+    accessory: 'default',
+  },
+});
+
 Alpine.store('avime', {
   loaded: false,
   walletConnected: false,
@@ -51,12 +64,12 @@ Alpine.store('avime', {
       count: 6,
       gender: 'Female',
       traits: {
-        background: null,
-        body: null,
-        face: null,
-        clothes: null,
-        hair: null,
-        accessory: null,
+        background: 'default',
+        body: 'default',
+        face: 'default',
+        clothes: 'default',
+        hair: 'default',
+        accessory: 'default',
       },
     },
   },
