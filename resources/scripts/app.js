@@ -28,6 +28,22 @@ Alpine.store('fusion', {
     hair: 'default',
     accessory: 'default',
   },
+  clear() {
+    this.traits.background = 'default';
+    this.traits.body = 'default';
+    this.traits.face = 'default';
+    this.traits.clothes = 'default';
+    this.traits.hair = 'default';
+    this.traits.accessory = 'default';
+  },
+  mint() {
+    this.traits.background = getRandomIntInclusive(1, 15);
+    this.traits.body = getRandomIntInclusive(1, 15);
+    this.traits.face = getRandomIntInclusive(1, 15);
+    this.traits.clothes = getRandomIntInclusive(1, 15);
+    this.traits.hair = getRandomIntInclusive(1, 15);
+    this.traits.accessory = getRandomIntInclusive(1, 15);
+  },
   randomize(gender) {
     this.traits.background = getRandomIntInclusive(1, 15);
     this.traits.body = getRandomIntInclusive(1, 15);

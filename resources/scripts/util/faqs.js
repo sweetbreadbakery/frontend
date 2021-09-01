@@ -1,8 +1,8 @@
 export const faqs = [
   {
     'id': 1,
-    'question': 'What the hell is Avime?',
-    'answer': '10,000 entirely customizable anime-inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!',
+    'question': 'What does it mean to be on-chain encoded?',
+    'answer': 'Having our Avime be entirely encoded on-chain means that all the data and images used to create your Avime and their traits live directly on the Ethereum blockchain, attached to our custom built smart contract. This means that there is no requirement for Avime assets to be hosted on services such as IPFS or centralized servers. This means that your Avime is an immortal and native resident of Ethereum that will be backed by the robust security the network can provide.',
   },
   {
     'id': 2,

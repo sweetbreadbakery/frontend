@@ -71,12 +71,12 @@
           <div class="p-4 bg-blue-500 border border-black rounded bg-gradient-to-b lg:p-7" id="mint-interface" x-show="$store.avime.walletConnected" x-cloak style="display: none;">
             <div class="flex flex-col items-center justify-between lg:flex-row">
               <div class="mb-4 text-center lg:text-left lg:mb-0">
-                <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Minting Avime</h2>
+                <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Wardrobe</h2>
                 <p class="leading-none">Wallet: <span x-text="$store.avime.walletAddress"></span></p>
               </div>
 
               <p class="text-center lg:text-left">
-                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white" id="mint-traits" x-on:click="$dispatch('modal-mint')">Mint 6 Traits (Price: 0.09 ETH)</button>
+                <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white" id="mint-traits" x-on:click="$dispatch('modal-mint'); $store.fusion.mint()">Mint 6 Traits (Price: 0.09 ETH)</button>
               </p>
             </div>
 
@@ -90,6 +90,7 @@
                   <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
                     <div class="overflow-hidden border-2 border-black rounded">
                       <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
+                        <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/avime/' + $store.fusion.gender.toLowerCase() + '.png')" alt="">
                         <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
                           <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/traits/' + trait + '/layers/' + $store.fusion.gender.toLowerCase() + '/' + $store.fusion.traits[trait] + '.png')" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
                         </template>
@@ -145,14 +146,16 @@
             </ul>
 
             <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" x-on:click="$store.fusion.randomize($store.fusion.gender)">Randomize</button>
+            <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" x-on:click="$store.fusion.clear()">Clear</button>
           </div>
         </div>
       </section>
 
       <section class="py-16 overflow-hidden text-black lg:py-24" id="about" x-data>
         <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-7xl">
-          <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">owo, What's This?</h2>
-          <p class="mt-4 text-base text-center">Each time you mint during SEASON 1 you will receive 6 different NFTs- 1 from each of these 6 categories:</p>
+          <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">What is Avime???</h2>
+          <p class="mt-4 text-base text-center">Avime is the first fully on-chain customizable NFT project, featuring artwork heavily inspired by anime. Our custom built contract, on-chain provenance, and customization mechanics make Avime truly stand out in the world of NFTs. With a plethora of customization options, the ability to choose between two body types, and more options planned for release in future updates, Avime gives you the ability to create an avatar that you truly resonate with.</p>
+          <p class="mt-4 text-base text-center">Each Avime mint will give you 6 different Avime Trait Cards of varying rarities, one from each of these categories:</p>
 
           <div class="grid grid-cols-1 gap-2 mx-auto my-8 sm:grid-cols-2 lg:my-12 xl:grid-cols-3 w-max">
             <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
@@ -160,26 +163,8 @@
             </template>
           </div>
 
-          <p class="max-w-4xl mx-auto my-4 text-base text-center">There will only be enough traits to create 10k Avime. Every fused Avime will reduce the number of circulating traits by 6. Fused Avime cannot be disassembled. You will need 1 trait NFT from EACH category to create an Avime.</p>
-
-          <dl class="mb-8 space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-            <div>
-              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 1 Time</dt>
-              <dd class="mt-2 text-base">You receive 6 trait NFTs. These can be fused to create 1 Avime.</dd>
-            </div>
-
-            <div>
-              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 3 Times</dt>
-              <dd class="mt-2 text-base">You receive 18 trait NFTs. These can be fused to create 3 different Avime.</dd>
-            </div>
-
-            <div>
-              <dt class="mt-5 text-base font-medium leading-6 text-gray-900">Minting 5 Times</dt>
-              <dd class="mt-2 text-base">You receive 30 trait NFTs. These can be fused to create 5 different Avime.</dd>
-            </div>
-          </dl>
-
-          <p class="max-w-4xl mx-auto text-base text-center">This means the total amount of traits minted this season will be 60k. The roadmap is 100% fulfilled when all 60k traits have been minted!</p>
+          <p class="max-w-4xl mx-auto my-4 text-base text-center">Avime Trait Cards are ERC721 NFTs that can be traded on secondary markets, and can be combined in the Wardrobe to create a completed Avime. All Trait Cards combined will be burned upon fusion, meaning the total circulating supply of traits will reduce over time. You will need one trait for EACH category in order to create an Avime.</p>
+          <p class="max-w-4xl mx-auto text-base text-center">There will only ever be enough Trait Cards to create 10k total Avime. Future expansion packs are planned to add more options to customization, but an exchange of already existing Avime Trait Cards will be required to redeem newly introduced ones.</p>
         </div>
       </section>
 
@@ -676,15 +661,20 @@
           <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inset-blue-box">
             <p class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your avime, sir.</p>
 
-            <div class="p-2 mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-xl lg:mb-12 shadow-inset-blue-box w-max">
-              <div class="relative gap-6 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-lg w-max">
-                <picture class="block bg-gray-300 border-2 border-black rounded-md w-max">
-                  <img class="block w-[160px] h-[160px] bg-gray-400 rounded lg:w-[320px] lg:h-[320px]" src="/images/avime_hero.png" alt="Fused Avimes">
-                </picture>
+            <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+              <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
+                <div class="overflow-hidden border-2 border-black rounded">
+                  <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
+                    <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/avime/' + $store.fusion.gender.toLowerCase() + '.png')" alt="">
+                    <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                      <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/traits/' + trait + '/layers/' + $store.fusion.gender.toLowerCase() + '/' + $store.fusion.traits[trait] + '.png')" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
+                    </template>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false">Close</button>
+            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false; $store.fusion.clear()">Close</button>
           </div>
         </div>
       </div>
