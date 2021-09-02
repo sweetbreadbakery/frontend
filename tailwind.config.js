@@ -67,7 +67,8 @@ module.exports = {
       },
       fontFamily: {
         heading: '"cp_fontregular", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-        sans: '"Pixelated MS Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        sans: '"Pixelated MS Sans Serif", "Arial Narrow", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        mono: 'DOS, Monaco, Menlo, Consolas, "Courier New", monospace',
       },
       typography: (theme) => ({
         DEFAULT: {
