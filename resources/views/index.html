@@ -66,18 +66,43 @@
             <div x-show="!$store.myAvime.walletConnected">
               <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Waifu NFTs? Say no more.</h2>
               <p class="mt-4 text-lg leading-6 text-white">Connect your wallet below to mint your 6 traits!</p>
-              <button class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white" id="eth-login">Connect Wallet</button>
+              <button
+                class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
+                id="eth-login"
+              >Connect Wallet</button>
             </div>
 
-            <div class="p-4 bg-blue-500 border border-black rounded bg-gradient-to-b lg:p-7" id="mint-interface" x-show="$store.myAvime.walletConnected" x-cloak style="display: none;">
+            <div
+              class="p-4 bg-blue-500 border border-black rounded bg-gradient-to-b lg:p-7"
+              id="mint-interface"
+              x-show="$store.myAvime.walletConnected"
+              x-cloak
+              style="display: none;"
+            >
               <div class="flex flex-col items-center justify-between lg:flex-row">
                 <div class="mb-4 text-center lg:text-left lg:mb-0">
                   <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
-                  <p class="leading-none">Wallet: <span x-text="`${$store.myAvime.walletAddress.substring(0, 6)} ... ${$store.myAvime.walletAddress.slice($store.myAvime.walletAddress.length - 4)}`"></span></p>
+                  <p class="leading-none">
+                    <span>Wallet:</span>
+                    <span x-text="`${$store.myAvime.walletAddress.substring(0, 6)} ... ${$store.myAvime.walletAddress.slice($store.myAvime.walletAddress.length - 4)}`"></span>
+                  </p>
                 </div>
 
                 <p class="text-center lg:text-left">
-                  <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white" id="mint-traits" x-on:click="$dispatch('modal-mint'); $store.myAvime.mint()">Mint 6 Traits (Price: 0.09 ETH)</button>
+                  <button
+                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
+                    x-show="!$store.myAvime.approved"
+                    x-on:click="$store.myAvime.approve(1)"
+                  >Approve</button>
+
+                  <button
+                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white"
+                    id="mint-traits"
+                    x-show="$store.myAvime.approved"
+                    x-on:click="$store.myAvime.mint(1, $dispatch)"
+                    x-cloak
+                    style="display: none;"
+                  >Mint 6 Traits (Price: 0.09 ETH)</button>
                 </p>
               </div>
 
@@ -85,15 +110,28 @@
 
               <div class="flex flex-col mx-auto mb-8 space-y-8 lg:flex-row w-max lg:space-y-0 lg:space-x-8">
                 <div class="flex flex-col items-center justify-center">
-                  <p class="mb-4 leading-none uppercase">Fusion Preview</p>
+                  <div class="flex items-center justify-between w-full mb-4">
+                    <p class="leading-none uppercase">Preview</p>
+                    <p class="leading-none uppercase">(Fused Avime: <span x-text="$store.myAvime.fusedAvime"></span>)</p>
+                  </div>
 
                   <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-preview">
                     <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
                       <div class="overflow-hidden border-2 border-black rounded">
                         <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
-                          <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')" alt="">
+                          <img
+                            class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                            x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                            alt=""
+                          >
+
                           <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                            <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
+                            <img
+                              class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                              x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                              alt=""
+                              onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                            >
                           </template>
                         </div>
                       </div>
@@ -106,8 +144,17 @@
 
                   <div class="grid grid-cols-3 gap-4 mx-auto mb-4 lg:mb-8 w-max">
                     <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                      <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`" x-on:click="($store.myAvime.selected.traits[trait] = 'default')">
-                        <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.myAvime.selected.traits[trait].thumb" x-bind:alt="trait" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
+                      <button
+                        class="bg-center bg-no-repeat bg-cover image-bevel"
+                        x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`"
+                        x-on:click="($store.myAvime.selected.traits[trait] = $store.myAvime.blankTrait)"
+                      >
+                        <img
+                          class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                          x-bind:src="$store.myAvime.selected.traits[trait].thumb"
+                          alt=""
+                          onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                        >
                       </button>
                     </template>
                   </div>
@@ -116,27 +163,60 @@
 
                   <p class="grid grid-cols-2 gap-4">
                     <template x-for="gender in ['female', 'male']">
-                      <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" :class="{ 'bg-blue-600 border-blue-100 shadow-inset-blue-900': $store.myAvime.sex === gender}" x-on:click="($store.myAvime.sex = gender)" x-text="gender"></button>
+                      <button
+                        class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
+                        :class="{ 'bg-blue-600 border-blue-100 shadow-inset-blue-900': $store.myAvime.sex === gender}"
+                        x-on:click="($store.myAvime.sex = gender)"
+                        x-text="gender"
+                      ></button>
                     </template>
                   </p>
 
                   <p class="flex mt-auto">
-                    <button class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white" id="fuse-avime" x-on:click="$dispatch('modal-fuse')">Fuse Your Avime</button>
+                    <button
+                      class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white"
+                      id="fuse-avime"
+                      x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
+                    >Fuse Your Avime</button>
                   </p>
                 </div>
               </div>
 
-              <ul class="relative flex flex-col w-full max-w-[692px] mx-auto mb-4 lg:flex-row lg:h-[356px]" id="fuse-traits-list" x-data="{ tab: 'background' }">
+              <ul
+                class="relative flex flex-col w-full max-w-[692px] mx-auto mb-4 lg:flex-row lg:h-[356px]"
+                id="fuse-traits-list"
+                x-data="{ tab: 'background' }"
+              >
                 <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                  <li class="z-20 flex-1 text-center border-t border-l border-r rounded-t lg:h-[42px] lg:first:rounded-t-none lg:first:rounded-tl lg:last:rounded-t-none lg:last:rounded-tr" :class="{ 'z-10 border-transparent': (tab !== trait), 'z-20 bg-blue-600 border-black shadow-tab-blue-100': (tab === trait) }" x-bind:id="('mint-traits-tab-' + trait.toLowerCase())">
-                    <button class="relative z-10 block w-full p-2 uppercase rounded-t bg-inherit" x-on:click="(tab = trait)" x-text="trait"></button>
+                  <li
+                    class="z-20 flex-1 text-center border-t border-l border-r rounded-t lg:h-[42px] lg:first:rounded-t-none lg:first:rounded-tl lg:last:rounded-t-none lg:last:rounded-tr"
+                    :class="{ 'z-10 border-transparent': (tab !== trait), 'z-20 bg-blue-600 border-black shadow-tab-blue-100': (tab === trait) }"
+                  >
+                    <button
+                      class="relative z-10 block w-full p-2 uppercase rounded-t bg-inherit"
+                      x-on:click="(tab = trait)"
+                      x-text="trait"
+                    ></button>
 
-                    <div class="static lg:absolute top-[40px] p-1 left-0 w-full bg-blue-600 border border-black lg:rounded-b shadow-blue-100" x-show="(tab === trait)" x-cloak style="display: none;">
+                    <div
+                      class="static lg:absolute top-[40px] p-1 left-0 w-full bg-blue-600 border border-black lg:rounded-b shadow-blue-100"
+                      x-show="(tab === trait)"
+                      x-cloak
+                      style="display: none;"
+                    >
                       <ul class="flex flex-wrap items-center">
                         <template x-for="item in $store.myAvime.wardrobe[trait]">
                           <li class="flex items-center justify-center p-2 h-max">
-                            <button class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-on:click="$store.myAvime.selected.traits[trait] = item">
-                              <img class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" alt="" x-bind:src="item.thumb" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
+                            <button
+                              class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                              x-on:click="$store.myAvime.selected.traits[trait] = item"
+                            >
+                              <img
+                                class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                                alt=""
+                                x-bind:src="item.thumb"
+                                onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                              >
                             </button>
                           </li>
                         </template>
@@ -145,11 +225,6 @@
                   </li>
                 </template>
               </ul>
-
-              <p class="grid grid-cols-2 gap-4 mx-auto w-max">
-                <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" x-on:click="$store.myAvime.randomize($store.myAvime.sex)">Randomize</button>
-                <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100" x-on:click="$store.myAvime.clear()">Clear</button>
-              </p>
             </div>
           </div>
         </section>
@@ -373,45 +448,89 @@
     </div>
 
     <div id="modals" x-data="{ modal: false }">
-      <div class="modal-wrapper" id="fuse-modal" :class="{ 'active': (modal === 'fuse') }" x-on:modal-fuse.window="(modal = 'fuse')">
-        <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
+      <div
+        class="modal-wrapper"
+        id="fuse-modal"
+        :class="{ 'active': (modal === 'fuse') }"
+        x-on:modal-fuse.window="(modal = 'fuse')"
+      >
+        <div
+          class="backdrop backdrop-shaded scroll-unlock"
+          x-show.transition.opacity.duration.600ms="modal"
+          x-on:click="modal = false"
+        ></div>
 
-        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': (modal === 'fuse') }">
+        <div
+          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          :class="{ 'active': (modal === 'fuse') }"
+        >
           <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inset-blue-box">
             <p class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your avime, sir.</p>
 
-            <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+            <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
               <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
                 <div class="overflow-hidden border-2 border-black rounded">
                   <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
-                    <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/avime/' + $store.myAvime.sex.toLowerCase() + '.png')" alt="">
+                    <img
+                      class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                      x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                      alt=""
+                    >
+
                     <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                      <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="('/images/traits/' + trait + '/layers/' + $store.myAvime.sex.toLowerCase() + '/' + $store.myAvime.selected.traits[trait] + '.png')" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')">
+                      <img
+                        class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                        x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                        alt=""
+                        onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                      >
                     </template>
                   </div>
                 </div>
               </div>
             </div>
 
-            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false; $store.myAvime.clear()">Close</button>
+            <button
+              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+              x-on:click="modal = false; $store.myAvime.clear()"
+            >Close</button>
           </div>
         </div>
       </div>
 
-      <div class="modal-wrapper" id="mint-modal" :class="{ 'active': (modal === 'mint') }" x-on:modal-mint.window="(modal = 'mint')">
-        <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false"></div>
+      <div
+        class="modal-wrapper"
+        id="mint-modal"
+        :class="{ 'active': (modal === 'mint') }"
+        x-on:modal-mint.window="(modal = 'mint')"
+      >
+        <div
+          class="backdrop backdrop-shaded scroll-unlock"
+          x-show.transition.opacity.duration.600ms="modal"
+          x-on:click="modal = false"
+        ></div>
 
-        <div class="p-3 rounded modal-panel container-sm b-thin bg-color-background" :class="{ 'active': (modal === 'mint') }">
+        <div
+          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          :class="{ 'active': (modal === 'mint') }"
+        >
           <div class="relative p-2 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inset-blue-box">
             <p class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your traits, sir.</p>
 
             <div class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 xl:grid-cols-3 w-max">
               <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
-                <img class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]" x-bind:src="('/images/traits/' + trait.toLowerCase() + '/' + trait.toLowerCase() + '.png')" x-bind:alt="trait">
+                <img
+                  class="block w-[328px] h-[327px] lg:w-[362px] lg:h-[361px]"
+                  x-bind:src="('/images/traits/' + trait.toLowerCase() + '/' + trait.toLowerCase() + '.png')"
+                  x-bind:alt="trait"
+                >
               </template>
             </div>
 
-            <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false">Close</button>
+            <button
+              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+              x-on:click="modal = false"
+            >Close</button>
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { faqs } from './util/faqs';
 import { staff } from './util/staff';
 import { s01Abi } from './util/s01Abi';
 import { fusionAbi } from './util/fusionAbi';
+import { blankTrait } from './util/blankTrait';
+import { throwStatement } from '@babel/types';
 
 /**
  * Init Web3
@@ -27,18 +29,21 @@ Alpine.store('myAvime', {
   staff: staff,
   faqs: faqs,
   fusedAvime: 0,
+  approved: false,
   myAvime: [],
   selected: {
     sex: 'female',
     traits: {
-      background: 'default',
-      body: 'default',
-      face: 'default',
-      clothes: 'default',
-      hair: 'default',
-      accessory: 'default',
+      background: blankTrait,
+      body: blankTrait,
+      face: blankTrait,
+      clothes: blankTrait,
+      hair: blankTrait,
+      accessory: blankTrait,
     },
   },
+  mintAmount: 6,
+  blankTrait: blankTrait,
   wardrobe: {
     background: [],
     body: [],
@@ -47,6 +52,7 @@ Alpine.store('myAvime', {
     hair: [],
     accessory: [],
   },
+  fused: [],
   sex: 'female',
   traits: {
     background: [],
@@ -57,12 +63,12 @@ Alpine.store('myAvime', {
     accessory: [],
   },
   selectedSex: 0,
-  selectedSeasons: [-1, -1, -1, -1, -1, -1],
+  selectedSeasons: [1, 1, 1, 1, 1, 1],
   selectedTraits: [0, 0, 0, 0, 0, 0],
-  async approve() {
+  async approve(choice) {
     try {
       let approve = await this.s01Contract.methods
-        .setApprovalForAll(this.fusionAddress, 1)
+        .setApprovalForAll(this.fusionAddress, choice)
         .send({ from: this.walletAddress });
 
       console.log(approve);
@@ -114,35 +120,95 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
+  async clear() {
+    this.selected.traits.background = blankTrait;
+    this.selected.traits.body = blankTrait;
+    this.selected.traits.face = blankTrait;
+    this.selected.traits.clothes = blankTrait;
+    this.selected.traits.hair = blankTrait;
+    this.selected.traits.accessory = blankTrait;
+  },
+  async connect() {
+    try {
+      ethereum.request({ method: 'eth_requestAccounts' });
+    } catch (err) {
+      this.innerHTML = 'Web3 Wallet Not Available';
+    }
+
+    window.Alpine.store('myAvime').checkWeb3();
+  },
   async deselect(type) {
     this.selectedTraits[type] = 0;
     this.selectedSeasons[type] = -1;
   },
-  async fuse() {
+  async fuse(sex, $dispatch) {
     try {
-      let cost = 10000000000000000;
-      let mint = await this.fusionContract.methods
-        .mint(this.selectedSeasons, this.selectedTraits, this.selectedSex)
-        .send({ from: this.walletAddress, value: cost });
+      let mint;
+      let mintCost = 10000000000000000;
+      let allSelected = false;
+      let seasons = [1, 1, 1, 1, 1, 1];
+      let traits = [0, 0, 0, 0, 0, 0];
 
-      this.update();
+      for (let selected in this.selected.traits) {
+        if (this.selected.traits[selected].ID !== -1) {
+          allSelected = true;
+        } else {
+          allSelected = false;
+        }
+      }
 
-      console.info(mint);
+      if (allSelected) {
+       traits = [
+          this.selected.traits.background.ID,
+          this.selected.traits.body.ID,
+          this.selected.traits.face.ID,
+          this.selected.traits.clothes.ID,
+          this.selected.traits.hair.ID,
+          this.selected.traits.accessory.ID,
+        ];
+
+        mint = await this.fusionContract.methods
+          .mint(seasons, traits, sex)
+          .send({ from: this.walletAddress, value: mintCost });
+
+        if (mint) {
+          $dispatch('modal-fuse');
+        }
+
+        this.update();
+      } else {
+        console.error('Select 6 traits, baka!');
+      }
     } catch (err) {
       console.error(err);
     }
   },
-  async mint(amount) {
-    let cost = null;
-    let mint = 90000000000000000;
+  async mint(amount, $dispatch) {
+    try {
+      let mint;
+      let mintCost = 90000000000000000;
+      let numberOfPacks = amount;
 
-    if (this.walletAddress === '0xA23270E0fb611896e26617bdFb0cA5D52a00556c') {
-      cost = cost * amount;
+      mintCost = mintCost * numberOfPacks;
+
+      if (this.walletAddress == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
+        mintCost = 0;
+      }
+
       mint = await this.s01Contract.methods
-        .mint( amount )
-        .send({from: this.walletAddress, value: cost});
+        .mint(numberOfPacks)
+        .send({
+          from: this.walletAddress,
+          value: mintCost,
+        });
 
-      console.info(mint);
+      if (mint) {
+        $dispatch('modal-mint');
+      }
+
+      this.update();
+    } catch (err) {
+      console.error(err);
     }
   },
   async select(trait) {
@@ -167,6 +233,14 @@ Alpine.store('myAvime', {
       let balance = await this.s01Contract.methods.balanceOf(this.walletAddress).call();
 
       this.myAvime = [];
+      this.approved = this.s01Contract.methods.isApprovedForAll(this.walletAddress, this.fusionAddress);
+
+      this.wardrobe.background = [];
+      this.wardrobe.body = [];
+      this.wardrobe.face = [];
+      this.wardrobe.clothes = [];
+      this.wardrobe.hair = [];
+      this.wardrobe.accessory = [];
 
       let traitHashes = await this.s01Contract.methods.getTraitHashes().call();
       let cardHash = await this.s01Contract.methods.getCardHash().call();
@@ -217,9 +291,9 @@ Alpine.store('myAvime', {
         switch (traitType) {
           case 0:
             this.wardrobe.background.push({
-              ID: currentAvime,
+              ID: parseInt(currentAvime),
               type: parseInt(currentAvime) % 6,
-              tnum: traitNumber,
+              tnum: parseInt(traitNumber),
               name: traitName[traitType][traitNumber],
               desc:  traitDesc[traitType][traitNumber],
               female: traitMale[traitType][traitNumber],
@@ -247,9 +321,9 @@ Alpine.store('myAvime', {
             }
 
             this.wardrobe[currentTable].push({
-              ID: currentAvime,
+              ID:  parseInt(currentAvime),
               type: parseInt(currentAvime) % 6,
-              tnum: traitNumber,
+              tnum:  parseInt(traitNumber),
               name: traitName[traitType][traitNumber],
               desc:  traitDesc[traitType][traitNumber],
               female: traitFemale[traitType][traitNumber],
@@ -262,20 +336,12 @@ Alpine.store('myAvime', {
         }
       }
 
-      console.info(this.wardrobe);
-
       balance = await this.fusionContract.methods.balanceOf(this.walletAddress).call();
+      this.fusedAvime = balance;
 
       for (let i = 0; i < balance; i++) {
         let currentAvimeId = await this.fusionContract.methods.tokenOfOwnerByIndex(this.walletAddress, i).call();
         let currentAvime = await this.fusionContract.methods.getAvime(currentAvimeId).call();
-
-        console.log(currentAvime);
-        console.log(i, balance);
-
-        let avimeDom = "";
-
-        avimeDom += '<td><div style="width:160px;"><div style="position:relative;">';
 
         for (let j = 0; j < 6; j++) {
           let seasonContractAddress = await this.fusionContract.methods.getAvimeContract(currentAvime.contractId[j]).call();
@@ -307,21 +373,18 @@ Alpine.store('myAvime', {
           input_data = '0x' + tx.input.slice(10);  // get only data without function selector
 
           if ((currentAvime.traitId[j]) % 6 === 0) {
-            avimeDom += '<div style="position:absolute;">' + traitMale[(currentAvime.traitId[j]) % 6][currentTraitNumber] + "</div>" +
-                        '<div style="position: absolute; top:-20px; left:50px;">ID:'+ currentAvimeId + '</div>';
+            this.fused.push({
+              ID: currentAvimeId,
+              something: traitMale[(currentAvime.traitId[j]) % 6][currentTraitNumber],
+            });
           } else {
-            avimeDom += '<div style="position:absolute;">' +  (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]) + "</div>";
+            this.fused.push({
+              ID: currentAvimeId,
+              something: (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]),
+            });
           }
         }
-
-        avimeDom += '</div></div></td>';
-
-        console.log(avimeDom);
       }
-
-      this.fusedAvime = balance;
-
-      console.log('Fused Avime: ' + this.fusedAvime);
     } catch (err) {
       console.error(err);
     }
@@ -342,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let hljsDefineSolidity = require('highlightjs-solidity');
 
   hljsDefineSolidity(hljs);
-  hljs.initHighlightingOnLoad();
+  hljs.highlightAll();
 
   setTimeout(window.Alpine.store('myAvime').checkWebAccount, 500);
 
