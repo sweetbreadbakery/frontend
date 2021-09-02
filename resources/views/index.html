@@ -457,7 +457,7 @@
         <div
           class="backdrop backdrop-shaded scroll-unlock"
           x-show.transition.opacity.duration.600ms="modal"
-          x-on:click="modal = false"
+          x-on:click="modal = false; $store.myAvime.clear()"
         ></div>
 
         <div
