@@ -88,15 +88,16 @@
                   </p>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-center text-left w-max max-w-[353px]">
+                <div class="flex flex-wrap items-center justify-center text-center lg:text-left w-max max-w-[353px]">
                   <p class="w-full mb-1 text-sm">Number of packs</p>
 
                   <input class="p-3 mr-4 text-black border border-black rounded" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*" x-model="$store.myAvime.mintAmount">
 
                   <button
-                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white"
+                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded disabled:opacity-50 hover:bg-green-600 shadow-inset-white"
                     id="mint-traits"
                     x-on:click="$store.myAvime.mint($store.myAvime.mintAmount, $dispatch)"
+                    x-bind:disabled="$store.myAvime.minting"
                   >Mint <span class="mx-1" x-text="($store.myAvime.mintAmount * 6)"></span> Traits (Price: <span class="mx-1" x-text="$store.myAvime.round($store.myAvime.mintAmount * $store.myAvime.mintPrice)"></span> ETH)</button>
                 </div>
               </header>
@@ -105,7 +106,7 @@
 
               <div class="flex flex-wrap items-center justify-center p-6 max-w-[732px] mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="wardrobe-preview">
                 <div class="flex flex-wrap items-center overflow-hidden bg-blue-600 border border-black rounded-md" id="wardrobe-preview-wrap">
-                  <div class="relative p-4 border-b rounded-t border-b-blue-900 lg:border-r lg:border-r-blue-200 lg:border-b-0 lg:rounded-l lg:rounded-t-none w-max" id="wardrobe-preview-avime">
+                  <div class="relative w-full p-4 border-b rounded-t border-b-blue-900 lg:border-r lg:border-r-blue-200 lg:border-b-0 lg:rounded-l lg:rounded-t-none lg:w-max" id="wardrobe-preview-avime">
                     <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
                       <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
                         <img
@@ -126,7 +127,7 @@
                     </div>
                   </div>
 
-                  <div class="flex flex-col text-center w-max" id="wardrobe-selected">
+                  <div class="flex flex-col w-full text-center lg:w-max" id="wardrobe-selected">
                     <div class="p-4 border-b border-b-blue-900 lg:border-l lg:border-l-blue-900 lg:rounded-tr" id="wardrobe-selected-traits">
                       <p class="mb-[0.85rem]">Traits</p>
 
@@ -174,10 +175,11 @@
                         x-on:click="$store.myAvime.approve(1)"
                       >Approve Fusion</button>
                       <button
-                        class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white"
+                        class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
                         id="fuse-avime"
                         x-show="$store.myAvime.approved"
                         x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
+                        x-bind:disabled="$store.myAvime.fusing"
                       >Fuse Your Avime</button>
                     </p>
 
@@ -191,9 +193,9 @@
                   <div class="sm:hidden" id="wardrobe-inventory-select">
                     <label for="tabs" class="sr-only">Select a trait</label>
 
-                    <select id="tabs" name="tabs" class="block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                    <select id="tabs" name="tabs" class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100" x-model="tab">
                       <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                        <option x-text="trait"></option>
+                        <option x-text="trait" x-bind:value="trait"></option>
                       </template>
                     </select>
                   </div>
@@ -201,8 +203,8 @@
                   <nav class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black" id="wardrobe-inventory-tabs" aria-label="Inventory Tabs">
                     <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
                       <label
-                        class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase border-l border-r border-r-blue-100 border-l-blue-900"
-                        :class="{ 'active': tab === trait }"
+                        class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900"
+                        :class="{ 'bg-blue-600 hover:bg-blue-600': tab === trait }"
                         x-on:click="tab = trait"
                         x-text="trait"
                       ></label>
@@ -211,9 +213,9 @@
 
                   <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
                     <div class="overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel" x-show.transition.in.opacity.duration.600="tab === trait">
-                      <ul class="flex flex-wrap items-start py-2 pl-2 pr-0 h-[220px]">
+                      <ul class="flex flex-wrap items-start py-1 pl-1 lg:py-2 lg:pl-2 pr-0 h-[110px] lg:h-[220px]">
                         <template x-for="item in $store.myAvime.wardrobe[trait]">
-                          <li class="flex items-center justify-center p-2 h-max">
+                          <li class="flex items-center justify-center p-1 m-0 lg:p-2 h-max">
                             <button
                               class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
                               x-on:click="$store.myAvime.selected.traits[trait] = item"

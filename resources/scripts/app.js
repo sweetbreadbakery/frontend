@@ -41,6 +41,8 @@ Alpine.store('myAvime', {
       accessory: blankTrait,
     },
   },
+  minting: false,
+  fusing: false,
   mintPrice: 0.09,
   mintAmount: 1,
   blankTrait: blankTrait,
@@ -143,6 +145,8 @@ Alpine.store('myAvime', {
   },
   async fuse(sex, $dispatch) {
     try {
+      this.fusing = true;
+
       let mint;
       let mintCost = 10000000000000000;
       let allSelected = false;
@@ -172,19 +176,24 @@ Alpine.store('myAvime', {
           .send({ from: this.walletAddress, value: mintCost });
 
         if (mint) {
+          this.fusing = false;
           $dispatch('modal-fuse');
         }
 
         this.update();
       } else {
+        this.fusing = false;
         console.error('Select 6 traits, baka!');
       }
     } catch (err) {
+      this.fusing = false;
       console.error(err);
     }
   },
   async mint(amount, $dispatch) {
     try {
+      this.minting = true;
+
       let mint;
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
@@ -203,11 +212,13 @@ Alpine.store('myAvime', {
         });
 
       if (mint) {
+        this.minting = false;
         $dispatch('modal-mint');
       }
 
       this.update();
     } catch (err) {
+      this.minting = false;
       console.error(err);
     }
   },
