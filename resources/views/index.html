@@ -200,7 +200,7 @@
               <p class="flex items-center justify-center mt-8 space-x-4">
                 <button
                   class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 active:bg-blue-700 shadow-inset-blue-100"
-                  x-on:click="$store.myAvime.randomize()"
+                  x-on:click="$store.myAvime.randomize($store.myAvime.gender)"
                 >Randomize</button>
                 <button
                   class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 active:bg-blue-700 shadow-inset-blue-100"
@@ -392,7 +392,6 @@
       </footer>
     </div>
 
-    <script src="/scripts/web3.js" defer></script>
     <script src="/scripts/app.js" defer></script>
   </body>
 </html>
