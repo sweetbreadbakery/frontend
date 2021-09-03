@@ -29,12 +29,12 @@ Alpine.store('myAvime', {
     this.traits.accessory = 'default';
   },
   randomize(gender) {
-    this.traits.background = getRandomIntInclusive(1, 9);
-    this.traits.body = getRandomIntInclusive(1, 9);
-    this.traits.face = getRandomIntInclusive(1, 9);
-    this.traits.clothes = getRandomIntInclusive(1, 9);
-    this.traits.hair = getRandomIntInclusive(1, 9);
-    this.traits.accessory = getRandomIntInclusive(1, 9);
+    this.traits.background = getRandomIntInclusive(1, 12);
+    this.traits.body = getRandomIntInclusive(1, 12);
+    this.traits.face = getRandomIntInclusive(1, 12);
+    this.traits.clothes = getRandomIntInclusive(1, 12);
+    this.traits.hair = getRandomIntInclusive(1, 12);
+    this.traits.accessory = getRandomIntInclusive(1, 12);
     this.gender = (gender === 'female') ? 'male' : 'female';
   },
 });
