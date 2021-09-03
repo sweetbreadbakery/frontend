@@ -1,15 +1,36 @@
 @font-face {
-  font-family: 'Pixelated MS Sans Serif';
-  src: url('../fonts/ms_sans_serif.woff') format('woff');
-  src: url('../fonts/ms_sans_serif.woff2') format('woff2');
+  font-family: 'cp_fontregular';
+  src: url('../fonts/cp-font.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Pixelated MS Sans Serif';
-  src: url('../fonts/ms_sans_serif_bold.woff') format('woff');
+  src: url('../fonts/ms_sans_serif.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixelated MS Sans Serif';
   src: url('../fonts/ms_sans_serif_bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DOS';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Fixedsys500c.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-kerning: none;
+  font-synthesis: none;
+  font-variant-ligatures: none;
+  font-variant-numeric: tabular-nums;
 }

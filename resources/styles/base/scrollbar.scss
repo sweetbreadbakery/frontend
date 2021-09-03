@@ -1,0 +1,29 @@
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.blue.500');
+  border: 1px solid theme('colors.black');
+  border-radius: 4px;
+  box-shadow: inset -1px  1px 0px 0px theme('colors.blue.100'),
+              inset  1px -1px 0px 0px theme('colors.blue.600');
+}
+
+::-webkit-scrollbar-track{
+  background: theme('colors.blue.800');
+}
+
+.tab-panel::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.tab-panel::-webkit-scrollbar-thumb {
+  background: theme('colors.blue.500');
+  border: 1px solid theme('colors.black');
+  border-radius: 0;
+  box-shadow: inset -1px  1px 0px 0px theme('colors.blue.100'),
+              inset  1px -1px 0px 0px theme('colors.blue.600');
+}

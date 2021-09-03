@@ -1,63 +1,28 @@
-import { s01Abi } from './util/s01Abi';
-import { fusionAbi } from './util/fusionAbi';
-import { checkWeb3 } from './util/checkWeb3';
-import { checkWebAccount } from './util/checkWebAccount';
-import { updateMyAvime } from './util/updateMyAvime';
+import Alpine from 'alpinejs';
+import { faqs } from './util/faqs';
+import { staff } from './util/staff';
 
 /**
- * Init Web3
+ * Set Alpine.js store data
  */
-const ethereum = window.ethereum;
-const web3 = new window.Web3(ethereum);
+
+Alpine.store('myAvime', {
+  showWardrobe: false,
+  gender: 'female',
+  staff: staff,
+  faqs: faqs,
+  traits: {
+    background: 'default',
+    body: 'default',
+    face: 'default',
+    clothes: 'default',
+    hair: 'default',
+    accessory: 'default',
+  },
+});
 
 /**
  * Init Alpine.js
  */
-window.Alpine.store('avime', {
-  loaded: false,
-  s01Address: '0xf250E5827Aa59eB6F82bf60d153bC79197DAb0F7',
-  fusionAddress: '0x0Cd2D6c0eb6bf5d92751cB2eA73DA643256E5678',
-  myAvime: [],
-  traitName: ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory'],
-  selectedTraits: [0, 0, 0, 0, 0, 0],
-  selectedSeasons: [-1, -1, -1, -1, -1, -1],
-  cardCurrent: null,
-  cardData: [],
-  nameData: [],
-  descData: [],
-  thumbData: [],
-  maleData: [],
-  femaleData: [],
-  currentTraitNum: null,
-  s01Contract: null,
-  fusionContact: null,
-  walletAddress: '',
-  complete() {
-    this.loaded = true;
-    // this.s01Contract = new web3.eth.Contract(s01Abi, this.s01Address);
-    // this.fusionContract = new web3.eth.Contract(fusionAbi, this.fusionAddress);
-    // setTimeout(this.checkWebAccount, 500, ethereum, web3);
-  },
-  checkWeb3: checkWeb3,
-  checkWebAccount: checkWebAccount,
-  updateMyAvime: updateMyAvime,
-  T0_current: null,
-  T0_data: [],
-});
-
-/**
- * Init everything else...
- */
-document.addEventListener('DOMContentLoaded', () => {
-  window.Alpine.store('avime').complete();
-
-  // document.getElementById('eth-login').addEventListener('click', function () {
-  //   try {
-  //     ethereum.request({ method: 'eth_requestAccounts' });
-  //   } catch (err) {
-  //     this.innerHTML = 'Web3 Wallet Not Available';
-  //   }
-
-  //   window.Alpine.store('avime').checkWeb3(ethereum, web3);
-  // });
-});
+window.Alpine = Alpine;
+Alpine.start();
