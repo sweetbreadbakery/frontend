@@ -37,6 +37,6 @@
     "webpack": "^5.46.0"
   },
   "dependencies": {
-    "alpinejs": "^3.2.2"
+    "alpinejs": "^3.3.1"
   }
 }
