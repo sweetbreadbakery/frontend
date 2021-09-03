@@ -90,18 +90,9 @@
 
                 <p class="text-center lg:text-left">
                   <button
-                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
-                    x-show="!$store.myAvime.approved"
-                    x-on:click="$store.myAvime.approve(1)"
-                  >Approve</button>
-
-                  <button
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white"
                     id="mint-traits"
-                    x-show="$store.myAvime.approved"
                     x-on:click="$store.myAvime.mint(1, $dispatch)"
-                    x-cloak
-                    style="display: none;"
                   >Mint 6 Traits (Price: 0.09 ETH)</button>
                 </p>
               </div>
@@ -174,8 +165,14 @@
 
                   <p class="flex mt-auto">
                     <button
+                      class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
+                      x-show="!$store.myAvime.approved"
+                      x-on:click="$store.myAvime.approve(1)"
+                    >Approve Fusion</button>
+                    <button
                       class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white"
                       id="fuse-avime"
+                      x-show="$store.myAvime.approved"
                       x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
                     >Fuse Your Avime</button>
                   </p>
@@ -370,10 +367,10 @@
               <h2 class="mb-12 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Why On-Chain?</h2>
 
               <div class="mx-auto prose prose-white max-w-none">
-                <p class="max-w-3xl mx-auto">Avime will outlive its creators on the ethereum blockchain. Putting all of the NFT data on-chain costs quite a bit more in contract deployment, and requires an investment in development that most projects are not willing to undertake. We want Avime to be one of the early adopters in completely on-chain NFTs, and pave the way for the next wave of incredible NFT projects.</p>
+                <p class="max-w-3xl mx-auto text-center">Avime will outlive its creators on the ethereum blockchain. Putting all of the NFT data on-chain costs quite a bit more in contract deployment, and requires an investment in development that most projects are not willing to undertake. We want Avime to be one of the early adopters in completely on-chain NFTs, and pave the way for the next wave of incredible NFT projects.</p>
 
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
-                  <p>The token information can be accessed just like any other NFT by calling <code class="language-solidity">tokenURI(tokenId)</code> and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills. That is why we have also added a <code class="language-solidity">tokenData(tokenId)</code> function to our smart contract that will grab all of the NFT data directly from the blockchain. This function will return the following structure:</p>
+                  <p class="text-center lg:text-left">The token information can be accessed just like any other NFT by calling <code class="language-solidity">tokenURI(tokenId)</code> and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills. That is why we have also added a <code class="language-solidity">tokenData(tokenId)</code> function to our smart contract that will grab all of the NFT data directly from the blockchain. This function will return the following structure:</p>
                   <pre><code class="language-solidity">struct TokenData {
   string tokenName;
   uint8 traitNum;
@@ -384,9 +381,12 @@
                 </div>
 
                 <p class="max-w-3xl mx-auto text-center">The data for the trait can be accessed by taking <code class="language-solidity">tokenData.traitTxHash</code> and decoding it with the following ABI:</p>
+
                 <pre class="max-w-3xl mx-auto"><code class="language-solidity">[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
-                <p class="max-w-3xl mx-auto">This will return the following data: <code class="language-solidity">name[15], description[15], male[15], female[15]</code>.  You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and the images are base64 enpred inside on an <code class="language-solidity">&lt;img&gt;</code> tag so they can easily be incorporated into any webpage.</p>
-                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+
+                <p class="max-w-3xl mx-auto text-center">This will return the following data: <code class="language-solidity">name[15], description[15], male[15], female[15]</code>.  You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and the images are base64 encoded so they can easily be incorporated into any webpage.</p>
+
+                <div class="flex items-center space-y-8 lg:space-y-0 lg:space-x-8">
                   <p>The fusion contract stores the contract addresses for each Avime season. When Trait Cards combine to create an Avime, a structure is created that represents all of the traits that went into creating that Avime. Since all of the Trait Cards are stored on-chain and accessible as described in the last paragraph, this Avime structure stores all the information necessary to retrieve each trait and generate the Avime without any need of off-chain data. In this case, calling <code class="language-solidity">tokenData(tokenId)</code> or <code class="language-solidity">getAvime(tokenId)</code> on the fusion contract will return the following structure:</p>
                   <pre><code class="language-solidity">struct Avime {
   uint8[6] contractId;
@@ -395,8 +395,8 @@
 }</code></pre>
                 </div>
                 <p class="text-center">The address is obtained by calling <code class="language-solidity">getAvimeContract(contractId)</code> and for the sex, <code class="language-solidity">0 = Female</code> and <code class="language-solidity">1 = Male</code>.</p>
-                <p class="max-w-3xl mx-auto">Our NFTs also cost a bit more to mint because they use the ERC721 Enumeration extension.  In order to generate Avime Fusions, it is necessary to know every token that a user holds. The website must present all of the users traits to them and allow the user to select which traits they would like to use to generate a Fused Avime.  Services like Etherscan allow you to see all of the tokens that you hold, but without the ERC721 enumeration extension, there is no simple way to make a call to the blockchain and know every NFT that a user holds.  We want to put all of the information on-chain, and ensure that all the end user needs is the blockchain to view Trait Cards and Fuse Avime. This is why we have added the Enumeration extension to our NFT.  It costs more to mint, but allows our product to not rely on any third parties.</p>
-                <p class="max-w-3xl mx-auto">Even though our users only need the Ethereum blockchain, It sure would be nice if they had an easy to use user interface to interact with our contracts. For that reason, this website (www.avime.moe) is opensourced here (link to github), ensuring it will always be possible to easily interact with our smart contracts.</p>
+                <p class="max-w-3xl mx-auto text-center">Our NFTs also cost a bit more to mint because they use the ERC721 Enumeration extension.  In order to generate Avime Fusions, it is necessary to know every token that a user holds. The website must present all of the users traits to them and allow the user to select which traits they would like to use to generate a Fused Avime.  Services like Etherscan allow you to see all of the tokens that you hold, but without the ERC721 enumeration extension, there is no simple way to make a call to the blockchain and know every NFT that a user holds.  We want to put all of the information on-chain, and ensure that all the end user needs is the blockchain to view Trait Cards and Fuse Avime. This is why we have added the Enumeration extension to our NFT.  It costs more to mint, but allows our product to not rely on any third parties.</p>
+                <p class="max-w-3xl mx-auto text-center">Even though our users only need the Ethereum blockchain, It sure would be nice if they had an easy to use user interface to interact with our contracts. For that reason, this website (www.avime.moe) is opensourced here (link to github), ensuring it will always be possible to easily interact with our smart contracts.</p>
                 <p class="text-center">Our smart contract is open-sourced here: (link available after sellout)</p>
                 <p class="text-center">The API that serves the tokenURI assets is open-sourced and available here: (link available after sellout)</p>
               </div>
