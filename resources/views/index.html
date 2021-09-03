@@ -89,9 +89,19 @@
                 </div>
 
                 <div class="flex flex-wrap items-center justify-center text-center lg:text-left w-max max-w-[353px]">
-                  <p class="w-full mb-1 text-sm">Number of packs</p>
+                  <p class="w-full mb-1 text-sm">Number of packs (Max 10)</p>
 
-                  <input class="p-3 mr-4 text-black border border-black rounded" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*" x-model="$store.myAvime.mintAmount">
+                  <input
+                    class="p-3 mr-4 text-black border border-black rounded shadow-inner"
+                    type="number"
+                    value="1"
+                    min="1"
+                    max="10"
+                    maxlength="2"
+                    pattern="\d*"
+                    onkeydown="return false"
+                    x-model="$store.myAvime.mintAmount"
+                  >
 
                   <button
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded disabled:opacity-50 hover:bg-green-600 shadow-inset-white"
@@ -523,15 +533,15 @@
           class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
           :class="{ 'active': (modal === 'fuse') }"
         >
-          <div class="relative p-6 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inset-blue-box">
-            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime fusion completed!</p>
+          <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime get!</p>
 
             <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
-              <div class="relative gap-4 p-3 overflow-hidden text-black bg-teal-300 border-2 border-blue-600 rounded-md">
-                <div class="overflow-hidden border-2 border-black rounded">
-                  <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
+              <div class="relative gap-4 p-3 mx-auto overflow-hidden text-black bg-teal-300 border-2 border-blue-600 rounded-lg w-max">
+                <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
+                  <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px] rounded">
                     <img
-                      class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                      class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
                       x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
                       alt=""
                     >
@@ -548,6 +558,8 @@
                 </div>
               </div>
             </div>
+
+            <p>Your new Avime has been fused!</p>
 
             <button
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
@@ -573,8 +585,10 @@
           class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
           :class="{ 'active': (modal === 'mint') }"
         >
-          <div class="relative p-6 overflow-hidden bg-blue-500 border border-black rounded-lg sm:p-3 shadow-inset-blue-box">
-            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Trait mint has completed!</p>
+          <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Trait Cards get!</p>
+
+            <p>Your Trait Cards have been minted! Check your wardrobe to see what you got.</p>
 
             <button
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"

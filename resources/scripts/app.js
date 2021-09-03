@@ -198,6 +198,12 @@ Alpine.store('myAvime', {
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
 
+      if (numberOfPacks > 10) {
+        numberOfPacks = 10;
+      } else if (numberOfPacks < 1) {
+        numberOfPacks = 1;
+      }
+
       mintCost = mintCost * numberOfPacks;
 
       if (this.walletAddress == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
