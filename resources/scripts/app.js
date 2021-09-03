@@ -4,7 +4,6 @@ import { staff } from './util/staff';
 import { s01Abi } from './util/s01Abi';
 import { fusionAbi } from './util/fusionAbi';
 import { blankTrait } from './util/blankTrait';
-import { throwStatement } from '@babel/types';
 
 /**
  * Init Web3
@@ -42,7 +41,8 @@ Alpine.store('myAvime', {
       accessory: blankTrait,
     },
   },
-  mintAmount: 6,
+  mintPrice: 0.09,
+  mintAmount: 1,
   blankTrait: blankTrait,
   wardrobe: {
     background: [],
@@ -210,6 +210,9 @@ Alpine.store('myAvime', {
     } catch (err) {
       console.error(err);
     }
+  },
+  round(number) {
+    return Math.round(number * 100 + Number.EPSILON) / 100;
   },
   async select(trait) {
     this.selectedTraits[trait.tnum] = trait.ID;
