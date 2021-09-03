@@ -109,13 +109,13 @@ Alpine.store('myAvime', {
       const currentAccounts = await web3.eth.getAccounts();
       const account = currentAccounts[0];
 
-      if (account != window.Alpine.store('myAvime').walletAddress) {
+      if (account !== window.Alpine.store('myAvime').walletAddress) {
         window.Alpine.store('myAvime').walletAddress = account;
         window.Alpine.store('myAvime').checkWeb3();
         window.Alpine.store('myAvime').update();
       }
 
-      setTimeout(this.checkWebAccount);
+      setTimeout(this.checkWebAccount, 500);
     } catch (err) {
       console.error(err);
     }
@@ -408,6 +408,11 @@ document.addEventListener('DOMContentLoaded', () => {
   hljs.highlightAll();
 
   setTimeout(window.Alpine.store('myAvime').checkWebAccount, 500);
+
+
+  // let aviHash = await fusionContract.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
+  // let uniqueAvimeId = await fusionContract.methods.checkAvimeHash(aviHash).call();
+  // let isUnique = uniqueAvimeId==currentAvimeId ? "Unique" : "Dupe #" + uniqueAvimeId;
 
   document.getElementById('eth-login').addEventListener('click', function () {
     try {

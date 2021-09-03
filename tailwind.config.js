@@ -44,16 +44,16 @@ module.exports = {
         cyan: colors.cyan,
         lightBlue: colors.lightBlue,
         blue: {
-          '50':  '#EFF6FF',
-          '100': '#B3EBEF',
-          '200': '#75B9E2',
-          '300': '#5FBAE7',
-          '400': '#60A5FA',
-          '500': '#1C7BAC',
-          '600': '#234883',
-          '700': '#23427D',
-          '800': '#08293C',
-          '900': '#05202F',
+          "50": "#d8eef9",
+          "100": "#bde2f4",
+          "200": "#8dcdec",
+          "300": "#58b5e4",
+          "400": "#28a0dc",
+          "500": "#1c7bab",
+          "600": "#17658c",
+          "700": "#124f6e",
+          "800": "#0c364b",
+          "900": "#07202c",
         },
         indigo: colors.indigo,
         violet: colors.violet,
@@ -67,7 +67,7 @@ module.exports = {
       },
       fontFamily: {
         heading: '"cp_fontregular", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-        sans: '"Pixelated MS Sans Serif", "Arial Narrow", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        sans: '"Pixelated MS Sans Serif", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
         mono: 'DOS, Monaco, Menlo, Consolas, "Courier New", monospace',
       },
       typography: (theme) => ({
@@ -210,5 +210,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
 };

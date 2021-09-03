@@ -61,11 +61,11 @@
       </header>
 
       <main class="text-black bg-blue-100" id="main">
-        <section class="text-white bg-blue-500 border-t border-b border-black" id="mint" x-data>
+        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data>
           <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
             <div x-show="!$store.myAvime.walletConnected">
-              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Waifu NFTs? Say no more.</h2>
-              <p class="mt-4 text-lg leading-6 text-white">Connect your wallet below to mint your 6 traits!</p>
+              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
+              <p class="mt-4 text-lg leading-6 text-white">Connect your wallet to mint and view Trait Cards.</p>
               <button
                 class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
                 id="eth-login"
@@ -73,13 +73,13 @@
             </div>
 
             <div
-              class="p-4 bg-blue-500 border border-black rounded bg-gradient-to-b lg:p-7"
-              id="mint-interface"
+              class="p-4 leading-none uppercase bg-blue-500 border border-black rounded-xl bg-gradient-to-b lg:p-7"
+              id="wardrobe-interface"
               x-show="$store.myAvime.walletConnected"
               x-cloak
               style="display: none;"
             >
-              <div class="flex flex-col items-center justify-between lg:flex-row">
+              <header class="flex flex-col items-center justify-between lg:flex-row" id="wardrobe-header">
                 <div class="mb-4 text-center lg:text-left lg:mb-0">
                   <h2 class="mb-2 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
                   <p class="leading-none">
@@ -88,120 +88,131 @@
                   </p>
                 </div>
 
-                <p class="text-center lg:text-left">
+                <div class="flex items-center justify-center space-x-4">
+                  <div class="flex items-center justify-center">
+                    <input class="text-black" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*">
+                  </div>
+
                   <button
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 shadow-inset-white"
                     id="mint-traits"
                     x-on:click="$store.myAvime.mint(1, $dispatch)"
                   >Mint 6 Traits (Price: 0.09 ETH)</button>
-                </p>
-              </div>
+                </div>
+              </header>
 
-              <hr class="my-4 border-t border-b lg:my-8 border-b-blue-100 border-t-blue-900">
+              <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
 
-              <div class="flex flex-col mx-auto mb-8 space-y-8 lg:flex-row w-max lg:space-y-0 lg:space-x-8">
-                <div class="flex flex-col items-center justify-center">
-                  <div class="flex items-center justify-between w-full mb-4">
-                    <p class="leading-none uppercase">Preview</p>
-                    <p class="leading-none uppercase">(Fused Avime: <span x-text="$store.myAvime.fusedAvime"></span>)</p>
-                  </div>
+              <div class="flex flex-wrap items-center justify-center p-6 max-w-[732px] mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="wardrobe-preview">
+                <div class="flex flex-wrap items-center overflow-hidden bg-blue-500 border border-black rounded-md" id="wardrobe-preview-wrap">
+                  <div class="relative p-4 border-b rounded-t border-b-blue-900 lg:border-r lg:border-r-blue-200 lg:border-b-0 lg:rounded-l lg:rounded-t-none w-max" id="wardrobe-preview-avime">
+                    <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
+                      <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
+                        <img
+                          class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
+                          x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                          alt=""
+                        >
 
-                  <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-preview">
-                    <div class="relative gap-4 p-3 overflow-hidden text-black bg-blue-100 border-2 border-blue-600 rounded-md">
-                      <div class="overflow-hidden border-2 border-black rounded">
-                        <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px]">
+                        <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
                           <img
                             class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
-                            x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                            x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
                             alt=""
+                            onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
                           >
+                        </template>
+                      </div>
+                    </div>
+                  </div>
 
-                          <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                  <div class="flex flex-col text-center w-max" id="wardrobe-selected">
+                    <div class="p-4 border-b border-b-blue-900 lg:border-l lg:border-l-blue-900 lg:rounded-tr" id="wardrobe-selected-traits">
+                      <p class="mb-[0.85rem]">Traits</p>
+
+                      <div class="grid grid-cols-3 gap-4 mx-auto w-max">
+                        <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                          <button
+                            class="bg-center bg-no-repeat bg-cover image-bevel"
+                            x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`"
+                            x-on:click="($store.myAvime.selected.traits[trait] = $store.myAvime.blankTrait)"
+                          >
                             <img
-                              class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
-                              x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                              class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                              x-bind:src="$store.myAvime.selected.traits[trait].thumb"
                               alt=""
                               onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
                             >
-                          </template>
-                        </div>
+                          </button>
+                        </template>
                       </div>
+                    </div>
+
+                    <div class="p-4 border-t rounded-b border-t-blue-200 lg:rounded-b-none lg:rounded-br lg:border-l lg:border-l-blue-900" id="wardrobe-selected-sex">
+                      <p class="mb-[0.85rem]">Gender</p>
+
+                      <p class="grid grid-cols-2 gap-4">
+                        <template x-for="gender in ['female', 'male']">
+                          <button
+                            class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
+                            :class="{ 'bg-blue-600 border-blue-100 shadow-inset-blue-900': $store.myAvime.sex === gender}"
+                            x-on:click="($store.myAvime.sex = gender)"
+                            x-text="gender"
+                          ></button>
+                        </template>
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div class="flex flex-col text-center">
-                  <p class="mb-4 leading-none uppercase">Selected Traits</p>
-
-                  <div class="grid grid-cols-3 gap-4 mx-auto mb-4 lg:mb-8 w-max">
-                    <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                <div class="w-full col-span-1 mt-6 lg:col-span-2" id="wardrobe-fuse">
+                  <div class="mx-auto w-max">
+                    <p class="mb-4">
                       <button
-                        class="bg-center bg-no-repeat bg-cover image-bevel"
-                        x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`"
-                        x-on:click="($store.myAvime.selected.traits[trait] = $store.myAvime.blankTrait)"
-                      >
-                        <img
-                          class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
-                          x-bind:src="$store.myAvime.selected.traits[trait].thumb"
-                          alt=""
-                          onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
-                        >
-                      </button>
-                    </template>
+                        class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
+                        x-show="!$store.myAvime.approved"
+                        x-on:click="$store.myAvime.approve(1)"
+                      >Approve Fusion</button>
+                      <button
+                        class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white"
+                        id="fuse-avime"
+                        x-show="$store.myAvime.approved"
+                        x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
+                      >Fuse Your Avime</button>
+                    </p>
+
+                    <p class="mb-2 text-xs">All 6 selected traits will be burned when fused into an Avime</p>
+                    <p class="text-xs">(Fused Avime: <span x-text="$store.myAvime.fusedAvime"></span>)</p>
                   </div>
-
-                  <p class="mb-4 leading-none uppercase">Selected Gender</p>
-
-                  <p class="grid grid-cols-2 gap-4">
-                    <template x-for="gender in ['female', 'male']">
-                      <button
-                        class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
-                        :class="{ 'bg-blue-600 border-blue-100 shadow-inset-blue-900': $store.myAvime.sex === gender}"
-                        x-on:click="($store.myAvime.sex = gender)"
-                        x-text="gender"
-                      ></button>
-                    </template>
-                  </p>
-
-                  <p class="flex mt-auto">
-                    <button
-                      class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium uppercase border border-black rounded shadow-inset-blue-100"
-                      x-show="!$store.myAvime.approved"
-                      x-on:click="$store.myAvime.approve(1)"
-                    >Approve Fusion</button>
-                    <button
-                      class="inline-flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white uppercase bg-green-500 border border-black rounded scroll-lock hover:bg-green-600 shadow-inset-white"
-                      id="fuse-avime"
-                      x-show="$store.myAvime.approved"
-                      x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
-                    >Fuse Your Avime</button>
-                  </p>
                 </div>
               </div>
 
-              <ul
-                class="relative flex flex-col w-full max-w-[692px] mx-auto mb-4 lg:flex-row lg:h-[356px]"
-                id="fuse-traits-list"
-                x-data="{ tab: 'background' }"
-              >
-                <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                  <li
-                    class="z-20 flex-1 text-center border-t border-l border-r rounded-t lg:h-[42px] lg:first:rounded-t-none lg:first:rounded-tl lg:last:rounded-t-none lg:last:rounded-tr"
-                    :class="{ 'z-10 border-transparent': (tab !== trait), 'z-20 bg-blue-600 border-black shadow-tab-blue-100': (tab === trait) }"
-                  >
-                    <button
-                      class="relative z-10 block w-full p-2 uppercase rounded-t bg-inherit"
-                      x-on:click="(tab = trait)"
-                      x-text="trait"
-                    ></button>
+              <div class="" id="wardrobe-inventory">
+                <div class="max-w-[732px] mx-auto" x-data="{ tab: 'background' }">
+                  <div class="sm:hidden" id="wardrobe-inventory-select">
+                    <label for="tabs" class="sr-only">Select a trait</label>
 
-                    <div
-                      class="static lg:absolute top-[40px] p-1 left-0 w-full bg-blue-600 border border-black lg:rounded-b shadow-blue-100"
-                      x-show="(tab === trait)"
-                      x-cloak
-                      style="display: none;"
-                    >
-                      <ul class="flex flex-wrap items-center">
+                    <select id="tabs" name="tabs" class="block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                      <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                        <option x-text="trait"></option>
+                      </template>
+                    </select>
+                  </div>
+
+                  <nav class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black" id="wardrobe-inventory-tabs" aria-label="Inventory Tabs">
+                    <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                      <label
+                        class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase border-l border-r border-r-blue-100 border-l-blue-900"
+                        :class="{ 'active': tab === trait }"
+                        x-on:click="tab = trait"
+                        x-text="trait"
+                      ></label>
+                    </template>
+                  </nav>
+
+                  <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                    <div class="overflow-scroll bg-blue-600 border border-black rounded-b tab-panel" x-show.transition.in.opacity.duration.600="tab === trait">
+                      <ul class="flex flex-wrap items-center p-2 h-[220px]">
                         <template x-for="item in $store.myAvime.wardrobe[trait]">
                           <li class="flex items-center justify-center p-2 h-max">
                             <button
@@ -219,18 +230,18 @@
                         </template>
                       </ul>
                     </div>
-                  </li>
-                </template>
-              </ul>
+                  </template>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="pt-16 sm:pt-20" id="about" x-data>
+        <section class="pt-16 text-center sm:pt-20" id="about" x-data>
           <div class="relative max-w-xl px-4 mx-auto sm:px-6 lg:px-8 lg:max-w-6xl">
-            <h2 class="mb-8 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">What is Avime???</h2>
-            <p class="max-w-3xl mx-auto mb-6 leading-7 text-justify">Avime is the first fully on-chain customizable NFT project, featuring artwork heavily inspired by anime. Our custom built contract, on-chain provenance, and customization mechanics make Avime truly stand out in the world of NFTs. With a plethora of customization options, the ability to choose between two body types, and more options planned for release in future updates, Avime gives you the ability to create an avatar that you truly resonate with.</p>
-            <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-justify text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">Each Avime mint will give you 6 different Avime Trait Cards of varying rarities, one from each of these categories:</h3>
+            <h2 class="mb-8 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">What is Avime???</h2>
+            <p class="max-w-3xl mx-auto mb-6 leading-7">Avime is the first fully on-chain customizable NFT project, featuring artwork heavily inspired by anime. Our custom built contract, on-chain provenance, and customization mechanics make Avime truly stand out in the world of NFTs. With a plethora of customization options, the ability to choose between two body types, and more options planned for release in future updates, Avime gives you the ability to create an avatar that you truly resonate with.</p>
+            <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">Each Avime mint will give you 6 different Avime Trait Cards of varying rarities, one from each of these categories:</h3>
 
             <div class="grid grid-cols-1 gap-2 mx-auto my-8 sm:grid-cols-2 lg:my-12 xl:grid-cols-3 w-max">
               <template x-for="trait in ['Background', 'Body', 'Face', 'Clothes', 'Hair', 'Accessory']">
@@ -238,9 +249,9 @@
               </template>
             </div>
 
-            <p class="max-w-3xl mx-auto mb-6 leading-7 text-justify">Avime Trait Cards are ERC721 NFTs that can be traded on secondary markets, and can be combined in the Wardrobe to create a completed Avime. All Trait Cards combined will be burned upon fusion, meaning the total circulating supply of traits will reduce over time.</p>
-            <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-justify text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">You will need one trait for EACH category in order to create an Avime.</h3>
-            <p class="max-w-3xl mx-auto mt-6 leading-7 text-justify">There will only ever be enough Trait Cards to create 10k total Avime. Future expansion packs are planned to add more options to customization, but an exchange of already existing Avime Trait Cards will be required to redeem newly introduced ones.</p>
+            <p class="max-w-3xl mx-auto mb-6 leading-7">Avime Trait Cards are ERC721 NFTs that can be traded on secondary markets, and can be combined in the Wardrobe to create a completed Avime. All Trait Cards combined will be burned upon fusion, meaning the total circulating supply of traits will reduce over time.</p>
+            <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">You will need one trait for EACH category in order to create an Avime.</h3>
+            <p class="max-w-3xl mx-auto mt-6 leading-7">There will only ever be enough Trait Cards to create 10k total Avime. Future expansion packs are planned to add more options to customization, but an exchange of already existing Avime Trait Cards will be required to redeem newly introduced ones.</p>
           </div>
         </section>
 
@@ -367,11 +378,21 @@
               <h2 class="mb-12 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Why On-Chain?</h2>
 
               <div class="mx-auto prose prose-white max-w-none">
-                <p class="max-w-3xl mx-auto text-center">Avime will outlive its creators on the ethereum blockchain. Putting all of the NFT data on-chain costs quite a bit more in contract deployment, and requires an investment in development that most projects are not willing to undertake. We want Avime to be one of the early adopters in completely on-chain NFTs, and pave the way for the next wave of incredible NFT projects.</p>
+                <p class="max-w-3xl mx-auto text-center">
+                  Avime will outlive its creators on the ethereum blockchain. Putting all of the NFT data on-chain costs quite a bit more in
+                  contract deployment, and requires an investment in development that most projects are not willing to undertake. We want Avime
+                  to be one of the early adopters in completely on-chain NFTs, and pave the way for the next wave of incredible NFT projects.
+                </p>
 
-                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
-                  <p class="text-center lg:text-left">The token information can be accessed just like any other NFT by calling <code class="language-solidity">tokenURI(tokenId)</code> and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills. That is why we have also added a <code class="language-solidity">tokenData(tokenId)</code> function to our smart contract that will grab all of the NFT data directly from the blockchain. This function will return the following structure:</p>
-                  <pre><code class="language-solidity">struct TokenData {
+                <div class="flex flex-col items-center space-y-8 lg:flex-row lg:space-y-0 lg:space-x-8">
+                  <p class="flex-1 text-center lg:text-left">
+                    The token information can be accessed just like any other NFT by calling <code class="language-solidity">tokenURI(tokenId)</code>
+                    and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills.
+                    That is why we have also added a <code class="language-solidity">tokenData(tokenId)</code> function to our smart contract
+                    that will grab all of the NFT data directly from the blockchain. This function will return the following structure:
+                  </p>
+
+                  <pre class="flex-1"><code class="language-solidity">struct TokenData {
   string tokenName;
   uint8 traitNum;
   uint256 traitTxHash;
@@ -380,25 +401,62 @@
 }</code></pre>
                 </div>
 
-                <p class="max-w-3xl mx-auto text-center">The data for the trait can be accessed by taking <code class="language-solidity">tokenData.traitTxHash</code> and decoding it with the following ABI:</p>
+                <div class="max-w-3xl mx-auto text-center">
+                  <p>
+                    The data for the trait can be accessed by taking <code class="language-solidity">tokenData.traitTxHash</code> and
+                    decoding it with the following ABI:
+                  </p>
 
-                <pre class="max-w-3xl mx-auto"><code class="language-solidity">[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
+                  <pre><code class="language-solidity">[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
 
-                <p class="max-w-3xl mx-auto text-center">This will return the following data: <code class="language-solidity">name[15], description[15], male[15], female[15]</code>.  You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and the images are base64 encoded so they can easily be incorporated into any webpage.</p>
+                  <p>
+                    This will return the following data: <code class="language-solidity">name[15], description[15], male[15], female[15]</code>.
+                     You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and
+                     the images are base64 encoded so they can easily be incorporated into any webpage.
+                  </p>
 
-                <div class="flex items-center space-y-8 lg:space-y-0 lg:space-x-8">
-                  <p>The fusion contract stores the contract addresses for each Avime season. When Trait Cards combine to create an Avime, a structure is created that represents all of the traits that went into creating that Avime. Since all of the Trait Cards are stored on-chain and accessible as described in the last paragraph, this Avime structure stores all the information necessary to retrieve each trait and generate the Avime without any need of off-chain data. In this case, calling <code class="language-solidity">tokenData(tokenId)</code> or <code class="language-solidity">getAvime(tokenId)</code> on the fusion contract will return the following structure:</p>
-                  <pre><code class="language-solidity">struct Avime {
+                  <p>
+                    The fusion contract stores the contract addresses for each Avime season. When Trait Cards combine to create an Avime,
+                    a structure is created that represents all of the traits that went into creating that Avime. Since all of the Trait Cards
+                    are stored on-chain and accessible as described in the last paragraph, this Avime structure stores all the information
+                    necessary to retrieve each trait and generate the Avime without any need of off-chain data.
+                  </p>
+
+                  <p>
+                    Calling <code class="language-solidity">tokenData(tokenId)</code> or <code class="language-solidity">getAvime(tokenId)</code>
+                    on the fusion contract will return the following structure:
+                  </p>
+
+                  <pre class="text-left"><code class="language-solidity">struct Avime {
   uint8[6] contractId;
   uint16[6] traitId;
   uint8 sex;
 }</code></pre>
+
+                  <p>
+                    The address is obtained by calling <code class="language-solidity">getAvimeContract(contractId)</code> and for the sex,
+                    <code class="language-solidity">0 = Female</code> and <code class="language-solidity">1 = Male</code>.
+                  </p>
+
+                  <p>
+                    Our NFTs also cost a bit more to mint because they use the ERC721 Enumeration extension.  In order to generate Avime
+                    Fusions, it is necessary to know every token that a user holds. The website must present all of the users traits to them
+                    and allow the user to select which traits they would like to use to generate a Fused Avime.  Services like Etherscan allow
+                    you to see all of the tokens that you hold, but without the ERC721 enumeration extension, there is no simple way to make a
+                    call to the blockchain and know every NFT that a user holds.  We want to put all of the information on-chain, and ensure
+                    that all the end user needs is the blockchain to view Trait Cards and Fuse Avime. This is why we have added the Enumeration
+                    extension to our NFT.  It costs more to mint, but allows our product to not rely on any third parties.
+                  </p>
+
+                  <p>
+                    Even though our users only need the Ethereum blockchain, It sure would be nice if they had an easy to use user interface to
+                    interact with our contracts. For that reason, this website (www.avime.moe) is opensourced here (link to github), ensuring it
+                    will always be possible to easily interact with our smart contracts.
+                  </p>
+
+                  <p>Our smart contract is open-sourced here:<br>(link available after sellout)</p>
+                  <p>The API that serves the tokenURI assets is open-sourced and available here:<br>(link available after sellout)</p>
                 </div>
-                <p class="text-center">The address is obtained by calling <code class="language-solidity">getAvimeContract(contractId)</code> and for the sex, <code class="language-solidity">0 = Female</code> and <code class="language-solidity">1 = Male</code>.</p>
-                <p class="max-w-3xl mx-auto text-center">Our NFTs also cost a bit more to mint because they use the ERC721 Enumeration extension.  In order to generate Avime Fusions, it is necessary to know every token that a user holds. The website must present all of the users traits to them and allow the user to select which traits they would like to use to generate a Fused Avime.  Services like Etherscan allow you to see all of the tokens that you hold, but without the ERC721 enumeration extension, there is no simple way to make a call to the blockchain and know every NFT that a user holds.  We want to put all of the information on-chain, and ensure that all the end user needs is the blockchain to view Trait Cards and Fuse Avime. This is why we have added the Enumeration extension to our NFT.  It costs more to mint, but allows our product to not rely on any third parties.</p>
-                <p class="max-w-3xl mx-auto text-center">Even though our users only need the Ethereum blockchain, It sure would be nice if they had an easy to use user interface to interact with our contracts. For that reason, this website (www.avime.moe) is opensourced here (link to github), ensuring it will always be possible to easily interact with our smart contracts.</p>
-                <p class="text-center">Our smart contract is open-sourced here: (link available after sellout)</p>
-                <p class="text-center">The API that serves the tokenURI assets is open-sourced and available here: (link available after sellout)</p>
               </div>
             </section>
           </div>
@@ -434,7 +492,7 @@
           </nav>
 
           <div class="flex justify-center mt-8 space-x-6">
-            <a class="text-white" href="https://discord.gg/ZbRwhKXnSy" rel="noopener" target="_blank">Discord</a>
+            <a class="text-white" href="https://discord.gg/avime" rel="noopener" target="_blank">Discord</a>
             <a class="text-white=" href="#opensea" rel="noopener" target="_blank">Opensea</a>
             <a class="text-white" href="https://twitter.com/avimenft" rel="noopener" target="_blank">Twitter</a>
           </div>
