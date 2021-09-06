@@ -208,24 +208,22 @@
 
                 <div class="w-full mt-6" id="wardrobe-fuse">
                   <div class="mx-auto lg:w-max">
-                    <p class="mb-4">
+                    <p class="flex flex-col mb-4 space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
                       <button
                         class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded lg:px-5 lg:py-3 shadow-inset-blue-100"
-                        x-show="!$store.myAvime.approved"
                         x-on:click="$store.myAvime.approve(1)"
                       >Approve Fusion</button>
                       <button
                         class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
                         id="fuse-avime"
-                        x-show="$store.myAvime.approved"
                         x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
                         x-bind:disabled="$store.myAvime.fusing"
                       >Fuse Your Avime</button>
                     </p>
 
-                    <p class="text-xs">All 6 selected traits will be burned when fused into an Avime</p>
-                    <p><button x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
-                    <p x-show="!$store.myAvime.isUnique">Heads up: This Avime is NOT unique!</p>
+                    <p class="mb-2 text-xs">All 6 selected traits will be burned when fused into an Avime</p>
+                    <p><button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
+                    <p class="p-2 mt-2 text-xs text-white bg-red-500 border-black rounded shadow-inset-white" x-show="!$store.myAvime.isUnique">Heads up: This combination of traits is NOT unique and will result in your fusion being marked as "Duplicate".</p>
                   </div>
                 </div>
               </div>
