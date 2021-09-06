@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs';
+import { config } from './config';
 import { faqs } from './util/faqs';
 import { staff } from './util/staff';
 import { s01Abi } from './util/s01Abi';
@@ -17,12 +18,12 @@ const web3 = new window.Web3(ethereum);
 Alpine.store('myAvime', {
   s01Abi: s01Abi,
   fusionAbi: fusionAbi,
-  s00Address: '0x10fE2787a8a8d191fB4389A71083Fc0CC2dC1E35',
+  s00Address: "0x10fE2787a8a8d191fB4389A71083Fc0CC2dC1E35",
   s00Contract: null,
-  s01Address: '0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f',
-  s01Contract: new web3.eth.Contract(s01Abi, '0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f'),
-  fusionAddress: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
-  fusionContract: new web3.eth.Contract(fusionAbi, '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A'),
+  s01Address: "0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f",
+  s01Contract: new web3.eth.Contract(s01Abi, "0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f"),
+  fusionAddress: "0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A",
+  fusionContract: new web3.eth.Contract(fusionAbi, "0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A"),
   walletAddress: '',
   walletConnected: false,
   staff: staff,
@@ -30,6 +31,7 @@ Alpine.store('myAvime', {
   fusedAvime: 0,
   approved: false,
   myAvime: [],
+  isUnique: true,
   selected: {
     sex: 'female',
     traits: {
@@ -67,6 +69,8 @@ Alpine.store('myAvime', {
   selectedSex: 0,
   selectedSeasons: [1, 1, 1, 1, 1, 1],
   selectedTraits: [0, 0, 0, 0, 0, 0],
+  contractIds: [1, 1, 1, 1, 1, 1],
+  tab: 'background',
   async approve(choice) {
     try {
       let approve = await this.s01Contract.methods
@@ -74,6 +78,30 @@ Alpine.store('myAvime', {
         .send({ from: this.walletAddress });
 
       console.log(approve);
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  async checkUniquness(sex) {
+    try {
+      let traits = [
+        this.selected.traits.background.ID,
+        this.selected.traits.body.ID,
+        this.selected.traits.face.ID,
+        this.selected.traits.clothes.ID,
+        this.selected.traits.hair.ID,
+        this.selected.traits.accessory.ID,
+      ];
+      let contractIds = [1, 1, 1, 1, 1, 1];
+      let hash = await this.fusionContract.methods
+        .getAvimeHash(sex, contractIds, traits)
+        .call();
+      let unique = this.fusionContract.methods
+        .checkAvimeHash(hash)
+        .call()
+        .then(result => {
+          this.isUnique = (result === '0') ? true : false;
+        });
     } catch (err) {
       console.error(err);
     }
@@ -429,10 +457,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(window.Alpine.store('myAvime').checkWebAccount, 500);
 
-
   // let aviHash = await fusionContract.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
   // let uniqueAvimeId = await fusionContract.methods.checkAvimeHash(aviHash).call();
   // let isUnique = uniqueAvimeId==currentAvimeId ? "Unique" : "Dupe #" + uniqueAvimeId;
+
 
   document.getElementById('eth-login').addEventListener('click', function () {
     try {
