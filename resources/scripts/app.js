@@ -2,8 +2,6 @@ import Alpine from 'alpinejs';
 import { config } from './config';
 import { faqs } from './util/faqs';
 import { staff } from './util/staff';
-import { s01Abi } from './util/s01Abi';
-import { fusionAbi } from './util/fusionAbi';
 import { blankTrait } from './util/blankTrait';
 
 /**
@@ -16,14 +14,14 @@ const web3 = new window.Web3(ethereum);
  * Set Alpine.js store data
  */
 Alpine.store('myAvime', {
-  s01Abi: s01Abi,
-  fusionAbi: fusionAbi,
-  s00Address: "0x10fE2787a8a8d191fB4389A71083Fc0CC2dC1E35",
+  s01Abi: config.abi.s01,
+  fusionAbi: config.abi.fusion,
+  s00Address: config.addresses.s00,
   s00Contract: null,
-  s01Address: "0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f",
-  s01Contract: new web3.eth.Contract(s01Abi, "0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f"),
-  fusionAddress: "0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A",
-  fusionContract: new web3.eth.Contract(fusionAbi, "0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A"),
+  s01Address: config.addresses.s01,
+  s01Contract: new web3.eth.Contract(config.abi.s01, config.addresses.s01),
+  fusionAddress: config.addresses.fusion,
+  fusionContract: new web3.eth.Contract(config.abi.fusion, config.addresses.fusion),
   walletAddress: '',
   walletConnected: false,
   staff: staff,
@@ -162,7 +160,7 @@ Alpine.store('myAvime', {
     try {
       ethereum.request({ method: 'eth_requestAccounts' });
     } catch (err) {
-      this.innerHTML = 'Web3 Wallet Not Available';
+      document.getElementById('eth-login').innerHTML = 'Web3 Wallet Not Available';
     }
 
     window.Alpine.store('myAvime').checkWeb3();
@@ -449,26 +447,5 @@ Alpine.start();
  * Init everything else...
  */
 document.addEventListener('DOMContentLoaded', () => {
-  let hljs = require('highlight.js');
-  let hljsDefineSolidity = require('highlightjs-solidity');
-
-  hljsDefineSolidity(hljs);
-  hljs.highlightAll();
-
   setTimeout(window.Alpine.store('myAvime').checkWebAccount, 500);
-
-  // let aviHash = await fusionContract.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
-  // let uniqueAvimeId = await fusionContract.methods.checkAvimeHash(aviHash).call();
-  // let isUnique = uniqueAvimeId==currentAvimeId ? "Unique" : "Dupe #" + uniqueAvimeId;
-
-
-  document.getElementById('eth-login').addEventListener('click', function () {
-    try {
-      ethereum.request({ method: 'eth_requestAccounts' });
-    } catch (err) {
-      this.innerHTML = 'Web3 Wallet Not Available';
-    }
-
-    window.Alpine.store('myAvime').checkWeb3();
-  });
 });

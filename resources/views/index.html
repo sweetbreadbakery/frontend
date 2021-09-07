@@ -81,6 +81,7 @@
               <button
                 class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
                 id="eth-login"
+                x-on:click="$store.myAvime.connect()"
               >Connect Wallet</button>
             </div>
 
@@ -205,86 +206,107 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="w-full mt-6" id="wardrobe-fuse">
-                  <div class="mx-auto lg:w-max">
-                    <p class="flex flex-col mb-4 space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
-                      <button
-                        class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded lg:px-5 lg:py-3 shadow-inset-blue-100"
-                        x-on:click="$store.myAvime.approve(1)"
-                      >Approve Fusion</button>
-                      <button
-                        class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
-                        id="fuse-avime"
-                        x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
-                        x-bind:disabled="$store.myAvime.fusing"
-                      >Fuse Your Avime</button>
-                    </p>
-
-                    <p class="mb-2 text-xs">All 6 selected traits will be burned when fused into an Avime</p>
-                    <p><button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
-                    <p class="p-2 mt-2 text-xs text-white bg-red-500 border-black rounded shadow-inset-white" x-show="!$store.myAvime.isUnique">Heads up: This combination of traits is NOT unique and will result in your fusion being marked as "Duplicate".</p>
-                  </div>
-                </div>
               </div>
 
-              <div class="" id="wardrobe-inventory">
-                <div class="max-w-[732px] mx-auto">
-                  <div class="sm:hidden" id="wardrobe-inventory-select">
-                    <label for="tabs" class="sr-only">Select a trait</label>
+              <div class="relative max-w-[732px] mx-auto mb-8" id="wardrobe-inventory">
+                <div class="sm:hidden" id="wardrobe-inventory-select">
+                  <label for="tabs" class="sr-only">Select a trait</label>
 
-                    <select
-                      class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
-                      id="tabs"
-                      name="tabs"
-                      x-model="$store.myAvime.tab"
-                    >
-                      <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                        <option x-text="trait" x-bind:value="trait"></option>
-                      </template>
-                    </select>
-                  </div>
-
-                  <nav
-                    class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black"
-                    id="wardrobe-inventory-tabs"
-                    aria-label="Inventory Tabs"
+                  <select
+                    class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
+                    id="tabs"
+                    name="tabs"
+                    x-model="$store.myAvime.tab"
                   >
                     <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                      <label
-                        class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900"
-                        :class="{ 'bg-blue-600 hover:bg-blue-600': $store.myAvime.tab === trait }"
-                        x-on:click="$store.myAvime.tab = trait"
-                        x-text="trait"
-                      ></label>
+                      <option x-text="trait" x-bind:value="trait"></option>
                     </template>
-                  </nav>
+                  </select>
+                </div>
 
+                <nav
+                  class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black"
+                  id="wardrobe-inventory-tabs"
+                  aria-label="Inventory Tabs"
+                >
                   <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                    <div
-                      class="overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel"
-                      x-show.transition.in.opacity.duration.600="$store.myAvime.tab === trait"
-                    >
-                      <ul class="flex flex-wrap items-start py-1 pl-1 lg:py-2 lg:pl-2 pr-0 h-[110px] lg:h-[220px]">
-                        <template x-for="item in $store.myAvime.wardrobe[trait]">
-                          <li class="flex items-center justify-center p-2 m-0 h-max w-max">
-                            <button
-                              class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
-                              x-on:click="$store.myAvime.selected.traits[trait] = item"
-                            >
-                              <img
-                                class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
-                                alt=""
-                                x-bind:src="item.thumb"
-                                onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
-                                draggable="false"
-                              >
-                            </button>
-                          </li>
-                        </template>
-                      </ul>
-                    </div>
+                    <label
+                      class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900"
+                      :class="{ 'bg-blue-600 hover:bg-blue-600': $store.myAvime.tab === trait }"
+                      x-on:click="$store.myAvime.tab = trait"
+                      x-text="trait"
+                    ></label>
                   </template>
+                </nav>
+
+                <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                  <div
+                    class="overflow-x-visible overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel"
+                    x-show.transition.in.opacity.duration.600="$store.myAvime.tab === trait"
+                  >
+                    <ul class="flex flex-wrap items-start py-1 pl-1 lg:py-2 lg:pl-2 pr-0 h-[110px] lg:h-[220px]">
+                      <template x-for="item in $store.myAvime.wardrobe[trait]">
+                        <li
+                          class="flex items-center justify-center p-2 m-0 h-max w-max"
+                          x-bind:id="`trait-${item.ID}`"
+                          x-data="{ tooltip: false }"
+                        >
+                          <button
+                            class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                            data-tooltip
+                            x-on:click="$store.myAvime.selected.traits[trait] = item; $store.myAvime.select(trait, item)"
+                            x-on:mouseover="tooltip = true"
+                            x-on:mouseleave="tooltip = false"
+                          >
+                            <img
+                              class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                              alt=""
+                              x-bind:src="item.thumb"
+                              onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                              draggable="false"
+                            >
+                          </button>
+
+                          <span x-show.transition.origin.top="tooltip" x-cloak style="display: none;">
+                            <span class="absolute bottom-0 z-10 p-2 -mt-1 text-xs leading-tight text-left text-white transform -translate-x-1/2 translate-y-full bg-black rounded-lg shadow-lg w-max">
+                              <span class="relative block w-[362px] h-[361px]">
+                                <img class="absolute inset-0 object-cover w-full h-full" alt="" x-bind:src="item.cardImg">
+                                <img class="absolute top-[20px] right-[21px] block w-[43px] h-[43px]" alt="" x-bind:src="item.thumb">
+                                <img class="absolute top-[76px] block w-[160px] h-[160px]" :class="{ 'left-[101px]': (trait === 'background'), 'left-[21px]': (trait !== 'background') }" alt="" x-bind:src="item.female">
+                                <img class="absolute top-[76px] right-[21px] block w-[160px] h-[160px]" alt="" x-bind:src="item.male" x-show="(trait !== 'background')">
+                                <span class="absolute top-[20px] left-[21px] flex items-center w-[265px] h-[43px] px-2 py-3 normal-case leading-none text-sm text-black" x-text="item.name"></span>
+                                <span class="absolute bottom-[48px] left-[21px] flex items-start w-[320px] h-[64px] p-2 normal-case text-sm text-black" x-text="item.desc"></span>
+                              </span>
+                            </span>
+                          </span>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                </template>
+              </div>
+
+              <div class="w-full" id="wardrobe-fuse">
+                <div class="mx-auto lg:w-max">
+                  <p class="p-2 mb-4 text-xs text-white bg-red-500 border-black rounded shadow-inset-white" x-show="!$store.myAvime.isUnique">
+                    Heads up: This combination of traits is NOT unique and will result in your fusion being marked as "Duplicate".
+                  </p>
+
+                  <p class="flex flex-col mb-4 space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
+                    <button
+                      class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded lg:px-5 lg:py-3 shadow-inset-blue-100"
+                      x-on:click="$store.myAvime.approve(1)"
+                    >Approve Fusion</button>
+                    <button
+                      class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
+                      id="fuse-avime"
+                      x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
+                      x-bind:disabled="$store.myAvime.fusing"
+                    >Fuse Your Avime</button>
+                  </p>
+
+                  <p class="mb-2 text-xs">All 6 selected traits will be burned when fused into an Avime</p>
+                  <p><button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
                 </div>
               </div>
             </div>
@@ -462,31 +484,31 @@
 
               <div class="flex flex-col items-center space-y-8 lg:flex-row lg:space-y-0 lg:space-x-8">
                 <p class="flex-1 text-center lg:text-left">
-                  The token information can be accessed just like any other NFT by calling <code class="language-solidity">tokenURI(tokenId)</code>
+                  The token information can be accessed just like any other NFT by calling <code>tokenURI(tokenId)</code>
                   and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills.
-                  That is why we have also added a <code class="language-solidity">tokenData(tokenId)</code> function to our smart contract
+                  That is why we have also added a <code>tokenData(tokenId)</code> function to our smart contract
                   that will grab all of the NFT data directly from the blockchain. This function will return the following structure:
                 </p>
 
-                <pre class="flex-1"><code class="language-solidity">struct TokenData {
-string tokenName;
-uint8 traitNum;
-uint256 traitTxHash;
-uint8 cardNum;
-uint256 cardTxHash;
+                <pre class="flex-1"><code><span class="text-yellow-500">struct</span> <span class="text-red-500">TokenData</span> {
+  <span class="text-red-500">string</span> <span class="text-blue-300">tokenName</span>;
+  <span class="text-red-500">uint8</span> <span class="text-blue-300">traitNum</span>;
+  <span class="text-red-500">uint256</span> <span class="text-blue-300">traitTxHash</span>;
+  <span class="text-red-500">uint8</span> <span class="text-blue-300">cardNum</span>;
+  <span class="text-red-500">uint256</span> <span class="text-blue-300">cardTxHash</span>;
 }</code></pre>
               </div>
 
               <div class="max-w-3xl mx-auto text-center">
                 <p>
-                  The data for the trait can be accessed by taking <code class="language-solidity">tokenData.traitTxHash</code> and
+                  The data for the trait can be accessed by taking <code>tokenData.traitTxHash</code> and
                   decoding it with the following ABI:
                 </p>
 
-                <pre><code class="language-solidity">[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
+                <pre><code>[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
 
                 <p>
-                  This will return the following data: <code class="language-solidity">name[15], description[15], male[15], female[15]</code>.
+                  This will return the following data: <code>name[15], description[15], male[15], female[15]</code>.
                   You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and
                   the images are base64 encoded so they can easily be incorporated into any webpage.
                 </p>
@@ -499,19 +521,19 @@ uint256 cardTxHash;
                 </p>
 
                 <p>
-                  Calling <code class="language-solidity">tokenData(tokenId)</code> or <code class="language-solidity">getAvime(tokenId)</code>
+                  Calling <code>tokenData(tokenId)</code> or <code>getAvime(tokenId)</code>
                   on the fusion contract will return the following structure:
                 </p>
 
-                <pre class="text-left"><code class="language-solidity">struct Avime {
-uint8[6] contractId;
-uint16[6] traitId;
-uint8 sex;
+                <pre class="text-left"><code><span class="text-yellow-500">struct</span> <span class="text-red-500">Avime</span> {
+  <span class="text-red-500">uint8[6]</span> <span class="text-blue-300">contractId</span>;
+  <span class="text-red-500">uint16[6]</span> <span class="text-blue-300">traitId</span>;
+  <span class="text-red-500">uint8</span> <span class="text-blue-300">sex</span>;
 }</code></pre>
 
                 <p>
-                  The address is obtained by calling <code class="language-solidity">getAvimeContract(contractId)</code> and for the sex,
-                  <code class="language-solidity">0 = Female</code> and <code class="language-solidity">1 = Male</code>.
+                  The address is obtained by calling <code>getAvimeContract(contractId)</code> and for the sex,
+                  <code>0 = Female</code> and <code>1 = Male</code>.
                 </p>
 
                 <p>
@@ -598,9 +620,9 @@ uint8 sex;
           :class="{ 'active': (modal === 'fuse') }"
         >
           <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
-            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime get!</p>
+            <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime get!</p>
 
-            <div class="p-2 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
+            <div class="p-2 mb-4 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
               <div class="relative gap-4 p-3 mx-auto overflow-hidden text-black bg-teal-300 border-2 border-blue-600 rounded-lg w-max">
                 <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
                   <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px] rounded">
@@ -625,10 +647,10 @@ uint8 sex;
               </div>
             </div>
 
-            <p>Your new Avime has been fused!</p>
+            <p class="mb-4">Your new Avime has been fused!</p>
 
             <button
-              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+              class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
               x-on:click="modal = false; $store.myAvime.clear()"
             >Close</button>
           </div>
@@ -652,12 +674,12 @@ uint8 sex;
           :class="{ 'active': (modal === 'mint') }"
         >
           <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
-            <p class="mb-8 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Trait Cards get!</p>
+            <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Trait Cards get!</p>
 
-            <p>Your Trait Cards have been minted! Check your wardrobe to see what you got.</p>
+            <p class="mb-4">Your Trait Cards have been minted! Check your wardrobe to see what you got.</p>
 
             <button
-              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+              class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
               x-on:click="modal = false"
             >Close</button>
           </div>

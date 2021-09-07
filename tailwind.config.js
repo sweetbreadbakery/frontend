@@ -175,19 +175,19 @@ module.exports = {
               },
               h1: {
                 fontFamily: theme('fontFamily.heading'),
-                color: theme('colors.white'),
+                color: theme('colors.yellow.400'),
               },
               h2: {
                 fontFamily: theme('fontFamily.heading'),
-                color: theme('colors.white'),
+                color: theme('colors.yellow.400'),
               },
               h3: {
                 fontFamily: theme('fontFamily.heading'),
-                color: theme('colors.white'),
+                color: theme('colors.yellow.400'),
               },
               h4: {
                 fontFamily: theme('fontFamily.heading'),
-                color: theme('colors.white'),
+                color: theme('colors.yellow.400'),
               },
               'figure figcaption': {
                 color: theme('colors.white'),
