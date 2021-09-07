@@ -29,6 +29,7 @@ Alpine.store('myAvime', {
   fusedAvime: 0,
   approved: false,
   myAvime: [],
+  showUniqueCheck: false,
   isUnique: true,
   selected: {
     sex: 'female',
@@ -81,6 +82,8 @@ Alpine.store('myAvime', {
     }
   },
   async checkUniquness(sex) {
+    this.showUniqueCheck = false;
+
     try {
       let traits = [
         this.selected.traits.background.ID,
@@ -99,6 +102,7 @@ Alpine.store('myAvime', {
         .call()
         .then(result => {
           this.isUnique = (result === '0') ? true : false;
+          this.showUniqueCheck = true;
         });
     } catch (err) {
       console.error(err);

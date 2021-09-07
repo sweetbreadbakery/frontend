@@ -288,8 +288,11 @@
 
               <div class="w-full" id="wardrobe-fuse">
                 <div class="mx-auto lg:w-max">
-                  <p class="p-2 mb-4 text-xs text-white bg-red-500 border-black rounded shadow-inset-white" x-show="!$store.myAvime.isUnique">
-                    Heads up: This combination of traits is NOT unique and will result in your fusion being marked as "Duplicate".
+                  <p class="p-2 mb-4 text-sm text-white normal-case bg-green-500 border-black rounded shadow-inset-white" x-show="$store.myAvime.showUniqueCheck && $store.myAvime.isUnique">
+                    This combination of traits is unique. Nice!
+                  </p>
+                  <p class="p-2 mb-4 text-sm text-white normal-case bg-red-500 border-black rounded shadow-inset-white" x-show="$store.myAvime.showUniqueCheck && !$store.myAvime.isUnique">
+                    Uh-oh. This combination of traits is NOT unique.
                   </p>
 
                   <p class="flex flex-col mb-4 space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
@@ -305,7 +308,7 @@
                     >Fuse Your Avime</button>
                   </p>
 
-                  <p class="mb-2 text-xs">All 6 selected traits will be burned when fused into an Avime</p>
+                  <p class="mb-2 text-sm text-center normal-case">All 6 selected traits will be burned when fused into an Avime<br> Non-unique combinations will result in your fusion being marked as "Duplicate"</p>
                   <p><button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
                 </div>
               </div>
