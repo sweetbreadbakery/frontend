@@ -270,7 +270,7 @@
                           <span x-show.transition.origin.top="tooltip" x-cloak style="display: none;">
                             <span class="absolute bottom-0 z-10 p-2 -mt-1 text-xs leading-tight text-left text-white transform -translate-x-1/2 translate-y-full bg-black rounded-lg shadow-lg w-max">
                               <span class="relative block w-[362px] h-[361px]">
-                                <img class="absolute inset-0 object-cover w-full h-full" alt="" x-bind:src="item.cardImg">
+                                <img class="absolute inset-0 object-cover w-full h-full rounded-[11px]" alt="" x-bind:src="item.cardImg">
                                 <img class="absolute top-[20px] right-[21px] block w-[43px] h-[43px]" alt="" x-bind:src="item.thumb">
                                 <img class="absolute top-[76px] block w-[160px] h-[160px]" :class="{ 'left-[101px]': (trait === 'background'), 'left-[21px]': (trait !== 'background') }" alt="" x-bind:src="item.female">
                                 <img class="absolute top-[76px] right-[21px] block w-[160px] h-[160px]" alt="" x-bind:src="item.male" x-show="(trait !== 'background')">
