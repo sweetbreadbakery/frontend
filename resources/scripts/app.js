@@ -222,10 +222,10 @@ Alpine.store('myAvime', {
 
         if (mint) {
           this.fusing = false;
+          this.fused = [];
+          this.update($dispatch);
           $dispatch('modal-fuse');
         }
-
-        this.update($dispatch);
       } else {
         this.fusing = false;
         console.error('Select 6 traits, baka!');
