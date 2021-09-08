@@ -309,10 +309,34 @@
                   </p>
 
                   <p class="mb-2 text-sm text-center normal-case">All 6 selected traits will be burned when fused into an Avime<br> Non-unique combinations will result in your fusion being marked as "Duplicate"</p>
-                  <p><button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button></p>
+                  <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2">
+                    <button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button>
+                    <button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$dispatch('modal-fused')">View Fused Avime</button>
+                  </p>
                 </div>
               </div>
             </div>
+
+            <dl class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3">
+              <div class="flex flex-col p-6 text-center border-b border-blue-600 lg:border-0 lg:border-r">
+                <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Price</dt>
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">0.09 ETH</dd>
+              </div>
+
+              <div class="flex flex-col p-6 text-center border-t border-b border-blue-600 lg:border-0 lg:border-l lg:border-r">
+                <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Trait Cards Minted</dt>
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">
+                  <span x-text="($store.myAvime.totalMinted / 6)">0</span>/60k
+                </dd>
+              </div>
+
+              <div class="flex flex-col p-6 text-center border-t border-blue-600 lg:border-0 lg:border-l">
+                <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Avime Fused</dt>
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">
+                  <span x-text="$store.myAvime.totalFused">0</span>/10k
+                </dd>
+              </div>
+            </dl>
           </div>
         </section>
 
@@ -688,6 +712,54 @@
           </div>
         </div>
       </div>
+
+      <div
+        class="modal-wrapper"
+        id="fused-modal"
+        :class="{ 'active': (modal === 'fused') }"
+        x-on:modal-fused.window="(modal = 'fused')"
+      >
+        <div
+          class="backdrop backdrop-shaded scroll-unlock"
+          x-show.transition.opacity.duration.600ms="modal"
+          x-on:click="modal = false"
+        ></div>
+
+        <div
+          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          :class="{ 'active': (modal === 'fused') }"
+        >
+          <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+            <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
+            <p class="mb-8">You don't have any... yet.</p>
+
+            <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.myAvime.fused.length > 0">
+              <template x-for="avime in $store.myAvime.fused">
+                <div class="p-2 border border-blue-600 rounded">
+                  <span class="flex items-center justify-between mb-2">
+                    <span x-text="(`ID: ${avime.ID}`)"></span>
+                    <span x-text="(avime.unique === true ? 'Original' : `Dupe: ${avime.unique}`)"></span>
+                  </span>
+                  <span class="relative overflow-hidden block rounded-sm h-[160px] w-[160px]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[0]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[1]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[2]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[3]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[4]">
+                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[5]">
+                  </span>
+                </div>
+              </template>
+            </div>
+
+            <button
+              class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+              x-on:click="modal = false;"
+            >Close</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <script src="/scripts/web3.js" defer></script>

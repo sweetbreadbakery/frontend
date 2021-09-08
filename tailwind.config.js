@@ -53,7 +53,7 @@ module.exports = {
           "900": "#0d3d3f",
         },
         cyan: colors.cyan,
-        lightBlue: colors.lightBlue,
+        sky: colors.sky,
         blue: {
           "50": "#d8eef9",
           "100": "#bde2f4",

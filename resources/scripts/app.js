@@ -22,7 +22,7 @@ Alpine.store('myAvime', {
   s01Contract: new web3.eth.Contract(config.abi.s01, config.addresses.s01),
   fusionAddress: config.addresses.fusion,
   fusionContract: new web3.eth.Contract(config.abi.fusion, config.addresses.fusion),
-  walletAddress: '',
+  walletAddress: '0x0000000000000000000000000000000000000000',
   walletConnected: false,
   staff: staff,
   faqs: faqs,
@@ -47,6 +47,8 @@ Alpine.store('myAvime', {
   mintPrice: 0.09,
   mintAmount: 1,
   blankTrait: blankTrait,
+  totalMinted: 0,
+  totalFused: 0,
   wardrobe: {
     background: [],
     body: [],
@@ -159,6 +161,7 @@ Alpine.store('myAvime', {
     this.selected.traits.clothes = blankTrait;
     this.selected.traits.hair = blankTrait;
     this.selected.traits.accessory = blankTrait;
+    this.showUniqueCheck = false;
   },
   async connect() {
     try {
@@ -264,16 +267,12 @@ Alpine.store('myAvime', {
   async select(trait) {
     this.selectedTraits[trait.tnum] = trait.ID;
     this.selectedSeasons[trait.tnum] = 1;
-
-    console.log(this.selectedTraits, this.selectedSeasons);
   },
   async transfer(address, id) {
     try {
       let transfer = await this.fusionContract.methods
         .transferFrom(this.walletAddress, address, id)
         .send({ from: this.walletAddress });
-
-      console.info(transfer);
     } catch (err) {
       console.error(err);
     }
@@ -284,6 +283,8 @@ Alpine.store('myAvime', {
 
       this.myAvime = [];
       this.approved = this.s01Contract.methods.isApprovedForAll(this.walletAddress, this.fusionAddress);
+      this.totalMinted = await this.s01Contract.methods.totalSupply().call();
+      this.totalFused = await this.fusionContract.methods.totalSupply().call();
 
       this.wardrobe.background = [];
       this.wardrobe.body = [];
@@ -392,12 +393,20 @@ Alpine.store('myAvime', {
       for (let i = 0; i < balance; i++) {
         let currentAvimeId = await this.fusionContract.methods.tokenOfOwnerByIndex(this.walletAddress, i).call();
         let currentAvime = await this.fusionContract.methods.getAvime(currentAvimeId).call();
+        let aviHash = await this.fusionContract.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
+        let uniqueAvimeId = await this.fusionContract.methods.checkAvimeHash(aviHash).call();
+        let isUnique = uniqueAvimeId==currentAvimeId ? true : uniqueAvimeId;
+
+        let fusedData = {
+          ID: null,
+          traits: ['', '', '', '', '', ''],
+          unique: isUnique,
+        };
 
         for (let j = 0; j < 6; j++) {
           let seasonContractAddress = await this.fusionContract.methods.getAvimeContract(currentAvime.contractId[j]).call();
-          let seasonContract = new web3.eth.Contract(this.s01Abi, seasonContractAddress);
+          let seasonContract = new web3.eth.Contract(config.abi.s01, seasonContractAddress);
           let currentTraitNumber = await seasonContract.methods.getTrait(currentAvime.traitId[j]).call();
-
           traitHashes = await seasonContract.methods.getTraitHashes().call();
 
           let traitName = [];
@@ -406,7 +415,7 @@ Alpine.store('myAvime', {
           let traitMale = [];
           let traitFemale = [];
 
-          for (let k =0; k < 6; k++) {
+          for (let k = 0; k < 6; k++) {
             hashHex = web3.utils.numberToHex(traitHashes[k]);
             hashHex = web3.utils.padLeft(hashHex, 64);
             tx = await web3.eth.getTransaction(hashHex);
@@ -422,19 +431,18 @@ Alpine.store('myAvime', {
 
           input_data = '0x' + tx.input.slice(10);  // get only data without function selector
 
-          if ((currentAvime.traitId[j]) % 6 === 0) {
-            this.fused.push({
-              ID: currentAvimeId,
-              something: traitMale[(currentAvime.traitId[j]) % 6][currentTraitNumber],
-            });
+          if ((currentAvime.traitId[j]) % 6 == 0) {
+            fusedData.ID = currentAvimeId;
+            fusedData.traits[(currentAvime.traitId[j]) % 6] = traitMale[currentAvime.traitId[j] % 6][currentTraitNumber];
           } else {
-            this.fused.push({
-              ID: currentAvimeId,
-              something: (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]),
-            });
+            fusedData.traits[(currentAvime.traitId[j]) % 6] = (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]);
           }
         }
+
+        this.fused.push(fusedData);
       }
+
+      console.info(this.fused);
     } catch (err) {
       console.error(err);
     }
@@ -452,4 +460,8 @@ Alpine.start();
  */
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(window.Alpine.store('myAvime').checkWebAccount, 500);
+
+  // If you await the return of the mint function, you will see that events->transfer has one transfer for each erc721 token.
+  // mint.events.Transfer[index].returnValues[2] is where the tokenId is located
+  // Iterate over index for i < (mintQuantity*6)
 });
