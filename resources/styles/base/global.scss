@@ -114,30 +114,30 @@ button[disabled] {
 
 .text-shadow-heading-darker {
   -webkit-text-stroke: 1px #fd9999;
-  text-shadow: -1px -1px 0px theme('colors.blue.600'),
-                0px -1px 0px theme('colors.blue.600'),
-                1px -1px 0px theme('colors.blue.600'),
-               -1px  0px 0px theme('colors.blue.600'),
-                1px  0px 0px theme('colors.blue.600'),
-               -1px  1px 0px theme('colors.blue.600'),
-                0px  1px 0px theme('colors.blue.600'),
-                1px  1px 0px theme('colors.blue.600'),
-               -2px -2px 0px theme('colors.blue.600'),
-               -1px -2px 0px theme('colors.blue.600'),
-                0px -2px 0px theme('colors.blue.600'),
-                1px -2px 0px theme('colors.blue.600'),
-                2px -2px 0px theme('colors.blue.600'),
-                2px -1px 0px theme('colors.blue.600'),
-                2px  0px 0px theme('colors.blue.600'),
-                2px  1px 0px theme('colors.blue.600'),
-                2px  2px 0px theme('colors.blue.600'),
-                1px  2px 0px theme('colors.blue.600'),
-                0px  2px 0px theme('colors.blue.600'),
-               -1px  2px 0px theme('colors.blue.600'),
-               -2px  2px 0px theme('colors.blue.600'),
-               -2px  1px 0px theme('colors.blue.600'),
-               -2px  0px 0px theme('colors.blue.600'),
-               -2px -1px 0px theme('colors.blue.600');
+  text-shadow: -1px -1px 0px theme('colors.blue.700'),
+                0px -1px 0px theme('colors.blue.700'),
+                1px -1px 0px theme('colors.blue.700'),
+               -1px  0px 0px theme('colors.blue.700'),
+                1px  0px 0px theme('colors.blue.700'),
+               -1px  1px 0px theme('colors.blue.700'),
+                0px  1px 0px theme('colors.blue.700'),
+                1px  1px 0px theme('colors.blue.700'),
+               -2px -2px 0px theme('colors.blue.700'),
+               -1px -2px 0px theme('colors.blue.700'),
+                0px -2px 0px theme('colors.blue.700'),
+                1px -2px 0px theme('colors.blue.700'),
+                2px -2px 0px theme('colors.blue.700'),
+                2px -1px 0px theme('colors.blue.700'),
+                2px  0px 0px theme('colors.blue.700'),
+                2px  1px 0px theme('colors.blue.700'),
+                2px  2px 0px theme('colors.blue.700'),
+                1px  2px 0px theme('colors.blue.700'),
+                0px  2px 0px theme('colors.blue.700'),
+               -1px  2px 0px theme('colors.blue.700'),
+               -2px  2px 0px theme('colors.blue.700'),
+               -2px  1px 0px theme('colors.blue.700'),
+               -2px  0px 0px theme('colors.blue.700'),
+               -2px -1px 0px theme('colors.blue.700');
 }
 
 .text-stroke-subheading {
@@ -192,12 +192,12 @@ button[disabled] {
 
 .shadow-blue-box {
   box-shadow: -1px 1px 0px 1px theme('colors.teal.300'),
-              1px -1px 0px 1px theme('colors.blue.600');
+              1px -1px 0px 1px theme('colors.blue.700');
 }
 
 .shadow-inset-blue-box {
   box-shadow: inset -1px  1px 0px 1px theme('colors.teal.300'),
-              inset  1px -1px 0px 1px theme('colors.blue.600');
+              inset  1px -1px 0px 1px theme('colors.blue.700');
 }
 
 .shadow-yellow-box {
@@ -276,7 +276,7 @@ button[disabled] {
 [id="faqs-wrap"] {
   background: theme('colors.blue.500') url('/images/bg_faq.png');
   box-shadow: inset 0px  2px 0px 0px theme('colors.blue.100'),
-              inset 0px -2px 0px 0px theme('colors.blue.600');
+              inset 0px -2px 0px 0px theme('colors.blue.700');
 }
 
 [id="footer"] {

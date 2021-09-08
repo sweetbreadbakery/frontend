@@ -13,6 +13,7 @@ const web3 = new window.Web3(ethereum);
 /**
  * Set Alpine.js store data
  */
+
 Alpine.store('myAvime', {
   s01Abi: config.abi.s01,
   fusionAbi: config.abi.fusion,

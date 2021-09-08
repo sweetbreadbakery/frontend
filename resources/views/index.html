@@ -75,9 +75,9 @@
       <main class="text-black bg-blue-100" id="main">
         <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data x-init="$store.myAvime.init()">
           <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
-            <div x-show="!$store.myAvime.walletConnected">
-              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
-              <p class="mt-4 text-lg leading-6 text-white">Connect your wallet to mint and view Trait Cards.</p>
+            <div x-show="!$store.myAvime.showWardrobe">
+              <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Preview the Wardrobe</h2>
+              <p class="mt-4 text-lg leading-6 text-white">When minting is ready this is where you will mint and view Trait Cards after connecting your MetaMask wallet.</p>
               <button
                 class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
                 id="eth-login"
@@ -88,7 +88,7 @@
             <div
               class="p-4 leading-none uppercase bg-blue-500 border border-black rounded-xl bg-gradient-to-b lg:p-7"
               id="wardrobe-interface"
-              x-show="$store.myAvime.walletConnected"
+              x-show="$store.myAvime.showWardrobe"
               x-cloak
               style="display: none;"
             >
@@ -144,7 +144,7 @@
                       <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
                         <img
                           class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
-                          x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                          x-bind:src="('/images/avime/' + $store.myAvime.gender + '.png')"
                           alt=""
                           draggable="false"
                         >
@@ -152,7 +152,7 @@
                         <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
                           <img
                             class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
-                            x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                            x-bind:src="('/images/traits/' + trait + '/layers/' + $store.myAvime.gender + '/' + $store.myAvime.traits[trait] + '.png')"
                             alt=""
                             onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
                             draggable="false"
@@ -181,7 +181,7 @@
                           >
                             <img
                               class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
-                              x-bind:src="$store.myAvime.selected.traits[trait].thumb"
+                              x-bind:src="('/images/traits/' + trait + '/thumbnails/' + $store.myAvime.traits[trait] + '.png')"
                               alt=""
                               onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
                               draggable="false"
@@ -197,9 +197,9 @@
                       <p class="grid grid-cols-2 gap-4">
                         <template x-for="gender in ['female', 'male']">
                           <button
-                            class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
-                            :class="{ 'bg-blue-700 border-blue-100 shadow-inset-blue-900': $store.myAvime.sex === gender}"
-                            x-on:click="($store.myAvime.sex = gender)"
+                            class="inline-flex items-center justify-center px-5 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 shadow-inset-blue-100"
+                            :class="{ 'bg-blue-700 border-blue-100 hover:bg-blue-700 shadow-inset-blue-900': $store.myAvime.gender === gender, 'bg-blue-500 hover:bg-blue-400': $store.myAvime.gender !== gender}"
+                            x-on:click="($store.myAvime.gender = gender)"
                             x-text="gender"
                           ></button>
                         </template>
@@ -627,13 +627,12 @@
 
           <div class="flex justify-center mt-8 space-x-6">
             <a class="text-white" href="https://discord.gg/avime" rel="noopener" target="_blank">Discord</a>
-            <a class="text-white=" href="#opensea" rel="noopener" target="_blank">Opensea</a>
             <a class="text-white" href="https://twitter.com/avimenft" rel="noopener" target="_blank">Twitter</a>
           </div>
 
           <p class="mt-8 text-base text-center text-green-500">
             <span class="block">&gt;2021</span>
-            <span class="block">&gt;implying anyone cares about copyright</span>
+            <span class="block">&gt;caring about copyrights</span>
           </p>
         </div>
       </footer>
