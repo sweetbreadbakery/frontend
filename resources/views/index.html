@@ -301,7 +301,7 @@
                     <button
                       class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium uppercase bg-blue-500 border border-black rounded lg:px-5 lg:py-3 shadow-inset-blue-100"
                       x-on:click="$store.myAvime.approve(1)"
-                    >Approve Fusion</button>
+                    >Approve Fusion Contract</button>
                     <button
                       class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
                       id="fuse-avime"
@@ -310,7 +310,7 @@
                     >Fuse Your Avime</button>
                   </p>
 
-                  <p class="mb-2 text-sm text-center normal-case">All 6 selected traits will be burned when fused into an Avime<br> Non-unique combinations will result in your fusion being marked as "Duplicate"</p>
+                  <p class="max-w-xl mx-auto mb-2 text-sm text-center normal-case">You only need to approve the Fusion Contract once before fusing. All 6 selected traits will be burned when fused into an Avime. Non-unique combinations will result in your fusion being marked as "Duplicate".</p>
                   <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2" x-show="($store.myAvime.fusedAmount > 0)">
                     <button
                       class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white disabled:opacity-50"
@@ -649,7 +649,7 @@
         <div
           class="backdrop backdrop-shaded scroll-unlock"
           x-show.transition.opacity.duration.600ms="modal"
-          x-on:click="modal = false; $store.myAvime.clear()"
+          x-on:click="window.location.reload()"
         ></div>
 
         <div
@@ -688,7 +688,7 @@
 
             <button
               class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
-              x-on:click="modal = false; $store.myAvime.clear($dispatch)"
+              x-on:click="window.location.reload()"
             >Close</button>
           </div>
         </div>
