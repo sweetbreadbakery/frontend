@@ -221,7 +221,7 @@ Alpine.store('myAvime', {
           .send({ from: this.walletAddress, value: mintCost });
 
         if (mint) {
-          this.fusing = false;
+          this.fusing = this.loading.fusions = this.loaded.fusions = false;
           this.fused = [];
           this.update($dispatch);
           $dispatch('modal-fuse');
