@@ -34,7 +34,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.6",
-    "webpack": "^5.46.0"
+    "webpack": "^5.52.0"
   },
   "dependencies": {
     "alpinejs": "^3.2.2",
