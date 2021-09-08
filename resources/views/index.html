@@ -73,7 +73,7 @@
       </header>
 
       <main class="text-black bg-blue-100" id="main">
-        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data x-init="$store.myAvime.checkWebAccount($dispatch)">
+        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data x-init="$store.myAvime.init()">
           <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
             <div x-show="!$store.myAvime.walletConnected">
               <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
@@ -81,7 +81,7 @@
               <button
                 class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
                 id="eth-login"
-                x-on:click="$store.myAvime.connect()"
+                x-on:click="$store.myAvime.connect($dispatch)"
               >Connect Wallet</button>
             </div>
 
@@ -701,7 +701,7 @@
         <div
           class="backdrop backdrop-shaded scroll-unlock"
           x-show.transition.opacity.duration.600ms="modal"
-          x-on:click="modal = false"
+          x-on:click="modal = false; $store.myAvime.update($dispatch)"
         ></div>
 
         <div
@@ -715,7 +715,7 @@
 
             <button
               class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
-              x-on:click="modal = false"
+              x-on:click="modal = false; $store.myAvime.update($dispatch)"
             >Close</button>
           </div>
         </div>
