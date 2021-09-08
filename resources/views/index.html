@@ -73,7 +73,7 @@
       </header>
 
       <main class="text-black bg-blue-100" id="main">
-        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data>
+        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data x-init="$store.myAvime.checkWebAccount($dispatch)">
           <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
             <div x-show="!$store.myAvime.walletConnected">
               <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
@@ -93,35 +93,36 @@
               style="display: none;"
             >
               <header class="flex flex-col items-center justify-between lg:flex-row" id="wardrobe-header">
-                <div class="flex-1 mb-4 text-center lg:text-left lg:mb-0">
+                <div class="mb-4 text-center lg:text-left lg:mb-0 w-max">
                   <h2 class="mb-3 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
                   <p class="leading-none">
                     <span>Wallet:</span>
-                    <span x-text="`${$store.myAvime.walletAddress.substring(0, 6)} ... ${$store.myAvime.walletAddress.slice($store.myAvime.walletAddress.length - 4)}`"></span>
+                    <span class="normal-case" x-text="`${$store.myAvime.walletAddress.substring(0, 6)} ... ${$store.myAvime.walletAddress.slice($store.myAvime.walletAddress.length - 4)}`"></span>
                   </p>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-center text-center lg:text-left w-max max-w-[353px]">
-                  <p class="w-full mb-1 text-sm">Number of packs (Max 10)</p>
+                <div class="flex-1 max-w-[380px] text-center lg:text-left">
+                  <p class="mb-1 text-sm">Number of packs (Max 10)</p>
 
-                  <input
-                    class="p-2 mr-4 text-black border border-black rounded shadow-inner lg:p-3"
-                    type="number"
-                    value="1"
-                    min="1"
-                    max="10"
-                    maxlength="2"
-                    pattern="\d*"
-                    onkeydown="return false"
-                    x-model="$store.myAvime.mintAmount"
-                  >
-
-                  <button
-                    class="inline-flex items-center justify-center px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 hover:bg-green-600 shadow-inset-white"
-                    id="mint-traits"
-                    x-on:click="$store.myAvime.mint($store.myAvime.mintAmount, $dispatch)"
-                    x-bind:disabled="$store.myAvime.minting"
-                  >Mint <span class="mx-1" x-text="($store.myAvime.mintAmount * 6)"></span> Traits (Price: <span class="mx-1" x-text="$store.myAvime.round($store.myAvime.mintAmount * $store.myAvime.mintPrice)"></span> ETH)</button>
+                  <div class="flex items-center justify-center w-full space-x-4">
+                    <input
+                      class="p-2 text-black border border-black rounded shadow-inner lg:p-3"
+                      type="number"
+                      value="1"
+                      min="1"
+                      max="10"
+                      maxlength="2"
+                      pattern="\d*"
+                      onkeydown="return false"
+                      x-model="$store.myAvime.mintAmount"
+                    >
+                    <button
+                      class="inline-flex items-center justify-center flex-1 px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 hover:bg-green-600 shadow-inset-white"
+                      id="mint-traits"
+                      x-on:click="$store.myAvime.mint($store.myAvime.mintAmount, $dispatch)"
+                      x-bind:disabled="$store.myAvime.minting"
+                    >Mint <span class="mx-1" x-text="($store.myAvime.mintAmount * 6)"></span> Traits (Price: <span class="mx-1" x-text="$store.myAvime.round($store.myAvime.mintAmount * $store.myAvime.mintPrice)"></span> ETH)</button>
+                  </div>
                 </div>
               </header>
 
@@ -176,7 +177,7 @@
                           <button
                             class="bg-center bg-no-repeat bg-cover image-bevel"
                             x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`"
-                            x-on:click="$store.myAvime.tab = trait; ($store.myAvime.selected.traits[trait] = $store.myAvime.blankTrait)"
+                            x-on:click="$store.myAvime.deselect(trait)"
                           >
                             <img
                               class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
@@ -254,7 +255,7 @@
                           <button
                             class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
                             data-tooltip
-                            x-on:click="$store.myAvime.selected.traits[trait] = item; $store.myAvime.select(trait, item)"
+                            x-on:click="$store.myAvime.select(trait, item)"
                             x-on:mouseover="tooltip = true"
                             x-on:mouseleave="tooltip = false"
                           >
@@ -304,14 +305,20 @@
                       class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
                       id="fuse-avime"
                       x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
-                      x-bind:disabled="$store.myAvime.fusing"
+                      x-bind:disabled="$store.myAvime.fusing || !$store.myAvime.allSelected"
                     >Fuse Your Avime</button>
                   </p>
 
                   <p class="mb-2 text-sm text-center normal-case">All 6 selected traits will be burned when fused into an Avime<br> Non-unique combinations will result in your fusion being marked as "Duplicate"</p>
-                  <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2">
-                    <button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$store.myAvime.checkUniquness(($store.myAvime.sex === 'female') ? 0 : 1)">Check Uniquness</button>
-                    <button class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white" x-on:click="$dispatch('modal-fused')">View Fused Avime</button>
+                  <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2" x-show="($store.myAvime.fusedAmount > 0)">
+                    <button
+                      class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white disabled:opacity-50"
+                      x-on:click="$dispatch('modal-fused')"
+                      x-bind:disabled="!$store.myAvime.loaded.fusions"
+                    >
+                      <span x-show="$store.myAvime.loaded.fusions">View Fused (<span x-text="$store.myAvime.fusedAmount"></span>)</span>
+                      <span x-show="!$store.myAvime.loaded.fusions">Loading Fused...</span>
+                    </button>
                   </p>
                 </div>
               </div>
@@ -324,9 +331,9 @@
               </div>
 
               <div class="flex flex-col p-6 text-center border-t border-b border-blue-600 lg:border-0 lg:border-l lg:border-r">
-                <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Trait Cards Minted</dt>
+                <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Packs Minted</dt>
                 <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">
-                  <span x-text="($store.myAvime.totalMinted / 6)">0</span>/60k
+                  <span x-text="($store.myAvime.totalMinted / 6)">0</span>/10k
                 </dd>
               </div>
 
@@ -643,7 +650,7 @@
         ></div>
 
         <div
-          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          class="p-3 rounded modal-panel"
           :class="{ 'active': (modal === 'fuse') }"
         >
           <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
@@ -678,7 +685,7 @@
 
             <button
               class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
-              x-on:click="modal = false; $store.myAvime.clear()"
+              x-on:click="modal = false; $store.myAvime.clear($dispatch)"
             >Close</button>
           </div>
         </div>
@@ -697,7 +704,7 @@
         ></div>
 
         <div
-          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          class="p-3 rounded modal-panel"
           :class="{ 'active': (modal === 'mint') }"
         >
           <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
@@ -726,27 +733,30 @@
         ></div>
 
         <div
-          class="p-3 rounded modal-panel container-sm b-thin bg-color-background"
+          class="p-3 rounded modal-panel w-screen max-w-[1058px]"
           :class="{ 'active': (modal === 'fused') }"
         >
           <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
-            <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
-            <p class="mb-8">You don't have any... yet.</p>
+            <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
+            <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+            <p class="mb-8" x-text="$store.myAvime.loading.fusions ? 'Loading...' : 'No fused Avime found!'" x-show="!$store.myAvime.loaded.fusions"></p>
 
             <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.myAvime.fused.length > 0">
               <template x-for="avime in $store.myAvime.fused">
-                <div class="p-2 border border-blue-600 rounded">
-                  <span class="flex items-center justify-between mb-2">
+                <div class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200">
+                  <span class="flex items-center justify-between mb-2 leading-none">
                     <span x-text="(`ID: ${avime.ID}`)"></span>
                     <span x-text="(avime.unique === true ? 'Original' : `Dupe: ${avime.unique}`)"></span>
                   </span>
-                  <span class="relative overflow-hidden block rounded-sm h-[160px] w-[160px]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[0]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[1]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[2]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[3]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[4]">
-                    <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[5]">
+                  <span class="block mx-auto overflow-hidden border-2 border-black rounded w-max">
+                    <span class="relative block overflow-hidden rounded-sm h-[160px] w-[160px]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[0]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[1]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[2]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[3]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[4]">
+                      <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[5]">
+                    </span>
                   </span>
                 </div>
               </template>
@@ -754,12 +764,40 @@
 
             <button
               class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
-              x-on:click="modal = false;"
+              x-on:click="modal = false"
             >Close</button>
           </div>
         </div>
       </div>
 
+      <div
+        class="modal-wrapper"
+        id="error-modal"
+        :class="{ 'active': (modal === 'error') }"
+        x-on:modal-error.window="(modal = 'error')"
+      >
+        <div
+          class="backdrop backdrop-shaded scroll-unlock"
+          x-show.transition.opacity.duration.600ms="modal"
+          x-on:click="modal = false"
+        ></div>
+
+        <div
+          class="p-3 rounded modal-panel"
+          :class="{ 'active': (modal === 'error') }"
+        >
+          <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+            <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Error loading data</p>
+            <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+            <p class="mb-4">Please refresh your browser window and try again.</p>
+
+            <button
+              class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 shadow-inset-white scroll-unlock"
+              x-on:click="window.location.reload()"
+            >Refresh</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="/scripts/web3.js" defer></script>
