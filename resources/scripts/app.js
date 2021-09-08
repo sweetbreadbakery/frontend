@@ -477,6 +477,16 @@ Alpine.store('myAvime', {
   },
 });
 
+Alpine.effect(() => {
+  const mintAmount = Alpine.store('myAvime').mintAmount;
+
+  if (mintAmount > 10) {
+    Alpine.store('myAvime').mintAmount = 10;
+  } else if (mintAmount < 1) {
+    Alpine.store('myAvime').mintAmount = 1;
+  }
+});
+
 /**
  * Init Alpine.js
  */
