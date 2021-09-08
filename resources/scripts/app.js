@@ -482,7 +482,7 @@ Alpine.effect(() => {
 
   if (mintAmount > 10) {
     Alpine.store('myAvime').mintAmount = 10;
-  } else if (mintAmount < 1) {
+  } else if (mintAmount < 0) {
     Alpine.store('myAvime').mintAmount = 1;
   }
 });
