@@ -397,6 +397,8 @@ Alpine.store('myAvime', {
       let transfer = await this.fusionContract.methods
         .transferFrom(this.walletAddress, address, id)
         .send({ from: this.walletAddress });
+
+      console.info(transfer);
     } catch (err) {
       console.error(err);
     }
