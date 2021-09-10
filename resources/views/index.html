@@ -72,7 +72,7 @@
       </header>
 
       <main class="text-black bg-blue-100" id="main">
-        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data x-init="$store.myAvime.init()">
+        <section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data>
           <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
             <div x-show="!$store.myAvime.walletConnected">
               <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
@@ -323,23 +323,26 @@
               </div>
             </div>
 
-            <dl class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3">
+            <dl
+              class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3"
+              x-init="fetch('https://api.avime.moe/mintData').then(response => { return response.json(); }).then(data => { $store.myAvime.mintData = data; });"
+            >
               <div class="flex flex-col p-6 text-center border-b border-blue-600 lg:border-0 lg:border-r">
                 <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Price</dt>
-                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">0.09 ETH</dd>
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">0.09 ETH</dd>
               </div>
 
               <div class="flex flex-col p-6 text-center border-t border-b border-blue-600 lg:border-0 lg:border-l lg:border-r">
                 <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Packs Minted</dt>
-                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">
-                  <span x-text="($store.myAvime.totalMinted / 6)">0</span>/10k
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
+                  <span x-text="(parseInt($store.myAvime.mintData.s01) / 6)">0</span>/10k
                 </dd>
               </div>
 
               <div class="flex flex-col p-6 text-center border-t border-blue-600 lg:border-0 lg:border-l">
                 <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Avime Fused</dt>
-                <dd class="order-1 text-2xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-3xl font-heading text-shadow-heading-darker">
-                  <span x-text="$store.myAvime.totalFused">0</span>/10k
+                <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
+                  <span x-text="$store.myAvime.mintData.fusion">0</span>/10k
                 </dd>
               </div>
             </dl>

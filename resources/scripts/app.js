@@ -19,9 +19,9 @@ Alpine.store('myAvime', {
   s00Address: config.addresses.s00,
   s00Contract: null,
   s01Address: config.addresses.s01,
-  s01Contract: new web3.eth.Contract(config.abi.s01, config.addresses.s01),
+  s01Contract: null,
   fusionAddress: config.addresses.fusion,
-  fusionContract: new web3.eth.Contract(config.abi.fusion, config.addresses.fusion),
+  fusionContract: null,
   walletAddress: '',
   walletConnected: false,
   staff: staff,
@@ -32,6 +32,11 @@ Alpine.store('myAvime', {
   loading: {
     traits: false,
     fusions: false,
+  },
+  mintData: {
+    s00: 0,
+    s01: 8028,
+    fusion: 104,
   },
   loaded: {
     traits: false,
@@ -114,6 +119,8 @@ Alpine.store('myAvime', {
           this.isUnique = (result === '0') ? true : false;
           this.showUniqueCheck = true;
         });
+
+      console.info(unique);
     } catch (err) {
       console.error(err);
     }
@@ -129,6 +136,8 @@ Alpine.store('myAvime', {
 
         if (account) {
           window.Alpine.store('myAvime').walletConnected = true;
+          window.Alpine.store('myAvime').s01Contract = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
+          window.Alpine.store('myAvime').fusionContract = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
           window.Alpine.store('myAvime').update($dispatch);
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
@@ -235,9 +244,6 @@ Alpine.store('myAvime', {
     }
   },
   async init() {
-    this.totalMinted = await this.s01Contract.methods.totalSupply().call();
-    this.totalFused = await this.fusionContract.methods.totalSupply().call();
-
     setTimeout(this.checkWebAccount, 500);
   },
   async mint(amount, $dispatch) {
@@ -301,6 +307,8 @@ Alpine.store('myAvime', {
       let transfer = await this.fusionContract.methods
         .transferFrom(this.walletAddress, address, id)
         .send({ from: this.walletAddress });
+
+      console.info(transfer);
     } catch (err) {
       console.error(err);
     }
