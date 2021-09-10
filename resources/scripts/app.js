@@ -1,3 +1,5 @@
+"use strict";
+
 import Alpine from 'alpinejs';
 import { config } from './config';
 import { faqs } from './util/faqs';
@@ -7,8 +9,23 @@ import { blankTrait } from './util/blankTrait';
 /**
  * Init Web3
  */
-const ethereum = window.ethereum;
-const web3 = new window.Web3(ethereum);
+const Web3Modal = window.Web3Modal.default;
+const WalletConnectProvider = window.WalletConnectProvider.default;
+
+// Web3 instance
+let web3;
+
+// Web3modal instance
+let web3Modal;
+
+// Chosen wallet provider given by the dialog window
+let provider;
+
+// Wallet accounts
+let accounts;
+
+// Address of the selected account
+let selectedAccount;
 
 /**
  * Set Alpine.js store data
@@ -19,9 +36,9 @@ Alpine.store('myAvime', {
   s00Address: config.addresses.s00,
   s00Contract: null,
   s01Address: config.addresses.s01,
-  s01Contract: new web3.eth.Contract(config.abi.s01, config.addresses.s01),
+  s01Contract: null,
   fusionAddress: config.addresses.fusion,
-  fusionContract: new web3.eth.Contract(config.abi.fusion, config.addresses.fusion),
+  fusionContract: null,
   walletAddress: '',
   walletConnected: false,
   staff: staff,
@@ -32,6 +49,11 @@ Alpine.store('myAvime', {
   loading: {
     traits: false,
     fusions: false,
+  },
+  mintData: {
+    s00: 0,
+    s01: 8028,
+    fusion: 104,
   },
   loaded: {
     traits: false,
@@ -114,13 +136,15 @@ Alpine.store('myAvime', {
           this.isUnique = (result === '0') ? true : false;
           this.showUniqueCheck = true;
         });
+
+      console.info(unique);
     } catch (err) {
       console.error(err);
     }
   },
-  async checkWeb3($dispatch) {
+  async checkWeb3(provider, $dispatch) {
     try {
-      if (ethereum) {
+      if (provider) {
         const currentAccounts = await web3.eth.getAccounts();
         const account = currentAccounts[0];
 
@@ -129,6 +153,8 @@ Alpine.store('myAvime', {
 
         if (account) {
           window.Alpine.store('myAvime').walletConnected = true;
+          window.Alpine.store('myAvime').s01Contract = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
+          window.Alpine.store('myAvime').fusionContract = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
           window.Alpine.store('myAvime').update($dispatch);
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
@@ -142,17 +168,19 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async checkWebAccount($dispatch) {
+  async checkWebAccount(provider, $dispatch) {
     try {
-      const currentAccounts = await web3.eth.getAccounts();
-      const account = currentAccounts[0];
+      if (provider) {
+        const currentAccounts = await web3.eth.getAccounts();
+        const account = currentAccounts[0];
 
-      if (account && account !== window.Alpine.store('myAvime').walletAddress) {
-        window.Alpine.store('myAvime').walletAddress = account;
-        window.Alpine.store('myAvime').checkWeb3($dispatch);
+        if (account && account !== window.Alpine.store('myAvime').walletAddress) {
+          window.Alpine.store('myAvime').walletAddress = account;
+          window.Alpine.store('myAvime').checkWeb3(provider, $dispatch);
+        }
       }
 
-      setTimeout(this.checkWebAccount, 500);
+      setTimeout(this.checkWebAccount, 500, provider, $dispatch);
     } catch (err) {
       console.error(err);
     }
@@ -171,24 +199,66 @@ Alpine.store('myAvime', {
   },
   async connect($dispatch) {
     try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const account = accounts[0];
-
-      if (account) {
-        window.Alpine.store('myAvime').walletAddress = account;
-      }
-    } catch (err) {
-      document.getElementById('eth-login').innerHTML = 'Web3 Wallet Not Available';
-      console.error(err);
+      provider = await web3Modal.connect();
+    } catch (e) {
+      console.error(e);
+      return;
     }
 
-    window.Alpine.store('myAvime').checkWeb3($dispatch);
+    provider.on('disconnect', (ProviderRpcError) => {
+      console.info(ProviderRpcError);
+    });
+
+    // Subscribe to accounts change
+    provider.on('accountsChanged', async (accounts) => {
+      if (accounts.length === 0) {
+        await web3Modal.clearCachedProvider();
+        window.Alpine.store('myAvime').walletConnected = false;
+      }
+
+      this.fetchAccountData(provider, $dispatch);
+    });
+
+    // Subscribe to chainId change
+    provider.on('chainChanged', (chainId) => {
+      console.info(chainId);
+      this.fetchAccountData(provider, $dispatch);
+    });
+
+    await this.refreshAccountData(provider, $dispatch);
   },
   async deselect(trait) {
     this.tab = trait;
     this.selected.traits[trait] = this.blankTrait;
     this.showUniqueCheck = false;
     this.allSelected = false;
+  },
+  async disconnect() {
+    if (provider.close) {
+      await provider.close();
+      await web3Modal.clearCachedProvider();
+
+      provider = null;
+    }
+
+    window.Alpine.store('myAvime').walletConnected = false;
+  },
+  async fetchAccountData(provider, $dispatch) {
+    try {
+      // Get a Web3 instance for the wallet
+      web3 = web3 ? web3 : new window.Web3(provider);
+      accounts = await web3.eth.getAccounts();
+      selectedAccount = accounts[0];
+
+      if (selectedAccount) {
+        window.Alpine.store('myAvime').walletAddress = selectedAccount;
+      }
+    } catch (e) {
+      document.getElementById('eth-login').innerHTML = 'Web3 Wallet Not Available';
+      console.error(e);
+    }
+
+    window.Alpine.store('myAvime').checkWeb3(provider, $dispatch);
   },
   async fuse(sex, $dispatch) {
     try {
@@ -234,11 +304,34 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async init() {
-    this.totalMinted = await this.s01Contract.methods.totalSupply().call();
-    this.totalFused = await this.fusionContract.methods.totalSupply().call();
+  async init($dispatch) {
+    const providerOptions = {
+      walletconnect: {
+        package: WalletConnectProvider,
+        options: {
+          infuraId: "7c1713bb8ef24531b544b733a6a3af79",
+        },
+      },
+    };
 
-    setTimeout(this.checkWebAccount, 500);
+    web3Modal = new Web3Modal({
+      cacheProvider: true,
+      providerOptions,
+      disableInjectedProvider: false,
+    });
+
+    if (web3Modal.cachedProvider) {
+      try {
+        provider = await web3Modal.connect();
+        web3 = new window.Web3(provider);
+      } catch (e) {
+        console.error(e);
+        await web3Modal.clearCachedProvider();
+        return;
+      }
+    }
+
+    setTimeout(this.checkWebAccount, 500, provider, $dispatch);
   },
   async mint(amount, $dispatch) {
     try {
@@ -276,6 +369,9 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
+  async refreshAccountData($dispatch) {
+    await this.fetchAccountData(provider, $dispatch);
+  },
   round(number) {
     return Math.round(number * 100 + Number.EPSILON) / 100;
   },
@@ -293,7 +389,7 @@ Alpine.store('myAvime', {
     }
 
     if (this.allSelected) {
-      this.checkUniquness(this.sex === 'female' ? 0 : 1);
+      await this.checkUniquness(this.sex === 'female' ? 0 : 1);
     }
   },
   async transfer(address, id) {
@@ -497,13 +593,5 @@ Alpine.start();
  * Init everything else...
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // If you await the return of the mint function, you will see that events->transfer has one transfer for each erc721 token.
-  // mint.events.Transfer[index].returnValues[2] is where the tokenId is located
-  // Iterate over index for i < (mintQuantity*6)
-
-  ethereum.on('accountsChanged', (accounts) => {
-    if (accounts.length === 0) {
-      window.Alpine.store('myAvime').walletConnected = false;
-    }
-  });
+  // window.Alpine.store('myAvime').init();
 });
