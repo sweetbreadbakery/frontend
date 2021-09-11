@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('mix-html-builder');
 
 /*
  |--------------------------------------------------------------------------
@@ -36,7 +37,12 @@ mix
   .copyDirectory('resources/fonts', 'public/fonts');
 
 mix
-  .copy('resources/views/index.html', 'public');
+  .html({
+    output: '.',
+    htmlRoot: './resources/views/index.html',
+    layoutRoot: './resources/views/layouts',
+    partialRoot: './resources/views/partials',
+  });
 
 mix
   .sourceMaps()

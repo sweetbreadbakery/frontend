@@ -1,0 +1,163 @@
+<div id="modals" x-data="{ modal: false }">
+  <div
+    class="modal-wrapper"
+    id="fuse-modal"
+    :class="{ 'active': (modal === 'fuse') }"
+    x-on:modal-fuse.window="(modal = 'fuse')"
+  >
+    <div
+      class="backdrop backdrop-shaded scroll-unlock"
+      x-show.transition.opacity.duration.600ms="modal"
+      x-on:click="window.location.reload()"
+    ></div>
+
+    <div
+      class="p-3 rounded modal-panel"
+      :class="{ 'active': (modal === 'fuse') }"
+    >
+      <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+        <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime get!</p>
+
+        <div class="p-2 mb-4 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
+          <div class="relative gap-4 p-3 mx-auto overflow-hidden text-black bg-teal-300 border-2 border-blue-600 rounded-lg w-max">
+            <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
+              <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px] rounded">
+                <img
+                  class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
+                  x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                  alt=""
+                  draggable="false"
+                >
+
+                <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                  <img
+                    class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                    x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                    alt=""
+                    onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                    draggable="false"
+                  >
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mb-4">Your new Avime has been fused!</p>
+
+        <button
+          class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+          x-on:click="window.location.reload()"
+        >Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal-wrapper"
+    id="mint-modal"
+    :class="{ 'active': (modal === 'mint') }"
+    x-on:modal-mint.window="(modal = 'mint')"
+  >
+    <div
+      class="backdrop backdrop-shaded scroll-unlock"
+      x-show.transition.opacity.duration.600ms="modal"
+      x-on:click="modal = false; $store.myAvime.update()"
+    ></div>
+
+    <div
+      class="p-3 rounded modal-panel"
+      :class="{ 'active': (modal === 'mint') }"
+    >
+      <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+        <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Trait Cards get!</p>
+
+        <p class="mb-4">Your Trait Cards have been minted! Check your wardrobe to see what you got.</p>
+
+        <button
+          class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+          x-on:click="modal = false; $store.myAvime.update()"
+        >Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal-wrapper"
+    id="fused-modal"
+    :class="{ 'active': (modal === 'fused') }"
+    x-on:modal-fused.window="(modal = 'fused')"
+  >
+    <div
+      class="backdrop backdrop-shaded scroll-unlock"
+      x-show.transition.opacity.duration.600ms="modal"
+      x-on:click="modal = false"
+    ></div>
+
+    <div
+      class="p-3 rounded modal-panel w-screen max-w-[1058px]"
+      :class="{ 'active': (modal === 'fused') }"
+    >
+      <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+        <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
+        <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+        <p class="mb-8" x-text="$store.myAvime.loading.fusions ? 'Loading...' : 'No fused Avime found!'" x-show="!$store.myAvime.loaded.fusions"></p>
+
+        <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.myAvime.fused.length > 0">
+          <template x-for="avime in $store.myAvime.fused">
+            <div class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200">
+              <span class="flex items-center justify-between mb-2 leading-none">
+                <span x-text="(`ID: ${avime.ID}`)"></span>
+                <span x-text="(avime.unique === true ? 'Original' : `Dupe: ${avime.unique}`)"></span>
+              </span>
+              <span class="block mx-auto overflow-hidden border-2 border-black rounded w-max">
+                <span class="relative block overflow-hidden rounded-sm h-[160px] w-[160px]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[0]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[1]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[2]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[3]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[4]">
+                  <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[5]">
+                </span>
+              </span>
+            </div>
+          </template>
+        </div>
+
+        <button
+          class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
+          x-on:click="modal = false"
+        >Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal-wrapper"
+    id="error-modal"
+    :class="{ 'active': (modal === 'error') }"
+    x-on:modal-error.window="(modal = 'error')"
+  >
+    <div
+      class="backdrop backdrop-shaded scroll-unlock"
+      x-show.transition.opacity.duration.600ms="modal"
+      x-on:click="modal = false"
+    ></div>
+
+    <div
+      class="p-3 rounded modal-panel"
+      :class="{ 'active': (modal === 'error') }"
+    >
+      <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+        <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Error loading data</p>
+        <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+        <p class="mb-4">Please refresh your browser window and try again.</p>
+
+        <button
+          class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 shadow-inset-white scroll-unlock"
+          x-on:click="window.location.reload()"
+        >Refresh</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -142,7 +142,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async checkWeb3(provider, $dispatch) {
+  async checkWeb3(provider) {
     try {
       if (provider) {
         const currentAccounts = await web3.eth.getAccounts();
@@ -155,7 +155,7 @@ Alpine.store('myAvime', {
           window.Alpine.store('myAvime').walletConnected = true;
           window.Alpine.store('myAvime').s01Contract = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
           window.Alpine.store('myAvime').fusionContract = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
-          window.Alpine.store('myAvime').update($dispatch);
+          window.Alpine.store('myAvime').update();
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
           window.Alpine.store('myAvime').walletConnected = false;
@@ -168,7 +168,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async checkWebAccount(provider, $dispatch) {
+  async checkWebAccount(provider) {
     try {
       if (provider) {
         const currentAccounts = await web3.eth.getAccounts();
@@ -176,16 +176,16 @@ Alpine.store('myAvime', {
 
         if (account && account !== window.Alpine.store('myAvime').walletAddress) {
           window.Alpine.store('myAvime').walletAddress = account;
-          window.Alpine.store('myAvime').checkWeb3(provider, $dispatch);
+          window.Alpine.store('myAvime').checkWeb3(provider);
         }
       }
 
-      setTimeout(this.checkWebAccount, 500, provider, $dispatch);
+      setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
       console.error(err);
     }
   },
-  async clear($dispatch) {
+  async clear() {
     this.selected.traits.background = blankTrait;
     this.selected.traits.body = blankTrait;
     this.selected.traits.face = blankTrait;
@@ -195,9 +195,9 @@ Alpine.store('myAvime', {
     this.showUniqueCheck = false;
     this.allSelected = false;
 
-    this.update($dispatch);
+    this.update();
   },
-  async connect($dispatch) {
+  async connect() {
     try {
       provider = await web3Modal.connect();
     } catch (e) {
@@ -216,16 +216,16 @@ Alpine.store('myAvime', {
         window.Alpine.store('myAvime').walletConnected = false;
       }
 
-      this.fetchAccountData(provider, $dispatch);
+      this.fetchAccountData(provider);
     });
 
     // Subscribe to chainId change
     provider.on('chainChanged', (chainId) => {
       console.info(chainId);
-      this.fetchAccountData(provider, $dispatch);
+      this.fetchAccountData(provider);
     });
 
-    await this.refreshAccountData(provider, $dispatch);
+    await this.refreshAccountData(provider);
   },
   async deselect(trait) {
     this.tab = trait;
@@ -243,7 +243,7 @@ Alpine.store('myAvime', {
 
     window.Alpine.store('myAvime').walletConnected = false;
   },
-  async fetchAccountData(provider, $dispatch) {
+  async fetchAccountData(provider) {
     try {
       // Get a Web3 instance for the wallet
       web3 = web3 ? web3 : new window.Web3(provider);
@@ -258,9 +258,9 @@ Alpine.store('myAvime', {
       console.error(e);
     }
 
-    window.Alpine.store('myAvime').checkWeb3(provider, $dispatch);
+    window.Alpine.store('myAvime').checkWeb3(provider);
   },
-  async fuse(sex, $dispatch) {
+  async fuse(sex) {
     try {
       this.fusing = true;
 
@@ -293,7 +293,7 @@ Alpine.store('myAvime', {
 
         if (mint) {
           this.fusing = this.loading.fusions = this.loaded.fusions = false;
-          $dispatch('modal-fuse');
+          document.dispatchEvent(new CustomEvent('modal-fuse'));
         }
       } else {
         this.fusing = false;
@@ -304,7 +304,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async init($dispatch) {
+  async init() {
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider,
@@ -331,9 +331,9 @@ Alpine.store('myAvime', {
       }
     }
 
-    setTimeout(this.checkWebAccount, 500, provider, $dispatch);
+    setTimeout(this.checkWebAccount, 500, provider);
   },
-  async mint(amount, $dispatch) {
+  async mint(amount) {
     try {
       this.minting = true;
 
@@ -362,15 +362,15 @@ Alpine.store('myAvime', {
 
       if (mint) {
         this.minting = false;
-        $dispatch('modal-mint');
+        document.dispatchEvent(new CustomEvent('modal-mint'));
       }
     } catch (err) {
       this.minting = false;
       console.error(err);
     }
   },
-  async refreshAccountData($dispatch) {
-    await this.fetchAccountData(provider, $dispatch);
+  async refreshAccountData() {
+    await this.fetchAccountData(provider);
   },
   round(number) {
     return Math.round(number * 100 + Number.EPSILON) / 100;
@@ -403,8 +403,8 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async update($dispatch) {
-    try {
+  async update() {
+    // try {
       let traitBalance  = await this.s01Contract.methods.balanceOf(this.walletAddress).call();
       let fusionBalance = await this.fusionContract.methods.balanceOf(this.walletAddress).call();
 
@@ -568,10 +568,10 @@ Alpine.store('myAvime', {
 
       this.loading.fusions = false;
       this.loaded.fusions = true;
-    } catch (err) {
-      $dispatch('modal-error');
-      console.error(err);
-    }
+    // } catch (err) {
+      // document.dispatchEvent(new CustomEvent('modal-error'));
+      // console.error(err);
+    // }
   },
 });
 

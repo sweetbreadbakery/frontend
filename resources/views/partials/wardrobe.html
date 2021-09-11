@@ -1,0 +1,260 @@
+<section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data>
+  <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
+    <div x-show="!$store.myAvime.walletConnected">
+      <h2 class="text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
+      <p class="mt-4 text-lg leading-6 text-white">Connect your wallet to mint and view Trait Cards.</p>
+      <button
+        class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
+        id="eth-login"
+        x-on:click="$store.myAvime.connect()"
+      >Connect Wallet</button>
+    </div>
+
+    <div
+      class="p-4 leading-none uppercase bg-blue-500 border border-black rounded-xl bg-gradient-to-b lg:p-7"
+      id="wardrobe-interface"
+      x-show="$store.myAvime.walletConnected"
+      x-cloak
+      style="display: none;"
+    >
+      <header class="flex flex-col items-center justify-between lg:flex-row" id="wardrobe-header">
+        <div class="mb-4 text-center lg:text-left lg:mb-0 w-max">
+          <h2 class="mb-3 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
+          <p class="leading-none">
+            <span>Wallet:</span>
+            <span class="normal-case" x-text="`${$store.myAvime.walletAddress.substring(0, 6)} ... ${$store.myAvime.walletAddress.slice($store.myAvime.walletAddress.length - 4)}`"></span>
+          </p>
+        </div>
+
+        <div class="flex-1 max-w-[380px] text-center lg:text-left">
+          <p class="mb-1 text-sm">Number of packs (Max 10)</p>
+
+          <div class="flex items-center justify-center w-full space-x-4">
+            <input
+              class="p-2 text-black border border-black rounded shadow-inner lg:p-3"
+              type="number"
+              value="1"
+              min="1"
+              max="10"
+              maxlength="2"
+              pattern="\d*"
+              x-model="$store.myAvime.mintAmount"
+            >
+            <button
+              class="button button--xl button--success"
+              id="mint-traits"
+              x-on:click="$store.myAvime.mint($store.myAvime.mintAmount)"
+              x-bind:disabled="$store.myAvime.minting"
+            >Mint <span class="mx-1" x-text="($store.myAvime.mintAmount * 6)"></span> Traits (Price: <span class="mx-1" x-text="$store.myAvime.round($store.myAvime.mintAmount * $store.myAvime.mintPrice)"></span> ETH)</button>
+          </div>
+        </div>
+      </header>
+
+      <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+
+      <div class="flex flex-wrap items-center justify-center p-3 lg:p-6 max-w-[732px] mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="wardrobe-preview">
+        <div class="flex flex-wrap items-center overflow-hidden bg-blue-600 border border-black rounded-md" id="wardrobe-preview-wrap">
+          <div class="relative w-full p-4 border-b rounded-t border-b-blue-900 lg:border-r lg:border-r-blue-200 lg:border-b-0 lg:rounded-l lg:rounded-t-none lg:w-max" id="wardrobe-preview-avime">
+            <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
+              <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
+                <img
+                  class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
+                  x-bind:src="('/images/avime/' + $store.myAvime.sex + '.png')"
+                  alt=""
+                  draggable="false"
+                >
+
+                <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                  <img
+                    class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm"
+                    x-bind:src="$store.myAvime.selected.traits[trait][$store.myAvime.sex]"
+                    alt=""
+                    onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                    draggable="false"
+                  >
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col w-full text-center lg:w-max" id="wardrobe-selected">
+            <div class="p-4 border-t border-b border-t-blue-200 lg:border-t-0 border-b-blue-900 lg:border-l lg:border-l-blue-900 lg:rounded-tr" id="wardrobe-selected-traits">
+              <p class="mb-[0.85rem]">Traits</p>
+
+              <div class="grid grid-cols-3 gap-4 mx-auto w-max">
+                <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                  <button
+                    class="bg-center bg-no-repeat bg-cover image-bevel"
+                    x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`"
+                    x-on:click="$store.myAvime.deselect(trait)"
+                  >
+                    <img
+                      class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                      x-bind:src="$store.myAvime.selected.traits[trait].thumb"
+                      alt=""
+                      onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                      draggable="false"
+                    >
+                  </button>
+                </template>
+              </div>
+            </div>
+
+            <div class="p-4 border-t rounded-b border-t-blue-200 lg:rounded-b-none lg:rounded-br lg:border-l lg:border-l-blue-900" id="wardrobe-selected-sex">
+              <p class="mb-[0.85rem]">Gender</p>
+
+              <p class="grid grid-cols-2 gap-4">
+                <template x-for="gender in ['female', 'male']">
+                  <button
+                    class="button button--lg button--primary"
+                    :class="{ 'bg-blue-700 border-blue-100 shadow-inset-blue-900 hover:bg-blue-700': $store.myAvime.sex === gender}"
+                    x-on:click="($store.myAvime.sex = gender)"
+                    x-text="gender"
+                  ></button>
+                </template>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative max-w-[732px] mx-auto mb-8" id="wardrobe-inventory">
+        <div class="sm:hidden" id="wardrobe-inventory-select">
+          <label for="tabs" class="sr-only">Select a trait</label>
+
+          <select
+            class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100"
+            id="tabs"
+            name="tabs"
+            x-model="$store.myAvime.tab"
+          >
+            <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+              <option x-text="trait" x-bind:value="trait"></option>
+            </template>
+          </select>
+        </div>
+
+        <nav
+          class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black"
+          id="wardrobe-inventory-tabs"
+          aria-label="Inventory Tabs"
+        >
+          <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+            <label
+              class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900"
+              :class="{ 'bg-blue-600 hover:bg-blue-600': $store.myAvime.tab === trait }"
+              x-on:click="$store.myAvime.tab = trait"
+              x-text="trait"
+            ></label>
+          </template>
+        </nav>
+
+        <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+          <div
+            class="overflow-x-visible overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel"
+            x-show.transition.in.opacity.duration.600="$store.myAvime.tab === trait"
+          >
+            <ul class="flex flex-wrap items-start py-1 pl-1 lg:py-2 lg:pl-2 pr-0 h-[110px] lg:h-[220px]">
+              <template x-for="item in $store.myAvime.wardrobe[trait]">
+                <li
+                  class="flex items-center justify-center p-2 m-0 h-max w-max"
+                  x-bind:id="`trait-${item.ID}`"
+                  x-data="{ tooltip: false }"
+                >
+                  <button
+                    class="image-bevel w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                    data-tooltip
+                    x-on:click="$store.myAvime.select(trait, item)"
+                    x-on:mouseover="tooltip = true"
+                    x-on:mouseleave="tooltip = false"
+                  >
+                    <img
+                      class="relative rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]"
+                      alt=""
+                      x-bind:src="item.thumb"
+                      onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')"
+                      draggable="false"
+                    >
+                  </button>
+
+                  <span x-show.transition.origin.top="tooltip" x-cloak style="display: none;">
+                    <span class="absolute bottom-0 z-10 p-2 -mt-1 text-sm leading-tight text-left transform -translate-x-1/2 translate-y-full w-max">
+                      <span class="relative overflow-hidden block w-[362px] h-[361px] rounded-[11px] shadow-lg">
+                        <img class="absolute inset-0 object-cover w-full h-full" alt="" x-bind:src="item.cardImg">
+                        <img class="absolute top-[20px] right-[21px] block w-[43px] h-[43px]" alt="" x-bind:src="item.thumb">
+                        <img class="absolute top-[76px] block w-[160px] h-[160px]" :class="{ 'left-[101px]': (trait === 'background'), 'left-[21px]': (trait !== 'background') }" alt="" x-bind:src="item.female">
+                        <img class="absolute top-[76px] right-[21px] block w-[160px] h-[160px]" alt="" x-bind:src="item.male" x-show="(trait !== 'background')">
+                        <span class="absolute top-[20px] left-[21px] flex items-center w-[265px] h-[43px] px-2 py-3 normal-case leading-none text-sm text-black" x-text="item.name"></span>
+                        <span class="absolute bottom-[48px] left-[21px] flex items-start w-[320px] h-[64px] p-2 normal-case text-sm text-black" x-text="item.desc"></span>
+                        <span class="absolute bottom-[6px] right-[36px] block w-[63px] text-center text-[0.7rem] text-blue-500 uppercase" x-text="(`ID: ${item.ID}`)"></span>
+                      </span>
+                    </span>
+                  </span>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </div>
+
+      <div class="w-full" id="wardrobe-fuse">
+        <div class="max-w-lg mx-auto lg:w-max">
+          <p class="p-2 mb-4 text-sm text-white normal-case bg-green-500 border-black rounded shadow-inset-white" x-show="$store.myAvime.showUniqueCheck && $store.myAvime.isUnique">
+            This combination of traits is unique. Nice!
+          </p>
+          <p class="p-2 mb-4 text-sm text-white normal-case bg-red-500 border-black rounded shadow-inset-white" x-show="$store.myAvime.showUniqueCheck && !$store.myAvime.isUnique">
+            Uh-oh. This combination of traits is NOT unique.
+          </p>
+
+          <p class="flex flex-col justify-center mb-4 space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
+            <button
+              class="flex-1 button button--xl button--primary"
+              x-on:click="$store.myAvime.approve(1)"
+            >Approve Fusion Contract</button>
+            <button
+              class="flex-1 button button--xl button--success"
+              x-on:click="$store.myAvime.fuse($store.myAvime.sex === 'female' ? 0 : 1)"
+              x-bind:disabled="$store.myAvime.fusing || !$store.myAvime.allSelected"
+            >Fuse Your Avime</button>
+          </p>
+
+          <p class="max-w-xl mx-auto mb-2 text-sm normal-case text-justify-center">You only need to approve the Fusion Contract once before fusing. All 6 selected traits will be burned when fused into an Avime. Non-unique combinations will result in your fusion being marked as "Duplicate".</p>
+          <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2" x-show="($store.myAvime.fusedAmount > 0)">
+            <button
+              class="p-2 text-xs leading-none uppercase border border-black rounded shadow-inset-white disabled:opacity-50"
+              x-on:click="$dispatch('modal-fused')"
+              x-bind:disabled="!$store.myAvime.loaded.fusions"
+            >
+              <span x-show="$store.myAvime.loaded.fusions">View Fused (<span x-text="$store.myAvime.fusedAmount"></span>)</span>
+              <span x-show="!$store.myAvime.loaded.fusions">Loading Fused...</span>
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <dl
+      class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3"
+      x-init="fetch('https://api.avime.moe/mintData').then(response => { return response.json(); }).then(data => { $store.myAvime.mintData = data; });"
+    >
+      <div class="flex flex-col p-6 text-center border-b border-blue-600 lg:border-0 lg:border-r">
+        <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Price</dt>
+        <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">0.09 ETH</dd>
+      </div>
+
+      <div class="flex flex-col p-6 text-center border-t border-b border-blue-600 lg:border-0 lg:border-l lg:border-r">
+        <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Packs Minted</dt>
+        <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
+          <span x-text="(parseInt($store.myAvime.mintData.s01) / 6)">0</span>/10k
+        </dd>
+      </div>
+
+      <div class="flex flex-col p-6 text-center border-t border-blue-600 lg:border-0 lg:border-l">
+        <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Avime Fused</dt>
+        <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
+          <span x-text="$store.myAvime.mintData.fusion">0</span>/10k
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
