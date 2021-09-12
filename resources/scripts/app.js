@@ -201,12 +201,12 @@ Alpine.store('myAvime', {
   },
   async fuse(sex, $dispatch) {
     try {
-      this.fusing = true;
-
       let mint;
       let mintCost = 10000000000000000;
       let seasons = [1, 1, 1, 1, 1, 1];
       let traits = [0, 0, 0, 0, 0, 0];
+
+      this.fusing = true;
 
       for (let selected in this.selected.traits) {
         if (this.selected.traits[selected].ID !== -1) {
@@ -231,10 +231,10 @@ Alpine.store('myAvime', {
           .send({
             from: this.walletAddress,
             value: mintCost,
-            gasLimit: web3.eth.getBlock('latest').gasLimit,
-            gasPrice: web3.eth.gasPrice,
-            maxPriorityFeePerGas: null,
-            maxFeePerGas: null,
+            // gasLimit: web3.eth.getBlock('latest').gasLimit,
+            // gasPrice: web3.eth.gasPrice,
+            // maxPriorityFeePerGas: null,
+            // maxFeePerGas: null,
           });
 
         if (mint) {
@@ -280,10 +280,10 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
-          gasLimit: web3.eth.getBlock('latest').gasLimit,
-          gasPrice: web3.eth.gasPrice,
-          maxPriorityFeePerGas: null,
-          maxFeePerGas: null,
+          // gasLimit: web3.eth.getBlock('latest').gasLimit,
+          // gasPrice: web3.eth.gasPrice,
+          // maxPriorityFeePerGas: null,
+          // maxFeePerGas: null,
         });
 
       if (mint) {
