@@ -232,6 +232,11 @@ Alpine.store('myAvime', {
           .send({
             from: this.walletAddress,
             value: mintCost,
+<<<<<<< HEAD
+=======
+            gasLimit: web3.eth.getBlock('latest').gasLimit,
+            gasPrice: web3.eth.gasPrice,
+>>>>>>> 5a7016f6cd42aca72f6cf63f9bebc7debdb20c6e
             maxPriorityFeePerGas: null,
             maxFeePerGas: null,
           });
@@ -254,16 +259,18 @@ Alpine.store('myAvime', {
   },
   async mint(amount, $dispatch) {
     try {
-      this.minting = true;
-
       let mint;
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
 
-      if (numberOfPacks > 10) {
-        numberOfPacks = 10;
-      } else if (numberOfPacks < 1) {
+      this.minting = true;
+
+      if (numberOfPacks < 1) {
         numberOfPacks = 1;
+      } else if (numberOfPacks > 10) {
+        numberOfPacks = 10;
+      } else {
+        numberOfPacks = Math.round(numberOfPacks);
       }
 
       mintCost = mintCost * numberOfPacks;
@@ -277,6 +284,11 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
+<<<<<<< HEAD
+=======
+          gasLimit: web3.eth.getBlock('latest').gasLimit,
+          gasPrice: web3.eth.gasPrice,
+>>>>>>> 5a7016f6cd42aca72f6cf63f9bebc7debdb20c6e
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,
         });
