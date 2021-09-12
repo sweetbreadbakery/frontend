@@ -229,7 +229,12 @@ Alpine.store('myAvime', {
 
         mint = await this.fusionContract.methods
           .mint(seasons, traits, sex)
-          .send({ from: this.walletAddress, value: mintCost });
+          .send({
+            from: this.walletAddress,
+            value: mintCost,
+            maxPriorityFeePerGas: null,
+            maxFeePerGas: null,
+          });
 
         if (mint) {
           this.fusing = this.loading.fusions = this.loaded.fusions = false;
@@ -272,6 +277,8 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
+          maxPriorityFeePerGas: null,
+          maxFeePerGas: null,
         });
 
       if (mint) {
