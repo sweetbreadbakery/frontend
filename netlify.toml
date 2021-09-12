@@ -4,4 +4,4 @@ command = "yarn && yarn build:production"
 public  = "public"
 
 [context.branch-deploy]
-command = "yarn && yarn build:production && cp _branchdeploy_headers public/_headers"
+command = "yarn && yarn build:production && cp robots.txt public/robots.txt"
