@@ -33,6 +33,7 @@ Alpine.store('myAvime', {
     traits: false,
     fusions: false,
   },
+  galleryTab: 'background',
   mintData: {
     s00: 0,
     s01: 8028,
