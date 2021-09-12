@@ -232,11 +232,8 @@ Alpine.store('myAvime', {
           .send({
             from: this.walletAddress,
             value: mintCost,
-<<<<<<< HEAD
-=======
             gasLimit: web3.eth.getBlock('latest').gasLimit,
             gasPrice: web3.eth.gasPrice,
->>>>>>> 5a7016f6cd42aca72f6cf63f9bebc7debdb20c6e
             maxPriorityFeePerGas: null,
             maxFeePerGas: null,
           });
@@ -284,11 +281,8 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
-<<<<<<< HEAD
-=======
           gasLimit: web3.eth.getBlock('latest').gasLimit,
           gasPrice: web3.eth.gasPrice,
->>>>>>> 5a7016f6cd42aca72f6cf63f9bebc7debdb20c6e
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,
         });
