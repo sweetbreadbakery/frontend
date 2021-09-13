@@ -234,7 +234,7 @@ Alpine.store('myAvime', {
             from: this.walletAddress,
             value: mintCost,
             maxFeePerGas: feePerGas,
-            maxPriorityFeePerGas: 2000,
+            maxPriorityFeePerGas: 2000000000,
             type: '0x2',
           });
 
@@ -283,7 +283,7 @@ Alpine.store('myAvime', {
           from: this.walletAddress,
           value: mintCost,
           maxFeePerGas: feePerGas,
-          maxPriorityFeePerGas: 2000,
+          maxPriorityFeePerGas: 2000000000,
           type: '0x2',
         });
 
