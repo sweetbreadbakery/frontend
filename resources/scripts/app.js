@@ -206,9 +206,6 @@ Alpine.store('myAvime', {
       let mintCost = 10000000000000000;
       let seasons = [1, 1, 1, 1, 1, 1];
       let traits = [0, 0, 0, 0, 0, 0];
-      let block = await web3.eth.getBlock('latest');
-      let gasLimit = block.gasLimit;
-      let gasPrice = `0x${gasLimit.toString(16)}`;
 
       this.fusing = true;
 
@@ -234,8 +231,7 @@ Alpine.store('myAvime', {
           .mint(seasons, traits, sex)
           .send({
             from: this.walletAddress,
-            gasPrice: gasPrice,
-            gas: gasLimit,
+            maxPriorityFeePerGas: 2000,
             value: mintCost,
           });
 
@@ -260,9 +256,6 @@ Alpine.store('myAvime', {
       let mint;
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
-      let block = await web3.eth.getBlock('latest');
-      let gasLimit = block.gasLimit;
-      let gasPrice = `0x${gasLimit.toString(16)}`;
 
       this.minting = true;
 
@@ -284,8 +277,7 @@ Alpine.store('myAvime', {
         .mint(numberOfPacks)
         .send({
           from: this.walletAddress,
-          gasPrice: gasPrice,
-          gas: gasLimit,
+          maxPriorityFeePerGas: 2000,
           value: mintCost,
         });
 
