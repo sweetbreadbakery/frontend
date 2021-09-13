@@ -206,6 +206,7 @@ Alpine.store('myAvime', {
       let mintCost = 10000000000000000;
       let seasons = [1, 1, 1, 1, 1, 1];
       let traits = [0, 0, 0, 0, 0, 0];
+      let feePerGas = await web3.eth.getGasPrice();
 
       this.fusing = true;
 
@@ -232,6 +233,7 @@ Alpine.store('myAvime', {
           .send({
             from: this.walletAddress,
             value: mintCost,
+            maxFeePerGas: feePerGas,
             maxPriorityFeePerGas: 2000,
           });
 
@@ -256,6 +258,7 @@ Alpine.store('myAvime', {
       let mint;
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
+      let feePerGas = await web3.eth.getGasPrice();
 
       this.minting = true;
 
@@ -278,6 +281,7 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
+          maxFeePerGas: feePerGas,
           maxPriorityFeePerGas: 2000,
         });
 
