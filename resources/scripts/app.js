@@ -237,8 +237,6 @@ Alpine.store('myAvime', {
             gasPrice: gasPrice,
             gas: gasLimit,
             value: mintCost,
-            maxPriorityFeePerGas: null,
-            maxFeePerGas: null,
           });
 
         if (mint) {
@@ -289,8 +287,6 @@ Alpine.store('myAvime', {
           gasPrice: gasPrice,
           gas: gasLimit,
           value: mintCost,
-          maxPriorityFeePerGas: null,
-          maxFeePerGas: null,
         });
 
       if (mint) {
