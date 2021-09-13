@@ -23,7 +23,7 @@
 .tab-panel::-webkit-scrollbar-thumb {
   background: theme('colors.blue.500');
   border: 1px solid theme('colors.black');
-  border-radius: 0;
+  border-radius: 2;
   box-shadow: inset -1px  1px 0px 0px theme('colors.blue.100'),
               inset  1px -1px 0px 0px theme('colors.blue.600');
 }

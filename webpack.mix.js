@@ -28,8 +28,9 @@ mix
 mix
   .copy('node_modules/web3/dist/web3.min.js', 'public/scripts/web3.js')
   .copy('node_modules/alpinejs/dist/cdn.min.js', 'public/scripts/alpine.js')
-  .copyDirectory('resources/images', 'public/images')
-  .copyDirectory('resources/fonts', 'public/fonts');
+  .copyDirectory('resources/data', 'public/data')
+  .copyDirectory('resources/fonts', 'public/fonts')
+  .copyDirectory('resources/images', 'public/images');
 
 mix
   .copy('resources/views/index.html', 'public');
