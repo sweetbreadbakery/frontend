@@ -235,6 +235,7 @@ Alpine.store('myAvime', {
             value: mintCost,
             maxFeePerGas: feePerGas,
             maxPriorityFeePerGas: 2000,
+            type: '0x2',
           });
 
         if (mint) {
@@ -283,6 +284,7 @@ Alpine.store('myAvime', {
           value: mintCost,
           maxFeePerGas: feePerGas,
           maxPriorityFeePerGas: 2000,
+          type: '0x2',
         });
 
       if (mint) {
