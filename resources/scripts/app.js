@@ -125,7 +125,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async checkWeb3($dispatch) {
+  async checkWeb3() {
     try {
       if (ethereum) {
         const currentAccounts = await web3.eth.getAccounts();
@@ -138,7 +138,7 @@ Alpine.store('myAvime', {
           window.Alpine.store('myAvime').walletConnected = true;
           window.Alpine.store('myAvime').s01Contract = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
           window.Alpine.store('myAvime').fusionContract = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
-          window.Alpine.store('myAvime').update($dispatch);
+          window.Alpine.store('myAvime').update();
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
           window.Alpine.store('myAvime').walletConnected = false;
@@ -151,14 +151,14 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async checkWebAccount($dispatch) {
+  async checkWebAccount() {
     try {
       const currentAccounts = await web3.eth.getAccounts();
       const account = currentAccounts[0];
 
       if (account && account !== window.Alpine.store('myAvime').walletAddress) {
         window.Alpine.store('myAvime').walletAddress = account;
-        window.Alpine.store('myAvime').checkWeb3($dispatch);
+        window.Alpine.store('myAvime').checkWeb3();
       }
 
       setTimeout(this.checkWebAccount, 500);
@@ -166,7 +166,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async clear($dispatch) {
+  async clear() {
     this.selected.traits.background = blankTrait;
     this.selected.traits.body = blankTrait;
     this.selected.traits.face = blankTrait;
@@ -176,9 +176,9 @@ Alpine.store('myAvime', {
     this.showUniqueCheck = false;
     this.allSelected = false;
 
-    this.update($dispatch);
+    this.update();
   },
-  async connect($dispatch) {
+  async connect() {
     try {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       const account = accounts[0];
@@ -191,7 +191,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
 
-    window.Alpine.store('myAvime').checkWeb3($dispatch);
+    window.Alpine.store('myAvime').checkWeb3();
   },
   async deselect(trait) {
     this.tab = trait;
@@ -199,12 +199,13 @@ Alpine.store('myAvime', {
     this.showUniqueCheck = false;
     this.allSelected = false;
   },
-  async fuse(sex, $dispatch) {
+  async fuse(sex) {
     try {
       let mint;
       let mintCost = 10000000000000000;
       let seasons = [1, 1, 1, 1, 1, 1];
       let traits = [0, 0, 0, 0, 0, 0];
+      let feePerGas = await web3.eth.getGasPrice();
 
       this.fusing = true;
 
@@ -231,15 +232,14 @@ Alpine.store('myAvime', {
           .send({
             from: this.walletAddress,
             value: mintCost,
-            // gasLimit: web3.eth.getBlock('latest').gasLimit,
-            // gasPrice: web3.eth.gasPrice,
-            // maxPriorityFeePerGas: null,
-            // maxFeePerGas: null,
+            maxFeePerGas: feePerGas,
+            maxPriorityFeePerGas: 2000000000,
+            type: '0x2',
           });
 
         if (mint) {
           this.fusing = this.loading.fusions = this.loaded.fusions = false;
-          $dispatch('modal-fuse');
+          document.dispatchEvent(new CustomEvent('modal-fuse'));
         }
       } else {
         this.fusing = false;
@@ -253,11 +253,12 @@ Alpine.store('myAvime', {
   async init() {
     setTimeout(this.checkWebAccount, 500);
   },
-  async mint(amount, $dispatch) {
+  async mint(amount) {
     try {
       let mint;
       let mintCost = 90000000000000000;
       let numberOfPacks = amount;
+      let feePerGas = await web3.eth.getGasPrice();
 
       this.minting = true;
 
@@ -280,15 +281,14 @@ Alpine.store('myAvime', {
         .send({
           from: this.walletAddress,
           value: mintCost,
-          // gasLimit: web3.eth.getBlock('latest').gasLimit,
-          // gasPrice: web3.eth.gasPrice,
-          // maxPriorityFeePerGas: null,
-          // maxFeePerGas: null,
+          maxFeePerGas: feePerGas,
+          maxPriorityFeePerGas: 2000000000,
+          type: '0x2',
         });
 
       if (mint) {
         this.minting = false;
-        $dispatch('modal-mint');
+        document.dispatchEvent(new CustomEvent('modal-mint'));
       }
     } catch (err) {
       this.minting = false;
@@ -326,7 +326,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
   },
-  async update($dispatch) {
+  async update() {
     try {
       let traitBalance  = await this.s01Contract.methods.balanceOf(this.walletAddress).call();
       let fusionBalance = await this.fusionContract.methods.balanceOf(this.walletAddress).call();
@@ -492,7 +492,7 @@ Alpine.store('myAvime', {
       this.loading.fusions = false;
       this.loaded.fusions = true;
     } catch (err) {
-      $dispatch('modal-error');
+      document.dispatchEvent(new CustomEvent('modal-error'));
       console.error(err);
     }
   },

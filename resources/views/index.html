@@ -80,7 +80,7 @@
               <button
                 class="inline-flex items-center justify-center w-full px-5 py-3 mt-8 text-base font-medium text-white uppercase bg-green-500 border border-black rounded hover:bg-green-600 sm:w-auto shadow-inset-white"
                 id="eth-login"
-                x-on:click="$store.myAvime.connect($dispatch)"
+                x-on:click="$store.myAvime.connect()"
               >Connect Wallet</button>
             </div>
 
@@ -117,7 +117,7 @@
                     <button
                       class="inline-flex items-center justify-center flex-1 px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 hover:bg-green-600 shadow-inset-white"
                       id="mint-traits"
-                      x-on:click="$store.myAvime.mint($store.myAvime.mintAmount, $dispatch)"
+                      x-on:click="$store.myAvime.mint($store.myAvime.mintAmount)"
                       x-bind:disabled="$store.myAvime.minting"
                     >Mint <span class="mx-1" x-text="($store.myAvime.mintAmount * 6)"></span> Traits (Price: <span class="mx-1" x-text="$store.myAvime.round($store.myAvime.mintAmount * $store.myAvime.mintPrice)"></span> ETH)</button>
                   </div>
@@ -303,7 +303,7 @@
                     <button
                       class="inline-flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white uppercase bg-green-500 border border-black rounded lg:px-5 lg:py-3 disabled:opacity-50 scroll-lock hover:bg-green-600 shadow-inset-white"
                       id="fuse-avime"
-                      x-on:click="$store.myAvime.fuse(($store.myAvime.sex === 'female' ? 0 : 1), $dispatch)"
+                      x-on:click="$store.myAvime.fuse($store.myAvime.sex === 'female' ? 0 : 1)"
                       x-bind:disabled="$store.myAvime.fusing || !$store.myAvime.allSelected"
                     >Fuse Your Avime</button>
                   </p>
@@ -705,7 +705,7 @@
         <div
           class="backdrop backdrop-shaded scroll-unlock"
           x-show.transition.opacity.duration.600ms="modal"
-          x-on:click="modal = false; $store.myAvime.update($dispatch)"
+          x-on:click="modal = false; $store.myAvime.update()"
         ></div>
 
         <div
@@ -719,7 +719,7 @@
 
             <button
               class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock"
-              x-on:click="modal = false; $store.myAvime.update($dispatch)"
+              x-on:click="modal = false; $store.myAvime.update()"
             >Close</button>
           </div>
         </div>
