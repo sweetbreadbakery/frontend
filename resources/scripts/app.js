@@ -234,10 +234,10 @@ Alpine.store('myAvime', {
           .mint(seasons, traits, sex)
           .send({
             from: this.walletAddress,
-            value: mintCost,
-            gasLimit: gasLimit,
             gasPrice: gasPrice,
-            maxPriorityFeePerGas: 1.500,
+            gas: gasLimit,
+            value: mintCost,
+            maxPriorityFeePerGas: null,
             maxFeePerGas: null,
           });
 
@@ -286,10 +286,10 @@ Alpine.store('myAvime', {
         .mint(numberOfPacks)
         .send({
           from: this.walletAddress,
-          value: mintCost,
-          gasLimit: gasLimit,
           gasPrice: gasPrice,
-          maxPriorityFeePerGas: 1.500,
+          gas: gasLimit,
+          value: mintCost,
+          maxPriorityFeePerGas: null,
           maxFeePerGas: null,
         });
 
