@@ -231,8 +231,8 @@ Alpine.store('myAvime', {
           .mint(seasons, traits, sex)
           .send({
             from: this.walletAddress,
-            maxPriorityFeePerGas: 2000,
             value: mintCost,
+            maxPriorityFeePerGas: 2000,
           });
 
         if (mint) {
@@ -277,8 +277,8 @@ Alpine.store('myAvime', {
         .mint(numberOfPacks)
         .send({
           from: this.walletAddress,
-          maxPriorityFeePerGas: 2000,
           value: mintCost,
+          maxPriorityFeePerGas: 2000,
         });
 
       if (mint) {
