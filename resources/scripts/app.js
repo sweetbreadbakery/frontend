@@ -412,7 +412,7 @@ Alpine.store('myAvime', {
       }
     } catch (err) {
       this.currently.minting = false;
-      alert(JSON.stringify(err));
+      alert(`This button did not work!: ${JSON.stringify(err)}`);
       console.error(err);
     }
   },
