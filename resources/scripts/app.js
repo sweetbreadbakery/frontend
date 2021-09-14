@@ -32,6 +32,13 @@ window.getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+// Format wallet addresses
+window.formatAddress = (address) => {
+  return (address && typeof address === 'string')
+    ? `${address.substring(0, 6)} ... ${address.slice(address.length - 4)}`
+    : 'Not Connected';
+}
+
 // Round numbers
 window.round = (number) => {
   return Math.round(number * 100 + Number.EPSILON) / 100;
@@ -53,9 +60,9 @@ Alpine.store('myAvime', {
     wallet: false,
   },
   content: {
-    faqs: config.faqs,
+    faqs: config.content.faqs,
     roadmap: '',
-    staff: config.staff,
+    staff: config.content.staff,
   },
   contracts: {
     ids: [1, 1, 1, 1, 1, 1],
@@ -127,6 +134,36 @@ Alpine.store('myAvime', {
     address: '',
     connected: false,
   },
+  async init() {
+    const providerOptions = {
+      walletconnect: {
+        package: WalletConnectProvider,
+        options: {
+          infuraId: "7c1713bb8ef24531b544b733a6a3af79",
+        },
+      },
+    };
+
+    web3Modal = new Web3Modal({
+      cacheProvider: true,
+      providerOptions,
+      disableInjectedProvider: false,
+    });
+
+    if (web3Modal.cachedProvider) {
+      console.info(web3Modal.cachedProvider);
+
+      try {
+        await this.connect();
+      } catch (err) {
+        console.error(err);
+        await web3Modal.clearCachedProvider();
+        return;
+      }
+    }
+
+    setTimeout(this.checkWebAccount, 500, provider);
+  },
   async approve(choice) {
     try {
       let approve = await this.contracts.s01.methods
@@ -135,7 +172,7 @@ Alpine.store('myAvime', {
 
       console.info(approve);
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   },
   async checkUniquness(sex) {
@@ -164,7 +201,7 @@ Alpine.store('myAvime', {
 
       console.info(unique);
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   },
   async checkWeb3(provider) {
@@ -174,24 +211,23 @@ Alpine.store('myAvime', {
         const account = currentAccounts[0];
 
         document.getElementById('eth-login').innerHTML = 'Please check Web3 wallet';
-        window.Alpine.store('myAvime').wallet.address = account;
+        this.wallet.address = account;
 
         if (account) {
-          window.Alpine.store('myAvime').wallet.connected = true;
-          window.Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
-          window.Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
-          window.Alpine.store('myAvime').update();
+          this.wallet.connected = true;
+          this.contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
+          this.contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
+          this.update();
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
-          window.Alpine.store('myAvime').wallet.connected = false;
+          this.wallet.connected = false;
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         }
       } else {
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
-
-      alert(err);
+      console.error(err);
     }
   },
   async checkWebAccount(provider) {
@@ -200,15 +236,15 @@ Alpine.store('myAvime', {
         const currentAccounts = await web3.eth.getAccounts();
         const account = currentAccounts[0];
 
-        if (account && account !== window.Alpine.store('myAvime').wallet.address) {
-          window.Alpine.store('myAvime').wallet.address = account;
-          window.Alpine.store('myAvime').checkWeb3(provider);
+        if (account && account !== this.wallet.address) {
+          this.wallet.address = account;
+          this.checkWeb3(provider);
         }
       }
 
       setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   },
   async clear() {
@@ -226,27 +262,29 @@ Alpine.store('myAvime', {
   async connect() {
     try {
       provider = await web3Modal.connect();
-    } catch (err) {
-      alert(err);
-    }
 
-    provider.on('disconnect', (ProviderRpcError) => {
-      console.info(ProviderRpcError);
-    });
-
-    provider.on('accountsChanged', async (accounts) => {
-      if (accounts.length === 0) {
+      provider.on('disconnect', async (ProviderRpcError) => {
         await web3Modal.clearCachedProvider();
-        window.Alpine.store('myAvime').wallet.connected = false;
-      }
+        console.info(ProviderRpcError);
+        this.wallet.connected = false;
+      });
 
-      this.fetchAccountData(provider);
-    });
+      provider.on('accountsChanged', async (accounts) => {
+        if (accounts.length === 0) {
+          await web3Modal.clearCachedProvider();
+          this.wallet.connected = false;
+        }
 
-    provider.on('chainChanged', (chainId) => {
-      console.info(chainId);
-      this.fetchAccountData(provider);
-    });
+        this.fetchAccountData(provider);
+      });
+
+      provider.on('chainChanged', (chainId) => {
+        console.info(chainId);
+        this.fetchAccountData(provider);
+      });
+    } catch (err) {
+      console.error(err);
+    }
 
     await this.refreshAccountData(provider);
   },
@@ -264,24 +302,25 @@ Alpine.store('myAvime', {
       provider = null;
     }
 
-    window.Alpine.store('myAvime').wallet.connected = false;
+    this.wallet.connected = false;
   },
   async fetchAccountData(provider) {
     try {
-      // Get a Web3 instance for the wallet
-      web3 = web3 ? web3 : new window.Web3(provider);
-      accounts = await web3.eth.getAccounts();
-      selectedAccount = accounts[0];
+      if (provider) {
+        web3 = web3 ? web3 : new window.Web3(provider);
+        accounts = await web3.eth.getAccounts();
+        selectedAccount = accounts[0];
 
-      if (selectedAccount) {
-        window.Alpine.store('myAvime').wallet.address = selectedAccount;
+        if (selectedAccount) {
+          this.wallet.address = selectedAccount;
+        }
       }
     } catch (err) {
       document.getElementById('eth-login').innerHTML = 'Web3 Wallet Not Available';
-      alert(err);
+      console.error(err);
     }
 
-    window.Alpine.store('myAvime').checkWeb3(provider);
+    this.checkWeb3(provider);
   },
   async fuse(sex) {
     try {
@@ -327,41 +366,12 @@ Alpine.store('myAvime', {
         }
       } else {
         this.currently.fusing = false;
-        alert('Select 6 traits, baka!');
+        console.error('Select 6 traits, baka!');
       }
     } catch (err) {
       this.currently.fusing = false;
-      alert(err);
+      console.error(err);
     }
-  },
-  async init() {
-    const providerOptions = {
-      walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-          infuraId: "7c1713bb8ef24531b544b733a6a3af79",
-        },
-      },
-    };
-
-    web3Modal = new Web3Modal({
-      cacheProvider: true,
-      providerOptions,
-      disableInjectedProvider: false,
-    });
-
-    if (web3Modal.cachedProvider) {
-      try {
-        provider = await web3Modal.connect();
-        web3 = new window.Web3(provider);
-      } catch (e) {
-        alert(e);
-        await web3Modal.clearCachedProvider();
-        return;
-      }
-    }
-
-    setTimeout(this.checkWebAccount, 500, provider);
   },
   async mint(amount) {
     try {
@@ -402,7 +412,7 @@ Alpine.store('myAvime', {
       }
     } catch (err) {
       this.currently.minting = false;
-      alert(err);
+      console.error(err);
     }
   },
   async refreshAccountData() {
@@ -433,178 +443,202 @@ Alpine.store('myAvime', {
 
       console.info(transfer);
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   },
   async update() {
-    // try {
-      let traitBalance  = await this.contracts.s01.methods.balanceOf(this.wallet.address).call();
-      let fusionBalance = await this.contracts.fusion.methods.balanceOf(this.wallet.address).call();
+    console.info(this.wallet.connected);
 
-      this.approved.fusion = this.contracts.s01.methods.isApprovedForAll(this.wallet.address, this.addresses.fusion);
-      this.mintData.fusedAmount = parseInt(fusionBalance);
-      this.loading.traits = traitBalance > 0;
-      this.loading.fusions = fusionBalance > 0;
+    try {
+      if (this.wallet.connected) {
+        let traitBalance  = await this.contracts.s01.methods.balanceOf(this.wallet.address).call();
+        let fusionBalance = await this.contracts.fusion.methods.balanceOf(this.wallet.address).call();
 
-      this.wardrobe.background = [];
-      this.wardrobe.body = [];
-      this.wardrobe.face = [];
-      this.wardrobe.clothes = [];
-      this.wardrobe.hair = [];
-      this.wardrobe.accessory = [];
-      this.mintData.fused = [];
+        this.approved.fusion = this.contracts.s01.methods.isApprovedForAll(this.wallet.address, this.addresses.fusion);
+        this.mintData.fusedAmount = parseInt(fusionBalance);
+        this.loading.traits = traitBalance > 0;
+        this.loading.fusions = fusionBalance > 0;
 
-      let traitHashes = await this.contracts.s01.methods.getTraitHashes().call();
-      let cardHash = await this.contracts.s01.methods.getCardHash().call();
-      let hashHex;
-      let input_data;
-      let params;
-      let tx;
-      let cardImg;
-      let currentTable;
+        this.wardrobe.background = [];
+        this.wardrobe.body = [];
+        this.wardrobe.face = [];
+        this.wardrobe.clothes = [];
+        this.wardrobe.hair = [];
+        this.wardrobe.accessory = [];
+        this.mintData.fused = [];
 
-      let traitName = [];
-      let traitDesc = [];
-      let traitThumb = [];
-      let traitMale = [];
-      let traitFemale = [];
+        let traitHashes = await this.contracts.s01.methods.getTraitHashes().call();
+        let cardHash = await this.contracts.s01.methods.getCardHash().call();
+        let hashHex;
+        let input_data;
+        let params;
+        let tx;
+        let cardImg;
+        let currentTable;
 
-      for (let i = 0; i < 6; i++) {
-        hashHex = web3.utils.numberToHex(traitHashes[i]);
+        let traitName = [];
+        let traitDesc = [];
+        let traitThumb = [];
+        let traitMale = [];
+        let traitFemale = [];
+
+        for (let i = 0; i < 6; i++) {
+          if (!this.wallet.connected) {
+            break;
+          }
+
+          hashHex = web3.utils.numberToHex(traitHashes[i]);
+          hashHex = web3.utils.padLeft(hashHex, 64);
+          tx = await web3.eth.getTransaction(hashHex);
+
+          input_data = '0x' + tx.input.slice(10);  // get only data without function selector
+          params = web3.eth.abi.decodeParameters(['string[15]', 'string[15]', 'string[15]', 'string[15]', 'string[15]'], input_data);
+
+          traitName.push(params[0]);
+          traitDesc.push(params[1]);
+          traitThumb.push(params[2]);
+          traitMale.push(params[3]);
+          traitFemale.push(params[4]);
+        }
+
+        hashHex = web3.utils.numberToHex(cardHash);
         hashHex = web3.utils.padLeft(hashHex, 64);
         tx = await web3.eth.getTransaction(hashHex);
 
         input_data = '0x' + tx.input.slice(10);  // get only data without function selector
-        params = web3.eth.abi.decodeParameters(['string[15]', 'string[15]', 'string[15]', 'string[15]', 'string[15]'], input_data);
+        params = web3.eth.abi.decodeParameters(['string[6]', 'string[6]', 'string[6]', 'string[6]'], input_data);
+        cardImg = params[3];
 
-        traitName.push(params[0]);
-        traitDesc.push(params[1]);
-        traitThumb.push(params[2]);
-        traitMale.push(params[3]);
-        traitFemale.push(params[4]);
-      }
-
-      hashHex = web3.utils.numberToHex(cardHash);
-      hashHex = web3.utils.padLeft(hashHex, 64);
-      tx = await web3.eth.getTransaction(hashHex);
-
-      input_data = '0x' + tx.input.slice(10);  // get only data without function selector
-      params = web3.eth.abi.decodeParameters(['string[6]', 'string[6]', 'string[6]', 'string[6]'], input_data);
-      cardImg = params[3];
-
-      for (let i = 0; i < traitBalance; i++) {
-        let currentAvime = await this.contracts.s01.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
-        let traitNumber = await this.contracts.s01.methods.getTrait(currentAvime).call();
-        let traitType = parseInt(currentAvime) % 6;
-
-        switch (traitType) {
-          case 0:
-            this.wardrobe.background.push({
-              ID: parseInt(currentAvime),
-              type: parseInt(currentAvime) % 6,
-              tnum: parseInt(traitNumber),
-              name: traitName[traitType][traitNumber],
-              desc:  traitDesc[traitType][traitNumber],
-              female: traitMale[traitType][traitNumber],
-              male: traitMale[traitType][traitNumber],
-              thumb: traitThumb[traitType][traitNumber],
-              cardImg: cardImg[traitType],
-            });
-
+        for (let i = 0; i < traitBalance; i++) {
+          if (!this.wallet.connected) {
             break;
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-            currentTable = 'body';
+          }
 
-            if (parseInt(currentAvime) % 6 === 2) {
-              currentTable = 'face';
-            } else if (parseInt(currentAvime) % 6 === 3) {
-              currentTable = 'clothes';
-            } else if (parseInt(currentAvime) % 6 === 4) {
-              currentTable = 'hair';
-            } else if (parseInt(currentAvime) % 6 === 5) {
-              currentTable = 'accessory';
+          let currentAvime = await this.contracts.s01.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
+          let traitNumber = await this.contracts.s01.methods.getTrait(currentAvime).call();
+          let traitType = parseInt(currentAvime) % 6;
+
+          switch (traitType) {
+            case 0:
+              this.wardrobe.background.push({
+                ID: parseInt(currentAvime),
+                type: parseInt(currentAvime) % 6,
+                tnum: parseInt(traitNumber),
+                name: traitName[traitType][traitNumber],
+                desc:  traitDesc[traitType][traitNumber],
+                female: traitMale[traitType][traitNumber],
+                male: traitMale[traitType][traitNumber],
+                thumb: traitThumb[traitType][traitNumber],
+                cardImg: cardImg[traitType],
+              });
+
+              break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+              currentTable = 'body';
+
+              if (parseInt(currentAvime) % 6 === 2) {
+                currentTable = 'face';
+              } else if (parseInt(currentAvime) % 6 === 3) {
+                currentTable = 'clothes';
+              } else if (parseInt(currentAvime) % 6 === 4) {
+                currentTable = 'hair';
+              } else if (parseInt(currentAvime) % 6 === 5) {
+                currentTable = 'accessory';
+              }
+
+              this.wardrobe[currentTable].push({
+                ID:  parseInt(currentAvime),
+                type: parseInt(currentAvime) % 6,
+                tnum:  parseInt(traitNumber),
+                name: traitName[traitType][traitNumber],
+                desc:  traitDesc[traitType][traitNumber],
+                female: traitFemale[traitType][traitNumber],
+                male: traitMale[traitType][traitNumber],
+                thumb: traitThumb[traitType][traitNumber],
+                cardImg: cardImg[traitType],
+              });
+
+              break;
+          }
+        }
+
+        this.loading.traits = false;
+        this.loaded.traits  = true;
+
+        for (let i = 0; i < fusionBalance; i++) {
+          if (!this.wallet.connected) {
+            break;
+          }
+
+          let currentAvimeId = await this.contracts.fusion.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
+          let currentAvime = await this.contracts.fusion.methods.getAvime(currentAvimeId).call();
+          let aviHash = await this.contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
+          let uniqueAvimeId = await this.contracts.fusion.methods.checkAvimeHash(aviHash).call();
+          let isUnique = (uniqueAvimeId == currentAvimeId) ? true : uniqueAvimeId;
+
+          let fusedData = {
+            ID: currentAvimeId,
+            traits: ['', '', '', '', '', ''],
+            unique: isUnique,
+          };
+
+          for (let j = 0; j < 6; j++) {
+            if (!this.wallet.connected) {
+              break;
             }
 
-            this.wardrobe[currentTable].push({
-              ID:  parseInt(currentAvime),
-              type: parseInt(currentAvime) % 6,
-              tnum:  parseInt(traitNumber),
-              name: traitName[traitType][traitNumber],
-              desc:  traitDesc[traitType][traitNumber],
-              female: traitFemale[traitType][traitNumber],
-              male: traitMale[traitType][traitNumber],
-              thumb: traitThumb[traitType][traitNumber],
-              cardImg: cardImg[traitType],
-            });
+            let seasonContractAddress = await this.contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
+            let seasonContract = new web3.eth.Contract(config.abi.s01, seasonContractAddress);
+            let currentTraitNumber = await seasonContract.methods.getTrait(currentAvime.traitId[j]).call();
+            traitHashes = await seasonContract.methods.getTraitHashes().call();
 
-            break;
-        }
-      }
+            let traitName = [];
+            let traitDesc = [];
+            let traitThumb = [];
+            let traitMale = [];
+            let traitFemale = [];
 
-      this.loading.traits = false;
-      this.loaded.traits  = true;
+            for (let k = 0; k < 6; k++) {
+              if (!this.wallet.connected) {
+                break;
+              }
 
-      for (let i = 0; i < fusionBalance; i++) {
-        let currentAvimeId = await this.contracts.fusion.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
-        let currentAvime = await this.contracts.fusion.methods.getAvime(currentAvimeId).call();
-        let aviHash = await this.contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
-        let uniqueAvimeId = await this.contracts.fusion.methods.checkAvimeHash(aviHash).call();
-        let isUnique = (uniqueAvimeId == currentAvimeId) ? true : uniqueAvimeId;
+              hashHex = web3.utils.numberToHex(traitHashes[k]);
+              hashHex = web3.utils.padLeft(hashHex, 64);
+              tx = await web3.eth.getTransaction(hashHex);
 
-        let fusedData = {
-          ID: currentAvimeId,
-          traits: ['', '', '', '', '', ''],
-          unique: isUnique,
-        };
-
-        for (let j = 0; j < 6; j++) {
-          let seasonContractAddress = await this.contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
-          let seasonContract = new web3.eth.Contract(config.abi.s01, seasonContractAddress);
-          let currentTraitNumber = await seasonContract.methods.getTrait(currentAvime.traitId[j]).call();
-          traitHashes = await seasonContract.methods.getTraitHashes().call();
-
-          let traitName = [];
-          let traitDesc = [];
-          let traitThumb = [];
-          let traitMale = [];
-          let traitFemale = [];
-
-          for (let k = 0; k < 6; k++) {
-            hashHex = web3.utils.numberToHex(traitHashes[k]);
-            hashHex = web3.utils.padLeft(hashHex, 64);
-            tx = await web3.eth.getTransaction(hashHex);
+              input_data = '0x' + tx.input.slice(10);  // get only data without function selector
+              params = web3.eth.abi.decodeParameters(['string[15]', 'string[15]', 'string[15]', 'string[15]', 'string[15]'], input_data);
+              traitName.push(params[0]);
+              traitDesc.push(params[1]);
+              traitThumb.push(params[2]);
+              traitMale.push(params[3]);
+              traitFemale.push(params[4]);
+            }
 
             input_data = '0x' + tx.input.slice(10);  // get only data without function selector
-            params = web3.eth.abi.decodeParameters(['string[15]', 'string[15]', 'string[15]', 'string[15]', 'string[15]'], input_data);
-            traitName.push(params[0]);
-            traitDesc.push(params[1]);
-            traitThumb.push(params[2]);
-            traitMale.push(params[3]);
-            traitFemale.push(params[4]);
+
+            if ((currentAvime.traitId[j]) % 6 == 0) {
+              fusedData.traits[(currentAvime.traitId[j]) % 6] = traitMale[currentAvime.traitId[j] % 6][currentTraitNumber];
+            } else {
+              fusedData.traits[(currentAvime.traitId[j]) % 6] = (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]);
+            }
           }
 
-          input_data = '0x' + tx.input.slice(10);  // get only data without function selector
-
-          if ((currentAvime.traitId[j]) % 6 == 0) {
-            fusedData.traits[(currentAvime.traitId[j]) % 6] = traitMale[currentAvime.traitId[j] % 6][currentTraitNumber];
-          } else {
-            fusedData.traits[(currentAvime.traitId[j]) % 6] = (currentAvime.sex == 1 ? traitMale[(currentAvime.traitId[j])%6][currentTraitNumber] : traitFemale[(currentAvime.traitId[j])%6][currentTraitNumber]);
-          }
+          this.mintData.fused.push(fusedData);
         }
 
-        this.mintData.fused.push(fusedData);
+        this.loading.fusions = false;
+        this.loaded.fusions = true;
       }
-
-      this.loading.fusions = false;
-      this.loaded.fusions = true;
-    // } catch (err) {
-    //   document.dispatchEvent(new CustomEvent('modal-error'));
-    //   alert(err);
-    // }
+    } catch (err) {
+      document.dispatchEvent(new CustomEvent('modal-error'));
+      console.error(err);
+    }
   },
 });
 
