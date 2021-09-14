@@ -21,7 +21,7 @@
 
           <div class="flex items-center justify-center w-full space-x-4">
             <input class="p-2 text-black border border-black rounded shadow-inner lg:p-3" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*" x-model="$store.myAvime.mintData.amount">
-            <button class="button button--xl button--success" x-on:click="$store.myAvime.mint($store.myAvime.mintData.amount)" x-bind:disabled="$store.myAvime.minting">Mint <span class="mx-1" x-text="($store.myAvime.mintData.amount * 6)"></span> Traits (Price: <span class="mx-1" x-text="round($store.myAvime.mintData.amount * $store.myAvime.mintData.price)"></span> ETH)</button>
+            <button class="button button--xl button--success" x-on:click="$store.myAvime.mint($store.myAvime.mintData.amount)" x-bind:disabled="$store.myAvime.currently.minting">Mint <span class="mx-1" x-text="($store.myAvime.mintData.amount * 6)"></span> Traits (Price: <span class="mx-1" x-text="round($store.myAvime.mintData.amount * $store.myAvime.mintData.price)"></span> ETH)</button>
           </div>
         </div>
       </header>

@@ -2,10 +2,6 @@
 
 import Alpine from 'alpinejs';
 import { config } from './config';
-import { faqs } from './util/faqs';
-import { staff } from './util/staff';
-import { round } from './util/round';
-import { blankTrait } from './util/blankTrait';
 
 /**
  * Init Web3
@@ -28,8 +24,18 @@ let accounts;
 // Address of the selected account
 let selectedAccount;
 
-// Round util
-window.round = round;
+// Get int between min and max
+window.getRandomIntInclusive = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+// Round numbers
+window.round = (number) => {
+  return Math.round(number * 100 + Number.EPSILON) / 100;
+};
 
 /**
  * Set Alpine.js store data
@@ -47,9 +53,9 @@ Alpine.store('myAvime', {
     wallet: false,
   },
   content: {
-    faqs: faqs,
+    faqs: config.faqs,
     roadmap: '',
-    staff: staff,
+    staff: config.staff,
   },
   contracts: {
     ids: [1, 1, 1, 1, 1, 1],
@@ -88,12 +94,12 @@ Alpine.store('myAvime', {
     sex: 'female',
     seasons: [1, 1, 1, 1, 1, 1],
     traits: {
-      background: blankTrait,
-      body: blankTrait,
-      face: blankTrait,
-      clothes: blankTrait,
-      hair: blankTrait,
-      accessory: blankTrait,
+      background: config.blankTrait,
+      body: config.blankTrait,
+      face: config.blankTrait,
+      clothes: config.blankTrait,
+      hair: config.blankTrait,
+      accessory: config.blankTrait,
     },
     traitIds: [0, 0, 0, 0, 0, 0],
   },
@@ -205,12 +211,12 @@ Alpine.store('myAvime', {
     }
   },
   async clear() {
-    this.selected.traits.background = blankTrait;
-    this.selected.traits.body = blankTrait;
-    this.selected.traits.face = blankTrait;
-    this.selected.traits.clothes = blankTrait;
-    this.selected.traits.hair = blankTrait;
-    this.selected.traits.accessory = blankTrait;
+    this.selected.traits.background = config.blankTrait;
+    this.selected.traits.body = config.blankTrait;
+    this.selected.traits.face = config.blankTrait;
+    this.selected.traits.clothes = config.blankTrait;
+    this.selected.traits.hair = config.blankTrait;
+    this.selected.traits.accessory = config.blankTrait;
     this.display.uniqueCheck = false;
     this.selected.all = false;
 
@@ -245,7 +251,7 @@ Alpine.store('myAvime', {
   },
   async deselect(trait) {
     this.tabs.wardrobe = trait;
-    this.selected.traits[trait] = blankTrait;
+    this.selected.traits[trait] = config.blankTrait;
     this.display.uniqueCheck = false;
     this.selected.all = false;
   },
