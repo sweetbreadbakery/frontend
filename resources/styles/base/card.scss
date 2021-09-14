@@ -1,0 +1,24 @@
+.card {
+  @apply relative block p-[1.125rem] w-max text-blue-800 bg-blue-500 border border-blue-900 rounded-lg;
+
+  box-shadow: inset 0px 0px 0px 1px theme('colors.teal.300');
+  transform-style: preserve-3d;
+
+  &::before {
+    @apply absolute inset-1.5 block bg-teal-300 border border-teal-800 rounded-md;
+
+    content: '';
+    z-index: -1;
+  }
+}
+
+.card--lg {
+  @apply p-[1.125rem] rounded-xl;
+
+  box-shadow: inset -1px  1px 0px 1px theme('colors.teal.300'),
+              inset  1px -1px 0px 1px theme('colors.blue.600');
+
+  &::before {
+    @apply inset-2 border-2 rounded-lg;
+  }
+}

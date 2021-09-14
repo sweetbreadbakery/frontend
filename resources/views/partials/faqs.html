@@ -1,0 +1,38 @@
+<section id="faqs" x-data>
+  <div class="relative z-10 max-w-xl px-4 pt-16 mx-auto sm:px-6 sm:pt-20 lg:px-8 lg:max-w-6xl">
+    <h2 class="mb-8 text-3xl tracking-wider text-center text-yellow-400 lowercase lg:mb-12 lg:text-4xl text-shadow-heading-darker font-heading">Frequently Asked Questions</h2>
+
+    <div class="overflow-hidden bg-yellow-400 border-2 border-blue-600 rounded-md shadow-inset-yellow-box">
+      <dl class="">
+        <template x-for="item in $store.myAvime.content.faqs" :key="item.id">
+          <div
+            class="border-t border-b border-b-yellow-600 border-t-yellow-100"
+            x-data="{ open: false }"
+          >
+            <dt class="text-base">
+              <button
+                type="button"
+                class="flex items-center justify-between w-full px-4 py-2 text-left text-black uppercase"
+                x-on:click="open = !open"
+                x-bind:aria-controls="('faq-' + item.id)"
+                aria-expanded="false"
+                x-bind:aria-expanded="open.toString()"
+              >
+                <span class="font-normal" x-text="item.question"></span>
+                <span class="flex items-center ml-6 h-7">
+                  <svg class="w-6 h-6 text-blue-500 transform -rotate-180" xmlns="http://www.w3.org/2000/svg" :class="{ '-rotate-180': open, 'rotate-0': !(open) }" x-state:on="Open" x-state:off="Closed" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </span>
+              </button>
+            </dt>
+
+            <dd class="p-4" x-bind:id="('faq-' + item.id)" x-show="open">
+              <p class="text-yellow-900" x-text="item.answer"></p>
+            </dd>
+          </div>
+        </template>
+      </dl>
+    </div>
+  </div>
+</section>

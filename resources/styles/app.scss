@@ -23,6 +23,8 @@
 
 @layer utilities {
   @variants responsive {
+    @import 'utilities/shadow';
+
     .bg-inherit {
       background-color: inherit;
     }
@@ -61,6 +63,21 @@
 
     .grid-cols-25 {
       grid-template-columns: repeat(25, minmax(0, 1fr));
+    }
+
+    .text-justify-left {
+      text-align: justify;
+      text-align-last: left;
+    }
+
+    .text-justify-right {
+      text-align: justify;
+      text-align-last: right;
+    }
+
+    .text-justify-center {
+      text-align: justify;
+      text-align-last: center;
     }
 
     .text-shadow {

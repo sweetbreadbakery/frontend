@@ -17,3 +17,52 @@
 .button--xl {
   @apply px-6 py-3 text-base rounded-md;
 }
+.button {
+  @apply inline-flex items-center justify-center px-4 py-2 border border-gray-500 text-sm uppercase font-normal whitespace-nowrap rounded text-gray-700 bg-gray-300 disabled:opacity-50;
+
+  box-shadow: inset 0px 0px 0px 1px theme('colors.lighten.800');
+}
+
+.button--xs {
+  @apply px-2.5 py-1.5 text-xs;
+}
+
+.button--sm {
+  @apply px-3 py-2 text-sm leading-4;
+}
+
+.button--base {
+  @apply px-4 py-2 text-sm;
+}
+
+.button--lg {
+  @apply px-4 py-2 text-base;
+}
+
+.button--xl {
+  @apply px-6 py-3 text-base;
+}
+
+.button--primary {
+  @apply bg-blue-500 border border-blue-900 text-white active:bg-blue-600 hover:bg-blue-400 disabled:hover:bg-blue-500;
+}
+
+.button--secondary {
+  @apply bg-teal-500 border border-teal-900 text-white active:bg-teal-600 hover:bg-teal-400 disabled:hover:bg-teal-500;
+}
+
+.button--tertiary {
+  @apply bg-yellow-500 border border-yellow-900 text-white active:bg-yellow-600 hover:bg-yellow-400 disabled:hover:bg-yellow-500;
+}
+
+.button--error {
+  @apply bg-red-500 border border-red-900 text-white active:bg-red-600 hover:bg-red-400 disabled:hover:bg-red-500;
+}
+
+.button--success {
+  @apply bg-green-500 border border-green-900 text-white active:bg-green-600 hover:bg-green-400 disabled:hover:bg-green-500;
+}
+
+.button--warning {
+  @apply bg-yellow-500 border border-yellow-900 text-white active:bg-yellow-600 hover:bg-yellow-400 disabled:hover:bg-yellow-500;
+}
