@@ -206,7 +206,7 @@
               class="flex-1 button button--xl button--success"
               id="fuse-avime"
               x-on:click="$store.myAvime.fuse($store.myAvime.selected.sex === 'female' ? 0 : 1)"
-              x-bind:disabled="$store.myAvime.fusing || !$store.myAvime.allSelected"
+              x-bind:disabled="$store.myAvime.currently.fusing || !$store.myAvime.selected.all"
             >Fuse Your Avime</button>
           </p>
 

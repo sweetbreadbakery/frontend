@@ -135,7 +135,7 @@ Alpine.store('myAvime', {
 
       console.info(approve);
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   },
   async checkUniquness(sex) {
@@ -164,7 +164,7 @@ Alpine.store('myAvime', {
 
       console.info(unique);
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   },
   async checkWeb3(provider) {
@@ -190,7 +190,7 @@ Alpine.store('myAvime', {
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   },
   async checkWebAccount(provider) {
@@ -207,7 +207,7 @@ Alpine.store('myAvime', {
 
       setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   },
   async clear() {
@@ -226,7 +226,7 @@ Alpine.store('myAvime', {
     try {
       provider = await web3Modal.connect();
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
 
     provider.on('disconnect', (ProviderRpcError) => {
@@ -277,7 +277,7 @@ Alpine.store('myAvime', {
       }
     } catch (err) {
       document.getElementById('eth-login').innerHTML = 'Web3 Wallet Not Available';
-      console.error(err);
+      alert(err);
     }
 
     window.Alpine.store('myAvime').checkWeb3(provider);
@@ -326,11 +326,11 @@ Alpine.store('myAvime', {
         }
       } else {
         this.currently.fusing = false;
-        console.error('Select 6 traits, baka!');
+        alert('Select 6 traits, baka!');
       }
     } catch (err) {
       this.currently.fusing = false;
-      console.error(err);
+      alert(err);
     }
   },
   async init() {
@@ -354,7 +354,7 @@ Alpine.store('myAvime', {
         provider = await web3Modal.connect();
         web3 = new window.Web3(provider);
       } catch (e) {
-        console.error(e);
+        alert(e);
         await web3Modal.clearCachedProvider();
         return;
       }
@@ -401,7 +401,7 @@ Alpine.store('myAvime', {
       }
     } catch (err) {
       this.currently.minting = false;
-      console.error(err);
+      alert(err);
     }
   },
   async refreshAccountData() {
@@ -432,7 +432,7 @@ Alpine.store('myAvime', {
 
       console.info(transfer);
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   },
   async update() {
@@ -602,7 +602,7 @@ Alpine.store('myAvime', {
       this.loaded.fusions = true;
     // } catch (err) {
     //   document.dispatchEvent(new CustomEvent('modal-error'));
-    //   console.error(err);
+    //   alert(err);
     // }
   },
 });
