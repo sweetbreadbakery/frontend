@@ -11,7 +11,7 @@ export const config = {
   },
   addresses: {
     s00: '0x10fE2787a8a8d191fB4389A71083Fc0CC2dC1E35',
-    s01: '0xBe19793179c787f5d268e5e13C99CB735703c086',
+    s01: '0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f',
     fusion: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
   },
   blankTrait: blankTrait,
