@@ -190,6 +190,7 @@ Alpine.store('myAvime', {
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
+
       alert(err);
     }
   },
