@@ -49,9 +49,9 @@ window.round = (number) => {
  */
 Alpine.store('myAvime', {
   addresses: {
-    s00: config.addresses.mainnet.s00,
-    s01: config.addresses.mainnet.s01,
-    fusion: config.addresses.mainnet.fusion,
+    s00: config.addresses.testnet.s00,
+    s01: config.addresses.testnet.s01,
+    fusion: config.addresses.testnet.fusion,
   },
   approved: {
     fusion: false,
@@ -156,8 +156,6 @@ Alpine.store('myAvime', {
         return;
       }
     }
-
-    setTimeout(Alpine.store('myAvime').checkWebAccount, 500, provider);
   },
   async approve(choice) {
     try {
@@ -167,7 +165,11 @@ Alpine.store('myAvime', {
 
       Alpine.store('myAvime').approved.fusion = approve;
     } catch (err) {
-      console.error(err);
+      if (err.code === -32000) {
+        alert('Error: Execution reverted. Do you have enough funds in your wallet?');
+      } else {
+        console.error(err);
+      }
     }
   },
   async checkUniquness(sex) {
@@ -209,61 +211,51 @@ Alpine.store('myAvime', {
         Alpine.store('myAvime').wallet.address = account;
 
         if (account) {
-          Alpine.store('myAvime').wallet.address = account;
+          if (account !== Alpine.store('myAvime').wallet.address) {
+            Alpine.store('myAvime').wallet.address = account;
+          }
+
           Alpine.store('myAvime').wallet.connected = true;
-          Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
-          Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
+          Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.testnet.s01);
+          Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.testnet.fusion);
+          document.getElementById('eth-login').innerHTML = 'Connected';
+
           Alpine.store('myAvime').update();
-          document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
           await web3Modal.clearCachedProvider();
-          Alpine.store('myAvime').wallet.address = '';
-          Alpine.store('myAvime').wallet.connected = false;
+          await Alpine.store('myAvime').clear('wallet');
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         }
       } else {
         await web3Modal.clearCachedProvider();
-        Alpine.store('myAvime').wallet.address = '';
-        Alpine.store('myAvime').wallet.connected = false;
+        await Alpine.store('myAvime').clear('wallet');
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
       await web3Modal.clearCachedProvider();
-      Alpine.store('myAvime').wallet.address = '';
-      Alpine.store('myAvime').wallet.connected = false;
+      await Alpine.store('myAvime').clear('wallet');
       console.error(err);
     }
   },
-  async checkWebAccount(provider) {
-    try {
-      if (provider) {
-        const currentAccounts = await web3.eth.getAccounts();
-        const account = currentAccounts[0];
+  async clear(what) {
+    switch (what) {
+      case 'selected':
+        Alpine.store('myAvime').selected.traits.background = config.blankTrait;
+        Alpine.store('myAvime').selected.traits.body = config.blankTrait;
+        Alpine.store('myAvime').selected.traits.face = config.blankTrait;
+        Alpine.store('myAvime').selected.traits.clothes = config.blankTrait;
+        Alpine.store('myAvime').selected.traits.hair = config.blankTrait;
+        Alpine.store('myAvime').selected.traits.accessory = config.blankTrait;
+        Alpine.store('myAvime').display.uniqueCheck = false;
+        Alpine.store('myAvime').selected.all = false;
 
-        if (account && account !== Alpine.store('myAvime').wallet.address) {
-          Alpine.store('myAvime').wallet.address = account;
-          Alpine.store('myAvime').checkWeb3(provider);
-        } else if (account) {
-          Alpine.store('myAvime').wallet.address = account;
-          Alpine.store('myAvime').checkWeb3(provider);
-        }
-      }
-    } catch (err) {
-      await web3Modal.clearCachedProvider();
-      Alpine.store('myAvime').wallet.address = '';
-      Alpine.store('myAvime').wallet.connected = false;
-      console.error(err);
+        break;
+      case 'wallet':
+        Alpine.store('myAvime').wallet.address = '';
+        Alpine.store('myAvime').wallet.connected = false;
+
+        break;
     }
-  },
-  async clear() {
-    Alpine.store('myAvime').selected.traits.background = config.blankTrait;
-    Alpine.store('myAvime').selected.traits.body = config.blankTrait;
-    Alpine.store('myAvime').selected.traits.face = config.blankTrait;
-    Alpine.store('myAvime').selected.traits.clothes = config.blankTrait;
-    Alpine.store('myAvime').selected.traits.hair = config.blankTrait;
-    Alpine.store('myAvime').selected.traits.accessory = config.blankTrait;
-    Alpine.store('myAvime').display.uniqueCheck = false;
-    Alpine.store('myAvime').selected.all = false;
 
     Alpine.store('myAvime').update();
   },
@@ -273,15 +265,13 @@ Alpine.store('myAvime', {
 
       provider.on('disconnect', async () => {
         await web3Modal.clearCachedProvider();
-        Alpine.store('myAvime').wallet.address = '';
-        Alpine.store('myAvime').wallet.connected = false;
+        await Alpine.store('myAvime').clear('wallet');
       });
 
       provider.on('accountsChanged', async (accounts) => {
         if (accounts.length === 0) {
           await web3Modal.clearCachedProvider();
-          Alpine.store('myAvime').wallet.address = '';
-          Alpine.store('myAvime').wallet.connected = false;
+          await Alpine.store('myAvime').clear('wallet');
         }
 
         Alpine.store('myAvime').fetchAccountData(provider);
@@ -294,7 +284,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
 
-    await Alpine.store('myAvime').refreshAccountData(provider);
+    await Alpine.store('myAvime').fetchAccountData(provider);
   },
   async deselect(trait) {
     Alpine.store('myAvime').tabs.wardrobe = trait;
@@ -310,8 +300,7 @@ Alpine.store('myAvime', {
       provider = null;
     }
 
-    Alpine.store('myAvime').wallet.address = '';
-    Alpine.store('myAvime').wallet.connected = false;
+    await Alpine.store('myAvime').clear('wallet');
   },
   async fetchAccountData(provider) {
     try {
@@ -364,14 +353,18 @@ Alpine.store('myAvime', {
           .send({
             from: Alpine.store('myAvime').wallet.address,
             value: mintCost,
-            maxFeePerGas: feePerGas,
+            maxFeePerGas: Math.max(feePerGas, 2000000000),
             maxPriorityFeePerGas: 2000000000,
             type: '0x2',
           });
 
         if (mint) {
           Alpine.store('myAvime').currently.fusing = Alpine.store('myAvime').loading.fusions = Alpine.store('myAvime').loaded.fusions = false;
-          document.dispatchEvent(new CustomEvent('modal-fuse'), config.customEventInit);
+          window.dispatchEvent(new CustomEvent('modal-fuse'), {
+            bubbles: true,
+            composed: true,
+            cancelable: true,
+          });
         }
       } else {
         Alpine.store('myAvime').currently.fusing = false;
@@ -379,52 +372,64 @@ Alpine.store('myAvime', {
       }
     } catch (err) {
       Alpine.store('myAvime').currently.fusing = false;
-      console.error(err);
+
+      if (err.code === -32000) {
+        alert('Error: Execution reverted. Do you have enough funds in your wallet?');
+      } else {
+        console.error(err);
+      }
     }
   },
   async mint(amount) {
-    let mint;
-    let mintCost = 90000000000000000;
-    let numberOfPacks = amount;
-    let feePerGas = await web3.eth.getGasPrice();
+    try {
+      let mint;
+      let mintCost = 90000000000000000;
+      let numberOfPacks = amount;
+      let feePerGas = await web3.eth.getGasPrice();
 
-    Alpine.store('myAvime').currently.minting = true;
+      Alpine.store('myAvime').currently.minting = true;
 
-    if (numberOfPacks < 1) {
-      numberOfPacks = 1;
-    } else if (numberOfPacks > 10) {
-      numberOfPacks = 10;
-    } else {
-      numberOfPacks = Math.round(numberOfPacks);
-    }
+      if (numberOfPacks < 1) {
+        numberOfPacks = 1;
+      } else if (numberOfPacks > 10) {
+        numberOfPacks = 10;
+      } else {
+        numberOfPacks = Math.round(numberOfPacks);
+      }
 
-    mintCost = mintCost * numberOfPacks;
+      mintCost = mintCost * numberOfPacks;
 
-    if (Alpine.store('myAvime').wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
-      mintCost = 0;
-    }
+      if (Alpine.store('myAvime').wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
+        mintCost = 0;
+      }
 
-    mint = await Alpine.store('myAvime').contracts.s01.methods
-      .mint(numberOfPacks)
-      .send({
-        from: Alpine.store('myAvime').wallet.address,
-        value: mintCost,
-        maxFeePerGas: feePerGas,
-        maxPriorityFeePerGas: 2000000000,
-        type: '0x2',
-      })
-      .on('error', function (error) {
+      mint = await Alpine.store('myAvime').contracts.s01.methods
+        .mint(numberOfPacks)
+        .send({
+          from: Alpine.store('myAvime').wallet.address,
+          value: mintCost,
+          maxFeePerGas: Math.max(feePerGas, 2000000000),
+          maxPriorityFeePerGas: 2000000000,
+          type: '0x2',
+        });
+
+      if (mint) {
         Alpine.store('myAvime').currently.minting = false;
-        console.error(error);
-      });
-
-    if (mint) {
+        window.dispatchEvent(new CustomEvent('modal-mint'), {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+        });
+      }
+    } catch (err) {
       Alpine.store('myAvime').currently.minting = false;
-      document.dispatchEvent(new CustomEvent('modal-mint'), config.customEventInit);
+
+      if (err.code === -32000) {
+        alert('Error: Execution reverted. Do you have enough funds in your wallet?');
+      } else {
+        console.error(err);
+      }
     }
-  },
-  async refreshAccountData(provider) {
-    await Alpine.store('myAvime').fetchAccountData(provider);
   },
   async select(trait, item) {
     Alpine.store('myAvime').selected.traitIds[trait.tnum] = trait.ID;
@@ -631,7 +636,11 @@ Alpine.store('myAvime', {
         Alpine.store('myAvime').loaded.fusions = true;
       }
     } catch (err) {
-      document.dispatchEvent(new CustomEvent('modal-error'), config.customEventInit);
+      window.dispatchEvent(new CustomEvent('modal-error'), {
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+      });
       console.error(err);
     }
   },
