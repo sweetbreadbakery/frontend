@@ -49,9 +49,9 @@ window.round = (number) => {
  */
 Alpine.store('myAvime', {
   addresses: {
-    fusion: config.addresses.fusion,
-    s00: config.addresses.s00,
-    s01: config.addresses.s01,
+    s00: '',
+    s01: '',
+    fusion: '',
   },
   approved: {
     fusion: false,
@@ -142,6 +142,12 @@ Alpine.store('myAvime', {
           infuraId: "7c1713bb8ef24531b544b733a6a3af79",
         },
       },
+    };
+
+    this.aaddresses = {
+      s00:    config.addresses.mainnet.s00,
+      s01:    config.addresses.mainnet.s01,
+      fusion: config.addresses.mainnet.fusion,
     };
 
     web3Modal = new Web3Modal({
@@ -379,46 +385,44 @@ Alpine.store('myAvime', {
     }
   },
   async mint(amount) {
-    try {
-      let mint;
-      let mintCost = 90000000000000000;
-      let numberOfPacks = amount;
-      let feePerGas = await web3.eth.getGasPrice();
+    let mint;
+    let mintCost = 90000000000000000;
+    let numberOfPacks = amount;
+    let feePerGas = await web3.eth.getGasPrice();
 
-      this.currently.minting = true;
+    this.currently.minting = true;
 
-      if (numberOfPacks < 1) {
-        numberOfPacks = 1;
-      } else if (numberOfPacks > 10) {
-        numberOfPacks = 10;
-      } else {
-        numberOfPacks = Math.round(numberOfPacks);
-      }
+    if (numberOfPacks < 1) {
+      numberOfPacks = 1;
+    } else if (numberOfPacks > 10) {
+      numberOfPacks = 10;
+    } else {
+      numberOfPacks = Math.round(numberOfPacks);
+    }
 
-      mintCost = mintCost * numberOfPacks;
+    mintCost = mintCost * numberOfPacks;
 
-      if (this.wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
-        mintCost = 0;
-      }
+    if (this.wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
+      mintCost = 0;
+    }
 
-      mint = await this.contracts.s01.methods
-        .mint(numberOfPacks)
-        .send({
-          from: this.wallet.address,
-          value: mintCost,
-          maxFeePerGas: feePerGas,
-          maxPriorityFeePerGas: 2000000000,
-          type: '0x2',
-        });
-
-      if (mint) {
+    mint = await this.contracts.s01.methods
+      .mint(numberOfPacks)
+      .send({
+        from: this.wallet.address,
+        value: mintCost,
+        maxFeePerGas: feePerGas,
+        maxPriorityFeePerGas: 2000000000,
+        type: '0x2',
+      })
+      .on('error', function (error) {
         this.currently.minting = false;
-        document.dispatchEvent(new CustomEvent('modal-mint'));
-      }
-    } catch (err) {
+        console.error(error);
+      });
+
+    if (mint) {
       this.currently.minting = false;
-      alert(`This button did not work!: ${JSON.stringify(err)}`);
-      console.error(err);
+      document.dispatchEvent(new CustomEvent('modal-mint'));
     }
   },
   async refreshAccountData() {
