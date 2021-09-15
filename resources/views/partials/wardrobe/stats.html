@@ -1,4 +1,4 @@
-<dl class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3" x-init="fetch('https://api.avime.moe/mintData').then(response => response.json()).then(data => { $store.myAvime.mintData.fusion = data.fusion; $store.myAvime.mintData.s01 = data.s01; });">
+<dl class="mt-12 uppercase bg-blue-500 border-2 border-blue-600 rounded-lg lg:grid lg:grid-cols-3 shadow-inset-lighten-1" x-init="fetch('https://api.avime.moe/mintData').then(response => response.json()).then(data => { $store.myAvime.mintData.fusion = data.fusion; $store.myAvime.mintData.s01 = data.s01; });">
   <div class="flex flex-col p-6 text-center border-b border-blue-600 lg:border-0 lg:border-r">
     <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Mint Price</dt>
     <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">0.09 ETH</dd>

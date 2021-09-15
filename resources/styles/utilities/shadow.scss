@@ -2,6 +2,10 @@
   box-shadow: 0px 0px 0px 1px theme('colors.black');
 }
 
+.shadow-inset-black {
+  box-shadow: inset 0px 0px 0px 1px theme('colors.black');
+}
+
 .shadow-white {
   box-shadow: 0px 0px 0px 1px theme('colors.white');
 }
@@ -12,6 +16,14 @@
 
 .shadow-inset-lighten-1 {
   box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,0.15);
+}
+
+.shadow-inset-lighten-100 {
+  box-shadow: inset 0px 0px 0px 1px theme('colors.lighten.100');
+}
+
+.shadow-inset-lighten-200 {
+  box-shadow: inset 0px 0px 0px 1px theme('colors.lighten.200');
 }
 
 .shadow-blue-100 {
@@ -57,4 +69,14 @@
 .shadow-inset-yellow-box {
   box-shadow: inset -1px  1px 0px 1px theme('colors.yellow.100'),
               inset  1px -1px 0px 1px theme('colors.yellow.600');
+}
+
+.shadow-brown-box {
+  box-shadow: -1px 1px 0px 1px theme('colors.brown.200'),
+              1px -1px 0px 1px theme('colors.brown.900');
+}
+
+.shadow-inset-brown-box {
+  box-shadow: inset -1px  1px 0px 1px theme('colors.brown.200'),
+              inset  1px -1px 0px 1px theme('colors.brown.900');
 }

@@ -1,6 +1,6 @@
-<div class="flex flex-wrap items-center justify-center p-3 lg:p-6 max-w-[732px] mx-auto mb-8 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="wardrobe-preview">
-  <div class="flex flex-wrap items-center overflow-hidden bg-blue-600 border border-black rounded-md" id="wardrobe-preview-wrap">
-    <div class="relative w-full p-4 border-b rounded-t border-b-blue-900 lg:border-r lg:border-r-blue-200 lg:border-b-0 lg:rounded-l lg:rounded-t-none lg:w-max" id="wardrobe-preview-avime">
+<div class="flex flex-wrap items-center justify-center p-3 lg:p-6 max-w-[732px] mx-auto mb-8 overflow-hidden bg-brown-600 border border-black rounded-lg shadow-inset-brown-box" id="wardrobe-preview">
+  <div class="flex flex-wrap items-center overflow-hidden border border-black rounded-md bg-brown-700" id="wardrobe-preview-wrap">
+    <div class="relative w-full p-4 border-b rounded-t border-b-black lg:border-r lg:border-r-brown-300 lg:border-b-0 lg:rounded-l lg:rounded-t-none lg:w-max" id="wardrobe-preview-avime">
       <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
         <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
           <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded" x-bind:src="('/images/avime/' + $store.myAvime.selected.sex + '.png')" alt="" draggable="false">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="flex flex-col w-full text-center lg:w-max" id="wardrobe-selected">
-      <div class="p-4 border-t border-b border-t-blue-200 lg:border-t-0 border-b-blue-900 lg:border-l lg:border-l-blue-900 lg:rounded-tr" id="wardrobe-selected-traits">
+      <div class="p-4 border-t border-b border-t-brown-300 lg:border-t-0 border-b-black lg:border-l lg:border-l-black lg:rounded-tr" id="wardrobe-selected-traits">
         <p class="mb-[0.85rem]">Traits</p>
 
         <div class="grid grid-cols-3 gap-4 mx-auto w-max">
@@ -25,12 +25,12 @@
         </div>
       </div>
 
-      <div class="p-4 border-t rounded-b border-t-blue-200 lg:rounded-b-none lg:rounded-br lg:border-l lg:border-l-blue-900" id="wardrobe-selected-sex">
+      <div class="p-4 border-t rounded-b border-t-brown-300 lg:rounded-b-none lg:rounded-br lg:border-l lg:border-l-black" id="wardrobe-selected-sex">
         <p class="mb-[0.85rem]">Gender</p>
 
         <p class="grid grid-cols-2 gap-4">
           <template x-for="gender in ['female', 'male']">
-            <button class="button button--lg button--primary" :class="{ 'bg-blue-700 border-blue-100 shadow-inset-blue-900': $store.myAvime.selected.sex === gender}" x-on:click="($store.myAvime.selected.sex = gender)" x-text="gender"></button>
+            <button class="button button--lg button--gender" :class="{ 'button--active': $store.myAvime.selected.sex === gender}" x-on:click="($store.myAvime.selected.sex = gender)" x-text="gender"></button>
           </template>
         </p>
       </div>

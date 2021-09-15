@@ -9,7 +9,10 @@
  */
 @import 'tailwindcss/base';
 @import 'base/global';
+@import 'base/backdrop';
 @import 'base/button';
+@import 'base/heading-label';
+@import 'base/image-bevel';
 @import 'base/input';
 @import 'base/modal';
 @import 'base/scrollbar';
@@ -24,6 +27,7 @@
 @layer utilities {
   @variants responsive {
     @import 'utilities/shadow';
+    @import 'utilities/text-shadow';
 
     .bg-inherit {
       background-color: inherit;
