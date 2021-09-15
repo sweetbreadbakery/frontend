@@ -4,7 +4,7 @@
   <div class="p-3 rounded modal-panel w-screen max-w-[1058px]" :class="{ 'active': (modal === 'fused') }">
     <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
       <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
-      <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+      <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
       <p class="mb-8" x-text="$store.myAvime.loading.fusions ? 'Loading...' : 'No fused Avime found!'" x-show="!$store.myAvime.loaded.fusions"></p>
 
       <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.myAvime.mintData.fused && $store.myAvime.mintData.fused.length > 0">

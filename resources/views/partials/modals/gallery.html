@@ -4,6 +4,7 @@
   <div class="p-3 rounded modal-panel" :class="{ 'active': (modal === 'gallery') }">
     <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
       <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:mb-6 lg:text-3xl text-shadow-heading-darker font-heading">Trait Card Gallery</p>
+      <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
 
       <div class="relative mx-auto mb-8" id="gallery">
         <div class="sm:hidden">
@@ -24,7 +25,7 @@
         <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
           <div class="overflow-x-visible overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel" x-show.transition.in.opacity.duration.600="$store.myAvime.tabs.gallery === trait">
             <div class="max-h-[63.028412vh]">
-              <ul class="grid grid-cols-1 gap-2 p-1 mx-auto mb-1 sm:grid-cols-2 lg:mb-2 lg:p-2 xl:grid-cols-3 w-max" x-data="{ cards: [] }" x-init="fetch(`/data/${trait}.json`).then(response => response.json()).then(data => cards = data)">
+              <ul class="grid grid-cols-1 gap-2 p-1 mx-auto mb-1 sm:grid-cols-2 lg:mb-2 lg:p-2 xl:grid-cols-3 w-max" x-data="{ cards: [] }" x-on:modal-gallery.window="fetch(`/data/${trait}.json`).then(response => response.json()).then(data => cards = data)">
                 <template x-for="item in cards">
                   <li class="relative z-10 text-sm leading-tight text-left w-max">
                     <span class="relative overflow-hidden block w-[362px] h-[361px] rounded-[11px]">

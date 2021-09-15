@@ -26,6 +26,11 @@ export const config = {
     faqs: faqs,
     staff: staff,
   },
+  customEventInit: {
+    bubbles: true,
+    composed: true,
+    cancelable: true,
+  },
   wallet: {
     blankAddress: '000000000000000000000000000000000000000000',
   },

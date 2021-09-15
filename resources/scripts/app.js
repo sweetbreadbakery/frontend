@@ -141,12 +141,6 @@ Alpine.store('myAvime', {
       },
     };
 
-    this.addresses = {
-      s00:    config.addresses.mainnet.s00,
-      s01:    config.addresses.mainnet.s01,
-      fusion: config.addresses.mainnet.fusion,
-    };
-
     web3Modal = new Web3Modal({
       cacheProvider: true,
       providerOptions,
@@ -155,7 +149,7 @@ Alpine.store('myAvime', {
 
     if (web3Modal.cachedProvider) {
       try {
-        await this.connect();
+        await Alpine.store('myAvime').connect();
       } catch (err) {
         console.error(err);
         await web3Modal.clearCachedProvider();
@@ -163,41 +157,41 @@ Alpine.store('myAvime', {
       }
     }
 
-    setTimeout(this.checkWebAccount, 500, provider);
+    setTimeout(Alpine.store('myAvime').checkWebAccount, 500, provider);
   },
   async approve(choice) {
     try {
-      let approve = await this.contracts.s01.methods
-        .setApprovalForAll(this.addresses.fusion, choice)
-        .send({ from: this.wallet.address });
+      let approve = await Alpine.store('myAvime').contracts.s01.methods
+        .setApprovalForAll(Alpine.store('myAvime').addresses.fusion, choice)
+        .send({ from: Alpine.store('myAvime').wallet.address });
 
-      console.info(approve);
+      Alpine.store('myAvime').approved.fusion = approve;
     } catch (err) {
       console.error(err);
     }
   },
   async checkUniquness(sex) {
-    this.display.uniqueCheck = false;
+    Alpine.store('myAvime').display.uniqueCheck = false;
 
     try {
       let traits = [
-        this.selected.traits.background.ID,
-        this.selected.traits.body.ID,
-        this.selected.traits.face.ID,
-        this.selected.traits.clothes.ID,
-        this.selected.traits.hair.ID,
-        this.selected.traits.accessory.ID,
+        Alpine.store('myAvime').selected.traits.background.ID,
+        Alpine.store('myAvime').selected.traits.body.ID,
+        Alpine.store('myAvime').selected.traits.face.ID,
+        Alpine.store('myAvime').selected.traits.clothes.ID,
+        Alpine.store('myAvime').selected.traits.hair.ID,
+        Alpine.store('myAvime').selected.traits.accessory.ID,
       ];
       let contractIds = [1, 1, 1, 1, 1, 1];
-      let hash = await this.contracts.fusion.methods
+      let hash = await Alpine.store('myAvime').contracts.fusion.methods
         .getAvimeHash(sex, contractIds, traits)
         .call();
-      let unique = this.contracts.fusion.methods
+      let unique = Alpine.store('myAvime').contracts.fusion.methods
         .checkAvimeHash(hash)
         .call()
         .then(result => {
-          this.display.isUnique = (result === '0') ? true : false;
-          this.display.uniqueCheck = true;
+          Alpine.store('myAvime').display.isUnique = (result === '0') ? true : false;
+          Alpine.store('myAvime').display.uniqueCheck = true;
         });
 
       console.info(unique);
@@ -212,30 +206,31 @@ Alpine.store('myAvime', {
         const account = currentAccounts[0];
 
         document.getElementById('eth-login').innerHTML = 'Please check Web3 wallet';
+        Alpine.store('myAvime').wallet.address = account;
 
         if (account) {
-          this.wallet.address = account;
-          this.wallet.connected = true;
-          this.contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.s01);
-          this.contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.fusion);
-          this.update();
+          Alpine.store('myAvime').wallet.address = account;
+          Alpine.store('myAvime').wallet.connected = true;
+          Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
+          Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
+          Alpine.store('myAvime').update();
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
           await web3Modal.clearCachedProvider();
-          this.wallet.address = '';
-          this.wallet.connected = false;
+          Alpine.store('myAvime').wallet.address = '';
+          Alpine.store('myAvime').wallet.connected = false;
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         }
       } else {
         await web3Modal.clearCachedProvider();
-        this.wallet.address = '';
-        this.wallet.connected = false;
+        Alpine.store('myAvime').wallet.address = '';
+        Alpine.store('myAvime').wallet.connected = false;
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
       await web3Modal.clearCachedProvider();
-      this.wallet.address = '';
-      this.wallet.connected = false;
+      Alpine.store('myAvime').wallet.address = '';
+      Alpine.store('myAvime').wallet.connected = false;
       console.error(err);
     }
   },
@@ -245,68 +240,67 @@ Alpine.store('myAvime', {
         const currentAccounts = await web3.eth.getAccounts();
         const account = currentAccounts[0];
 
-        if (account && account !== this.wallet.address) {
-          this.wallet.address = account;
-          this.checkWeb3(provider);
+        if (account && account !== Alpine.store('myAvime').wallet.address) {
+          Alpine.store('myAvime').wallet.address = account;
+          Alpine.store('myAvime').checkWeb3(provider);
+        } else if (account) {
+          Alpine.store('myAvime').wallet.address = account;
+          Alpine.store('myAvime').checkWeb3(provider);
         }
       }
-
-      setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
       await web3Modal.clearCachedProvider();
-      this.wallet.address = '';
-      this.wallet.connected = false;
+      Alpine.store('myAvime').wallet.address = '';
+      Alpine.store('myAvime').wallet.connected = false;
       console.error(err);
     }
   },
   async clear() {
-    this.selected.traits.background = config.blankTrait;
-    this.selected.traits.body = config.blankTrait;
-    this.selected.traits.face = config.blankTrait;
-    this.selected.traits.clothes = config.blankTrait;
-    this.selected.traits.hair = config.blankTrait;
-    this.selected.traits.accessory = config.blankTrait;
-    this.display.uniqueCheck = false;
-    this.selected.all = false;
+    Alpine.store('myAvime').selected.traits.background = config.blankTrait;
+    Alpine.store('myAvime').selected.traits.body = config.blankTrait;
+    Alpine.store('myAvime').selected.traits.face = config.blankTrait;
+    Alpine.store('myAvime').selected.traits.clothes = config.blankTrait;
+    Alpine.store('myAvime').selected.traits.hair = config.blankTrait;
+    Alpine.store('myAvime').selected.traits.accessory = config.blankTrait;
+    Alpine.store('myAvime').display.uniqueCheck = false;
+    Alpine.store('myAvime').selected.all = false;
 
-    this.update();
+    Alpine.store('myAvime').update();
   },
   async connect() {
     try {
       provider = await web3Modal.connect();
 
-      provider.on('disconnect', async (ProviderRpcError) => {
+      provider.on('disconnect', async () => {
         await web3Modal.clearCachedProvider();
-        console.info(ProviderRpcError);
-        this.wallet.address = '';
-        this.wallet.connected = false;
+        Alpine.store('myAvime').wallet.address = '';
+        Alpine.store('myAvime').wallet.connected = false;
       });
 
       provider.on('accountsChanged', async (accounts) => {
         if (accounts.length === 0) {
           await web3Modal.clearCachedProvider();
-          this.wallet.address = '';
-          this.wallet.connected = false;
+          Alpine.store('myAvime').wallet.address = '';
+          Alpine.store('myAvime').wallet.connected = false;
         }
 
-        this.fetchAccountData(provider);
+        Alpine.store('myAvime').fetchAccountData(provider);
       });
 
-      provider.on('chainChanged', (chainId) => {
-        console.info(chainId);
-        this.fetchAccountData(provider);
+      provider.on('chainChanged', () => {
+        Alpine.store('myAvime').fetchAccountData(provider);
       });
     } catch (err) {
       console.error(err);
     }
 
-    await this.refreshAccountData(provider);
+    await Alpine.store('myAvime').refreshAccountData(provider);
   },
   async deselect(trait) {
-    this.tabs.wardrobe = trait;
-    this.selected.traits[trait] = config.blankTrait;
-    this.display.uniqueCheck = false;
-    this.selected.all = false;
+    Alpine.store('myAvime').tabs.wardrobe = trait;
+    Alpine.store('myAvime').selected.traits[trait] = config.blankTrait;
+    Alpine.store('myAvime').display.uniqueCheck = false;
+    Alpine.store('myAvime').selected.all = false;
   },
   async disconnect() {
     if (provider.close) {
@@ -316,8 +310,8 @@ Alpine.store('myAvime', {
       provider = null;
     }
 
-    this.wallet.address = '';
-    this.wallet.connected = false;
+    Alpine.store('myAvime').wallet.address = '';
+    Alpine.store('myAvime').wallet.connected = false;
   },
   async fetchAccountData(provider) {
     try {
@@ -327,7 +321,7 @@ Alpine.store('myAvime', {
         selectedAccount = accounts[0];
 
         if (selectedAccount) {
-          this.wallet.address = selectedAccount;
+          Alpine.store('myAvime').wallet.address = selectedAccount;
         }
       }
     } catch (err) {
@@ -335,7 +329,7 @@ Alpine.store('myAvime', {
       console.error(err);
     }
 
-    this.checkWeb3(provider);
+    Alpine.store('myAvime').checkWeb3(provider);
   },
   async fuse(sex) {
     try {
@@ -345,30 +339,30 @@ Alpine.store('myAvime', {
       let traits = [0, 0, 0, 0, 0, 0];
       let feePerGas = await web3.eth.getGasPrice();
 
-      this.currently.fusing = true;
+      Alpine.store('myAvime').currently.fusing = true;
 
-      for (let selected in this.selected.traits) {
-        if (this.selected.traits[selected].ID !== -1) {
-          this.selected.all = true;
+      for (let selected in Alpine.store('myAvime').selected.traits) {
+        if (Alpine.store('myAvime').selected.traits[selected].ID !== -1) {
+          Alpine.store('myAvime').selected.all = true;
         } else {
-          this.selected.all = false;
+          Alpine.store('myAvime').selected.all = false;
         }
       }
 
-      if (this.selected.all) {
+      if (Alpine.store('myAvime').selected.all) {
        traits = [
-          this.selected.traits.background.ID,
-          this.selected.traits.body.ID,
-          this.selected.traits.face.ID,
-          this.selected.traits.clothes.ID,
-          this.selected.traits.hair.ID,
-          this.selected.traits.accessory.ID,
+          Alpine.store('myAvime').selected.traits.background.ID,
+          Alpine.store('myAvime').selected.traits.body.ID,
+          Alpine.store('myAvime').selected.traits.face.ID,
+          Alpine.store('myAvime').selected.traits.clothes.ID,
+          Alpine.store('myAvime').selected.traits.hair.ID,
+          Alpine.store('myAvime').selected.traits.accessory.ID,
         ];
 
-        mint = await this.contracts.fusion.methods
+        mint = await Alpine.store('myAvime').contracts.fusion.methods
           .mint(seasons, traits, sex)
           .send({
-            from: this.wallet.address,
+            from: Alpine.store('myAvime').wallet.address,
             value: mintCost,
             maxFeePerGas: feePerGas,
             maxPriorityFeePerGas: 2000000000,
@@ -376,15 +370,15 @@ Alpine.store('myAvime', {
           });
 
         if (mint) {
-          this.currently.fusing = this.loading.fusions = this.loaded.fusions = false;
-          document.dispatchEvent(new CustomEvent('modal-fuse'));
+          Alpine.store('myAvime').currently.fusing = Alpine.store('myAvime').loading.fusions = Alpine.store('myAvime').loaded.fusions = false;
+          document.dispatchEvent(new CustomEvent('modal-fuse'), config.customEventInit);
         }
       } else {
-        this.currently.fusing = false;
+        Alpine.store('myAvime').currently.fusing = false;
         console.error('Select 6 traits, baka!');
       }
     } catch (err) {
-      this.currently.fusing = false;
+      Alpine.store('myAvime').currently.fusing = false;
       console.error(err);
     }
   },
@@ -394,7 +388,7 @@ Alpine.store('myAvime', {
     let numberOfPacks = amount;
     let feePerGas = await web3.eth.getGasPrice();
 
-    this.currently.minting = true;
+    Alpine.store('myAvime').currently.minting = true;
 
     if (numberOfPacks < 1) {
       numberOfPacks = 1;
@@ -406,71 +400,71 @@ Alpine.store('myAvime', {
 
     mintCost = mintCost * numberOfPacks;
 
-    if (this.wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
+    if (Alpine.store('myAvime').wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
       mintCost = 0;
     }
 
-    mint = await this.contracts.s01.methods
+    mint = await Alpine.store('myAvime').contracts.s01.methods
       .mint(numberOfPacks)
       .send({
-        from: this.wallet.address,
+        from: Alpine.store('myAvime').wallet.address,
         value: mintCost,
         maxFeePerGas: feePerGas,
         maxPriorityFeePerGas: 2000000000,
         type: '0x2',
       })
       .on('error', function (error) {
-        this.currently.minting = false;
+        Alpine.store('myAvime').currently.minting = false;
         alert(JSON.stringify(error));
         console.error(error);
       });
 
     if (mint) {
-      this.currently.minting = false;
-      document.dispatchEvent(new CustomEvent('modal-mint'));
+      Alpine.store('myAvime').currently.minting = false;
+      document.dispatchEvent(new CustomEvent('modal-mint'), config.customEventInit);
     }
   },
-  async refreshAccountData() {
-    await this.fetchAccountData(provider);
+  async refreshAccountData(provider) {
+    await Alpine.store('myAvime').fetchAccountData(provider);
   },
   async select(trait, item) {
-    this.selected.traitIds[trait.tnum] = trait.ID;
-    this.selected.seasons[trait.tnum] = 1;
-    this.selected.traits[trait] = item;
+    Alpine.store('myAvime').selected.traitIds[trait.tnum] = trait.ID;
+    Alpine.store('myAvime').selected.seasons[trait.tnum] = 1;
+    Alpine.store('myAvime').selected.traits[trait] = item;
 
-    for (let selected in this.selected.traits) {
-      if (this.selected.traits[selected].ID !== -1) {
-        this.selected.all = true;
+    for (let selected in Alpine.store('myAvime').selected.traits) {
+      if (Alpine.store('myAvime').selected.traits[selected].ID !== -1) {
+        Alpine.store('myAvime').selected.all = true;
       } else {
-        this.selected.all = false;
+        Alpine.store('myAvime').selected.all = false;
       }
     }
 
-    if (this.selected.all) {
-      await this.checkUniquness(this.selected.sex === 'female' ? 0 : 1);
+    if (Alpine.store('myAvime').selected.all) {
+      await Alpine.store('myAvime').checkUniquness(Alpine.store('myAvime').selected.sex === 'female' ? 0 : 1);
     }
   },
   async update() {
     try {
-      if (this.wallet.address && this.wallet.connected) {
-        let traitBalance  = await this.contracts.s01.methods.balanceOf(this.wallet.address).call();
-        let fusionBalance = await this.contracts.fusion.methods.balanceOf(this.wallet.address).call();
+      if (Alpine.store('myAvime').wallet.address && Alpine.store('myAvime').wallet.connected) {
+        let traitBalance  = await Alpine.store('myAvime').contracts.s01.methods.balanceOf(Alpine.store('myAvime').wallet.address).call();
+        let fusionBalance = await Alpine.store('myAvime').contracts.fusion.methods.balanceOf(Alpine.store('myAvime').wallet.address).call();
 
-        this.approved.fusion = this.contracts.s01.methods.isApprovedForAll(this.wallet.address, this.addresses.fusion);
-        this.mintData.fusedAmount = parseInt(fusionBalance);
-        this.loading.traits = traitBalance > 0;
-        this.loading.fusions = fusionBalance > 0;
+        Alpine.store('myAvime').approved.fusion = Alpine.store('myAvime').contracts.s01.methods.isApprovedForAll(Alpine.store('myAvime').wallet.address, Alpine.store('myAvime').addresses.fusion);
+        Alpine.store('myAvime').mintData.fusedAmount = parseInt(fusionBalance);
+        Alpine.store('myAvime').loading.traits = traitBalance > 0;
+        Alpine.store('myAvime').loading.fusions = fusionBalance > 0;
 
-        this.wardrobe.background = [];
-        this.wardrobe.body = [];
-        this.wardrobe.face = [];
-        this.wardrobe.clothes = [];
-        this.wardrobe.hair = [];
-        this.wardrobe.accessory = [];
-        this.mintData.fused = [];
+        Alpine.store('myAvime').wardrobe.background = [];
+        Alpine.store('myAvime').wardrobe.body = [];
+        Alpine.store('myAvime').wardrobe.face = [];
+        Alpine.store('myAvime').wardrobe.clothes = [];
+        Alpine.store('myAvime').wardrobe.hair = [];
+        Alpine.store('myAvime').wardrobe.accessory = [];
+        Alpine.store('myAvime').mintData.fused = [];
 
-        let traitHashes = await this.contracts.s01.methods.getTraitHashes().call();
-        let cardHash = await this.contracts.s01.methods.getCardHash().call();
+        let traitHashes = await Alpine.store('myAvime').contracts.s01.methods.getTraitHashes().call();
+        let cardHash = await Alpine.store('myAvime').contracts.s01.methods.getCardHash().call();
         let hashHex;
         let input_data;
         let params;
@@ -485,7 +479,7 @@ Alpine.store('myAvime', {
         let traitFemale = [];
 
         for (let i = 0; i < 6; i++) {
-          if (!this.wallet.connected) {
+          if (!Alpine.store('myAvime').wallet.connected) {
             break;
           }
 
@@ -512,17 +506,17 @@ Alpine.store('myAvime', {
         cardImg = params[3];
 
         for (let i = 0; i < traitBalance; i++) {
-          if (!this.wallet.connected) {
+          if (!Alpine.store('myAvime').wallet.connected) {
             break;
           }
 
-          let currentAvime = await this.contracts.s01.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
-          let traitNumber = await this.contracts.s01.methods.getTrait(currentAvime).call();
+          let currentAvime = await Alpine.store('myAvime').contracts.s01.methods.tokenOfOwnerByIndex(Alpine.store('myAvime').wallet.address, i).call();
+          let traitNumber = await Alpine.store('myAvime').contracts.s01.methods.getTrait(currentAvime).call();
           let traitType = parseInt(currentAvime) % 6;
 
           switch (traitType) {
             case 0:
-              this.wardrobe.background.push({
+              Alpine.store('myAvime').wardrobe.background.push({
                 ID: parseInt(currentAvime),
                 type: parseInt(currentAvime) % 6,
                 tnum: parseInt(traitNumber),
@@ -552,7 +546,7 @@ Alpine.store('myAvime', {
                 currentTable = 'accessory';
               }
 
-              this.wardrobe[currentTable].push({
+              Alpine.store('myAvime').wardrobe[currentTable].push({
                 ID:  parseInt(currentAvime),
                 type: parseInt(currentAvime) % 6,
                 tnum:  parseInt(traitNumber),
@@ -568,18 +562,18 @@ Alpine.store('myAvime', {
           }
         }
 
-        this.loading.traits = false;
-        this.loaded.traits  = true;
+        Alpine.store('myAvime').loading.traits = false;
+        Alpine.store('myAvime').loaded.traits  = true;
 
         for (let i = 0; i < fusionBalance; i++) {
-          if (!this.wallet.connected) {
+          if (!Alpine.store('myAvime').wallet.connected) {
             break;
           }
 
-          let currentAvimeId = await this.contracts.fusion.methods.tokenOfOwnerByIndex(this.wallet.address, i).call();
-          let currentAvime = await this.contracts.fusion.methods.getAvime(currentAvimeId).call();
-          let aviHash = await this.contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
-          let uniqueAvimeId = await this.contracts.fusion.methods.checkAvimeHash(aviHash).call();
+          let currentAvimeId = await Alpine.store('myAvime').contracts.fusion.methods.tokenOfOwnerByIndex(Alpine.store('myAvime').wallet.address, i).call();
+          let currentAvime = await Alpine.store('myAvime').contracts.fusion.methods.getAvime(currentAvimeId).call();
+          let aviHash = await Alpine.store('myAvime').contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
+          let uniqueAvimeId = await Alpine.store('myAvime').contracts.fusion.methods.checkAvimeHash(aviHash).call();
           let isUnique = (uniqueAvimeId == currentAvimeId) ? true : uniqueAvimeId;
 
           let fusedData = {
@@ -589,11 +583,11 @@ Alpine.store('myAvime', {
           };
 
           for (let j = 0; j < 6; j++) {
-            if (!this.wallet.connected) {
+            if (!Alpine.store('myAvime').wallet.connected) {
               break;
             }
 
-            let seasonContractAddress = await this.contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
+            let seasonContractAddress = await Alpine.store('myAvime').contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
             let seasonContract = new web3.eth.Contract(config.abi.s01, seasonContractAddress);
             let currentTraitNumber = await seasonContract.methods.getTrait(currentAvime.traitId[j]).call();
             traitHashes = await seasonContract.methods.getTraitHashes().call();
@@ -605,7 +599,7 @@ Alpine.store('myAvime', {
             let traitFemale = [];
 
             for (let k = 0; k < 6; k++) {
-              if (!this.wallet.connected) {
+              if (!Alpine.store('myAvime').wallet.connected) {
                 break;
               }
 
@@ -631,14 +625,14 @@ Alpine.store('myAvime', {
             }
           }
 
-          this.mintData.fused.push(fusedData);
+          Alpine.store('myAvime').mintData.fused.push(fusedData);
         }
 
-        this.loading.fusions = false;
-        this.loaded.fusions = true;
+        Alpine.store('myAvime').loading.fusions = false;
+        Alpine.store('myAvime').loaded.fusions = true;
       }
     } catch (err) {
-      document.dispatchEvent(new CustomEvent('modal-error'));
+      document.dispatchEvent(new CustomEvent('modal-error'), config.customEventInit);
       console.error(err);
     }
   },
