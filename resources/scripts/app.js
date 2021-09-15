@@ -49,9 +49,9 @@ window.round = (number) => {
  */
 Alpine.store('myAvime', {
   addresses: {
-    s00: '',
-    s01: '',
-    fusion: '',
+    s00: config.addresses.mainnet.s00,
+    s01: config.addresses.mainnet.s01,
+    fusion: config.addresses.mainnet.fusion,
   },
   approved: {
     fusion: false,
