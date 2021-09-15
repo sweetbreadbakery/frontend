@@ -49,9 +49,9 @@ window.round = (number) => {
  */
 Alpine.store('myAvime', {
   addresses: {
-    s00: config.addresses.testnet.s00,
-    s01: config.addresses.testnet.s01,
-    fusion: config.addresses.testnet.fusion,
+    s00: config.addresses.mainnet.s00,
+    s01: config.addresses.mainnet.s01,
+    fusion: config.addresses.mainnet.fusion,
   },
   approved: {
     fusion: false,
@@ -216,8 +216,8 @@ Alpine.store('myAvime', {
           }
 
           Alpine.store('myAvime').wallet.connected = true;
-          Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.testnet.s01);
-          Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.testnet.fusion);
+          Alpine.store('myAvime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
+          Alpine.store('myAvime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
           document.getElementById('eth-login').innerHTML = 'Connected';
 
           Alpine.store('myAvime').update();
