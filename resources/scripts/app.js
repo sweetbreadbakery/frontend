@@ -144,7 +144,7 @@ Alpine.store('myAvime', {
       },
     };
 
-    this.aaddresses = {
+    this.addresses = {
       s00:    config.addresses.mainnet.s00,
       s01:    config.addresses.mainnet.s01,
       fusion: config.addresses.mainnet.fusion,
