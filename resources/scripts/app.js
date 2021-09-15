@@ -458,9 +458,7 @@ Alpine.store('myAvime', {
     }
   },
   async update() {
-    console.info(this.wallet.connected);
-
-    try {
+    // try {
       if (this.wallet.connected) {
         let traitBalance  = await this.contracts.s01.methods.balanceOf(this.wallet.address).call();
         let fusionBalance = await this.contracts.fusion.methods.balanceOf(this.wallet.address).call();
@@ -646,10 +644,10 @@ Alpine.store('myAvime', {
         this.loading.fusions = false;
         this.loaded.fusions = true;
       }
-    } catch (err) {
-      document.dispatchEvent(new CustomEvent('modal-error'));
-      console.error(err);
-    }
+    // } catch (err) {
+    //   document.dispatchEvent(new CustomEvent('modal-error'));
+    //   console.error(err);
+    // }
   },
 });
 
