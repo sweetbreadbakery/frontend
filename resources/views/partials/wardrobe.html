@@ -1,15 +1,15 @@
-<section class="text-white bg-blue-500 border-t border-b border-black" id="wardrobe" x-data>
+<section class="text-white bg-blue-500 border-t border-b border-blue-800" id="wardrobe" x-data>
   <div class="relative z-10 max-w-xl px-4 py-16 mx-auto text-center sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
-    <div x-show="!$store.myAvime.wallet.connected">
+    <div x-show="!$store.avime.wallet.connected">
       <h2 class="mb-4 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Enter Your Wardrobe</h2>
       <p class="mb-4 text-lg leading-6 text-white">Connect your wallet to mint and view Trait Cards.</p>
-      <button class="button button--xl button--success" id="eth-login" x-on:click="$store.myAvime.connect()">Connect Wallet</button>
+      <button class="button button--xl button--success" id="eth-login" x-on:click="$store.avime.connect()">Connect Wallet</button>
     </div>
 
-    <div class="p-4 leading-none uppercase bg-blue-500 border border-black rounded-xl bg-gradient-to-b lg:p-7" id="wardrobe-interface" x-show="$store.myAvime.wallet.connected" x-cloak style="display: none;">
+    <div class="p-4 leading-none uppercase bg-blue-500 border border-blue-800 rounded-xl bg-gradient-to-b lg:p-7" id="wardrobe-interface" x-show="$store.avime.wallet.connected" x-cloak style="display: none;">
       <include src="wardrobe/header.html"></include>
 
-      <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-900">
+      <hr class="my-4 border-t border-b lg:my-8 border-b-blue-200 border-t-blue-800">
 
       <include src="wardrobe/preview.html"></include>
       <include src="wardrobe/inventory.html"></include>

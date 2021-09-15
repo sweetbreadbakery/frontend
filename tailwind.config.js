@@ -229,10 +229,19 @@ module.exports = {
                 color: theme('colors.white'),
               },
               code: {
+                margin: '0 .4em',
+                padding: '.2em .4em',
+                fontSize: '85%',
+                wordWrap: 'break-word',
+                backgroundColor: theme('colors.gray.800'),
+                borderRadius: '6px',
                 color: theme('colors.white'),
               },
               'a code': {
                 color: theme('colors.white'),
+              },
+              'pre > code': {
+                margin: '0',
               },
               pre: {
                 color: theme('colors.white'),

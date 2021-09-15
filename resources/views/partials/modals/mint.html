@@ -1,5 +1,5 @@
 <div class="modal-wrapper" id="mint-modal" :class="{ 'active': (modal === 'mint') }" x-on:modal-mint.window="(modal = 'mint')">
-  <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false; $store.myAvime.update()"></div>
+  <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="modal = false; $store.avime.update()"></div>
 
   <div class="p-3 rounded modal-panel" :class="{ 'active': (modal === 'mint') }">
     <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
@@ -7,7 +7,7 @@
       <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
       <p class="mb-4">Your Trait Cards have been minted! Check your wardrobe to see what you got.</p>
 
-      <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false; $store.myAvime.update()">Close</button>
+      <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="modal = false; $store.avime.update()">Close</button>
     </div>
   </div>
 </div>

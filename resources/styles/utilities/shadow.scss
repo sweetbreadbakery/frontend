@@ -61,6 +61,11 @@
               inset  1px -1px 0px 1px theme('colors.blue.600');
 }
 
+.shadow-inset-thin-blue-box {
+  box-shadow: inset -1px  1px 0px 0px theme('colors.teal.300'),
+              inset  1px -1px 0px 0px theme('colors.blue.600');
+}
+
 .shadow-yellow-box {
   box-shadow: -1px  1px 0px 1px theme('colors.yellow.100'),
                1px -1px 0px 1px theme('colors.yellow.600');

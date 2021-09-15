@@ -2,39 +2,80 @@
   <div class="relative z-10 max-w-xl px-4 py-16 mx-auto sm:px-6 sm:py-20 lg:px-8 lg:max-w-6xl">
     <h2 class="mb-12 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Why On-Chain?</h2>
 
-    <div class="py-12 mx-auto prose bg-blue-500 border-2 border-blue-600 rounded-lg prose-white max-w-none px-14">
-      <p class="max-w-3xl mx-auto text-center">
+    <div class="px-6 mx-auto prose bg-blue-500 border-2 border-blue-600 rounded-lg py-7 lg:py-12 prose-white max-w-none lg:px-14">
+      <p class="max-w-3xl mx-auto text-justify-center">
         Avime will outlive its creators on the ethereum blockchain. Putting all of the NFT data on-chain costs quite a bit more in
         contract deployment, and requires an investment in development that most projects are not willing to undertake. We want Avime
         to be one of the early adopters in completely on-chain NFTs, and pave the way for the next wave of incredible NFT projects.
       </p>
 
-      <div class="flex flex-col items-center space-y-8 lg:flex-row lg:space-y-0 lg:space-x-8">
-        <p class="flex-1 text-center lg:text-left">
-          The token information can be accessed just like any other NFT by calling <code>tokenURI(tokenId)</code>
-          and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills.
-          That is why we have also added a <code>tokenData(tokenId)</code> function to our smart contract
-          that will grab all of the NFT data directly from the blockchain. This function will return the following structure:
-        </p>
+      <p class="max-w-3xl mx-auto text-justify-center">
+        The token information can be accessed just like any other NFT by calling <code>tokenURI(tokenId)</code>
+        and receiving the token information as JSON from our server, but that will only last as long as we continue to pay the bills.
+      </p>
 
-        <pre class="flex-1"><code><span class="block"><span class="text-yellow-500">struct</span> <span class="text-red-500">TokenData</span> {</span><span class="block ml-4"><span class="text-red-500">string</span> <span class="text-blue-300">tokenName</span>;</span><span class="block ml-4"><span class="text-red-500">uint8</span> <span class="text-blue-300">traitNum</span>;</span><span class="block ml-4"><span class="text-red-500">uint256</span> <span class="text-blue-300">traitTxHash</span>;</span><span class="block ml-4"><span class="text-red-500">uint8</span> <span class="text-blue-300">cardNum</span>;</span><span class="block ml-4"><span class="text-red-500">uint256</span> <span class="text-blue-300">cardTxHash</span>;</span><span class="block">}</span></code></pre>
+      <div class="flex flex-col items-center space-y-8 lg:flex-row lg:space-y-0 lg:space-x-8">
+        <div class="flex-1">
+          <p class="text-center lg:text-left">
+            That is why we have also added a <code>tokenData(tokenId)</code> function to our smart contract
+            that will grab all of the NFT data directly from the blockchain. This function will return the following structure:
+          </p>
+
+          <pre class="flex-1"><code><span class="block"><span class="text-yellow-500">struct</span> <span class="text-red-500">TokenData</span> {</span><span class="block ml-4"><span class="text-red-500">string</span> <span class="text-blue-300">tokenName</span>;</span><span class="block ml-4"><span class="text-red-500">uint8</span> <span class="text-blue-300">traitNum</span>;</span><span class="block ml-4"><span class="text-red-500">uint256</span> <span class="text-blue-300">traitTxHash</span>;</span><span class="block ml-4"><span class="text-red-500">uint8</span> <span class="text-blue-300">cardNum</span>;</span><span class="block ml-4"><span class="text-red-500">uint256</span> <span class="text-blue-300">cardTxHash</span>;</span><span class="block">}</span></code></pre>
+        </div>
+
+        <div class="flex-1">
+          <p>
+            The data for the trait can be accessed by taking <code>tokenData.traitTxHash</code> and
+            decoding it with the following ABI:
+          </p>
+
+          <pre class="overflow-scroll max-h-[192px]"><code>[
+  {
+    "inputs": [
+      {
+        "internalType": "string[15]",
+        "name": "name",
+        "type": "string[15]"
+      },
+      {
+        "internalType": "string[15]",
+        "name": "description",
+        "type": "string[15]"
+      },
+      {
+        "internalType": "string[15]",
+        "name": "thumb",
+        "type": "string[15]"
+      },
+      {
+        "internalType": "string[15]",
+        "name": "male",
+        "type": "string[15]"
+      },
+      {
+        "internalType": "string[15]",
+        "name": "female",
+        "type": "string[15]
+       }
+    ],
+    "name": "uploadTrait",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]</code></pre>
+        </div>
       </div>
 
       <div class="max-w-3xl mx-auto text-center">
-        <p>
-          The data for the trait can be accessed by taking <code>tokenData.traitTxHash</code> and
-          decoding it with the following ABI:
-        </p>
-
-        <pre><code>[{ "inputs": [ { "internalType": "string[15]", "name": "name", "type": "string[15]" }, { "internalType": "string[15]", "name": "description", "type": "string[15]" }, { "internalType": "string[15]", "name": "thumb", "type": "string[15]" }, { "internalType": "string[15]", "name": "male", "type": "string[15]" }, { "internalType": "string[15]", "name": "female", "type": "string[15]" } ], "name": "uploadTrait", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]</code></pre>
-
-        <p>
+        <p class="text-justify-center">
           This will return the following data: <code>name[15], description[15], male[15], female[15]</code>.
           You then grab the traitNum position of each array to get the data for your token.  The name and description are strings and
           the images are base64 encoded so they can easily be incorporated into any webpage.
         </p>
 
-        <p>
+        <p class="text-justify-center">
           The fusion contract stores the contract addresses for each Avime season. When Trait Cards combine to create an Avime,
           a structure is created that represents all of the traits that went into creating that Avime. Since all of the Trait Cards
           are stored on-chain and accessible as described in the last paragraph, this Avime structure stores all the information
@@ -49,11 +90,11 @@
         <pre class="text-left"><code><span class="block"><span class="text-yellow-500">struct</span> <span class="text-red-500">Avime</span> {</span><span class="block ml-4"><span class="text-red-500">uint8[6]</span> <span class="text-blue-300">contractId</span>;</span><span class="block ml-4"><span class="text-red-500">uint16[6]</span> <span class="text-blue-300">traitId</span>;</span><span class="block ml-4"><span class="text-red-500">uint8</span> <span class="text-blue-300">sex</span>;</span><span class="block">}</span></code></pre>
 
         <p>
-          The address is obtained by calling <code>getAvimeContract(contractId)</code> and for the sex,
-          <code>0 = Female</code> and <code>1 = Male</code>.
+          The address is obtained by calling <code>getAvimeContract(contractId)</code><br> and for the sex:
+          <code>0 = Female</code> and <code>1 = Male</code>
         </p>
 
-        <p>
+        <p class="text-justify-center">
           Our NFTs also cost a bit more to mint because they use the ERC721 Enumeration extension.  In order to generate Avime
           Fusions, it is necessary to know every token that a user holds. The website must present all of the users traits to them
           and allow the user to select which traits they would like to use to generate a Fused Avime.  Services like Etherscan allow
@@ -63,9 +104,9 @@
           extension to our NFT.  It costs more to mint, but allows our product to not rely on any third parties.
         </p>
 
-        <p>
+        <p class="text-justify-center">
           Even though our users only need the Ethereum blockchain, It sure would be nice if they had an easy to use user interface to
-          interact with our contracts. For that reason, this website (www.avime.moe) is opensourced here (link to github), ensuring it
+          interact with our contracts. For that reason, this website (<a href="https://avime.moe">avime.moe</a>) is opensourced <a href="https://github.com/avimenft" rel="noopener" target="_blank">here</a>, ensuring it
           will always be possible to easily interact with our smart contracts.
         </p>
 

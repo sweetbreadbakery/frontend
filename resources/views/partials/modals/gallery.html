@@ -9,7 +9,7 @@
       <div class="relative mx-auto mb-8" id="gallery">
         <div class="sm:hidden">
           <label for="gallery-select" class="sr-only">Select a type</label>
-          <select class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100" id="gallery-select" name="tabs" x-model="$store.myAvime.tabs.gallery">
+          <select class="block w-full text-white uppercase bg-blue-500 border border-black rounded shadow-inset-blue-100" id="gallery-select" name="tabs" x-model="$store.avime.tabs.gallery">
             <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
               <option x-text="trait" x-bind:value="trait"></option>
             </template>
@@ -18,12 +18,12 @@
 
         <nav class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t sm:flex shadow-black" id="gallery-tabs" aria-label="Inventory Tabs">
           <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-            <label class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900" :class="{ 'bg-blue-600 hover:bg-blue-600': $store.myAvime.tabs.gallery === trait }" x-on:click="$store.myAvime.tabs.gallery = trait" x-text="trait"></label>
+            <label class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900" :class="{ 'bg-blue-600 hover:bg-blue-600': $store.avime.tabs.gallery === trait }" x-on:click="$store.avime.tabs.gallery = trait" x-text="trait"></label>
           </template>
         </nav>
 
         <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-          <div class="overflow-x-visible overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel" x-show.transition.in.opacity.duration.600="$store.myAvime.tabs.gallery === trait">
+          <div class="overflow-x-visible overflow-y-scroll bg-blue-600 border border-black rounded-b tab-panel" x-show.transition.in.opacity.duration.600="$store.avime.tabs.gallery === trait">
             <div class="max-h-[63.028412vh]">
               <ul class="grid grid-cols-1 gap-2 p-1 mx-auto mb-1 sm:grid-cols-2 lg:mb-2 lg:p-2 xl:grid-cols-3 w-max" x-data="{ cards: [] }" x-on:modal-gallery.window="fetch(`/data/${trait}.json`).then(response => response.json()).then(data => cards = data)">
                 <template x-for="item in cards">
