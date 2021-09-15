@@ -168,6 +168,7 @@ Alpine.store('myAvime', {
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
       } else {
+        alert(JSON.stringify(err));
         console.error(err);
       }
     }
@@ -376,6 +377,7 @@ Alpine.store('myAvime', {
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
       } else {
+        alert(JSON.stringify(err));
         console.error(err);
       }
     }
@@ -427,6 +429,7 @@ Alpine.store('myAvime', {
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
       } else {
+        alert(JSON.stringify(err));
         console.error(err);
       }
     }
