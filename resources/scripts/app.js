@@ -218,14 +218,18 @@ Alpine.store('myAvime', {
           this.update();
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         } else {
+          await web3Modal.clearCachedProvider();
           this.wallet.connected = false;
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         }
       } else {
+        await web3Modal.clearCachedProvider();
+        this.wallet.connected = false;
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
       await web3Modal.clearCachedProvider();
+      this.wallet.connected = false;
       console.error(err);
     }
   },
@@ -244,6 +248,7 @@ Alpine.store('myAvime', {
       setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
       await web3Modal.clearCachedProvider();
+      this.wallet.connected = false;
       console.error(err);
     }
   },
