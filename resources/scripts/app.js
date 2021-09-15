@@ -417,6 +417,7 @@ Alpine.store('myAvime', {
       })
       .on('error', function (error) {
         this.currently.minting = false;
+        alert(JSON.stringify(error));
         console.error(error);
       });
 
