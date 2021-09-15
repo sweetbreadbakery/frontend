@@ -135,6 +135,8 @@ Alpine.store('myAvime', {
     connected: false,
   },
   async init() {
+    await web3Modal.clearCachedProvider();
+
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider,
