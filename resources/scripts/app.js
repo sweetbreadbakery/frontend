@@ -151,8 +151,6 @@ Alpine.store('myAvime', {
     });
 
     if (web3Modal.cachedProvider) {
-      console.info(web3Modal.cachedProvider);
-
       try {
         await this.connect();
       } catch (err) {
@@ -227,6 +225,7 @@ Alpine.store('myAvime', {
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
+      await web3Modal.clearCachedProvider();
       console.error(err);
     }
   },
@@ -244,6 +243,7 @@ Alpine.store('myAvime', {
 
       setTimeout(this.checkWebAccount, 500, provider);
     } catch (err) {
+      await web3Modal.clearCachedProvider();
       console.error(err);
     }
   },
