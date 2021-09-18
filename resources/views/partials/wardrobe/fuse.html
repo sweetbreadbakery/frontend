@@ -1,0 +1,19 @@
+<div class="w-full mx-auto sm:max-w-[387px] lg:max-w-[732px]" id="wardrobe-fuse">
+  <div class="mx-auto lg:w-max">
+    <p class="p-2 mb-4 text-sm text-white normal-case bg-green-500 border-black rounded shadow-inset-white" x-show="$store.avime.display.uniqueCheck && $store.avime.display.isUnique">This combination of traits is unique. Nice!</p>
+    <p class="p-2 mb-4 text-sm text-white normal-case bg-red-500 border-black rounded shadow-inset-white" x-show="$store.avime.display.uniqueCheck && !$store.avime.display.isUnique">Uh-oh. This combination of traits is NOT unique.</p>
+
+    <p class="flex flex-col mb-4 space-y-4 xs:flex-row xs:space-y-0 xs:space-x-4">
+      <button class="flex-1 button button--lg button--primary lg:button--xl" x-on:click="$store.avime.approve(1)">Approve Fusion</button>
+      <button class="flex-1 button button--lg button--success lg:button--xl" id="fuse-avime" x-on:click="$store.avime.fuse($store.avime.selected.sex === 'female' ? 0 : 1)" x-bind:disabled="$store.avime.currently.fusing || !$store.avime.selected.all">Fuse Avime</button>
+    </p>
+
+    <p class="max-w-xl mx-auto mb-2 text-sm normal-case text-justify-center">You only need to approve the Fusion Contract once before fusing. All 6 selected traits will be burned when fused into an Avime. Non-unique combinations will result in your fusion being marked as "Duplicate".</p>
+    <p class="flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2" x-show="($store.avime.mintData.fusedAmount > 0)">
+      <button class="button button--xs button--primary lg:button--sm" x-on:click="$dispatch('modal-fused')" x-bind:disabled="!$store.avime.loaded.fusions">
+        <span x-show="$store.avime.loaded.fusions">View Fused (<span x-text="$store.avime.mintData.fusedAmount"></span>)</span>
+        <span x-show="!$store.avime.loaded.fusions">Loading Fused...</span>
+      </button>
+    </p>
+  </div>
+</div>

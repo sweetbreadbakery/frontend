@@ -1,0 +1,18 @@
+<header class="flex flex-col items-center justify-between text-center md:flex-row md:text-left" id="wardrobe-header">
+  <div class="mb-4 md:mb-0 w-max">
+    <h2 class="mb-3 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
+    <p class="leading-none">
+      <span>Wallet:</span>
+      <span class="normal-case" x-text="formatAddress($store.avime.wallet.address)"></span>
+    </p>
+  </div>
+
+  <div class="">
+    <p class="mb-1 text-sm">Number of packs (Max 10)</p>
+
+    <div class="flex items-center justify-center w-full space-x-4">
+      <input class="p-2 text-black border border-black rounded shadow-inner lg:p-3" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*" x-model="$store.avime.mintData.amount">
+      <button class="button button--lg button--success lg:button--xl" x-on:click="$store.avime.mint($store.avime.mintData.amount)" x-bind:disabled="$store.avime.currently.minting">Mint <span class="mx-1" x-text="($store.avime.mintData.amount * 6)"></span> Traits (Price: <span class="mx-1" x-text="round($store.avime.mintData.amount * $store.avime.mintData.price)"></span> ETH)</button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,13 @@
+<div class="modal-wrapper" id="error-modal" :class="{ 'active': (modal === 'error') }" x-on:modal-error.window="(modal = 'error')">
+  <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="window.location.reload()"></div>
+
+  <div class="p-3 rounded modal-panel" :class="{ 'active': (modal === 'error') }">
+    <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+      <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Error loading data</p>
+      <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
+      <p class="mb-4">Please refresh your browser window and try again.</p>
+
+      <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-blue-500 border border-black rounded hover:bg-blue-400 shadow-inset-white scroll-unlock" x-on:click="window.location.reload()">Refresh</button>
+    </div>
+  </div>
+</div>

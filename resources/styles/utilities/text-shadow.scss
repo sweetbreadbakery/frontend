@@ -1,0 +1,79 @@
+.text-shadow-blue {
+  text-shadow: -1px -1px 0px theme('colors.blue.500'),
+                0px -1px 0px theme('colors.blue.500'),
+                1px -1px 0px theme('colors.blue.500'),
+               -1px  0px 0px theme('colors.blue.500'),
+                1px  0px 0px theme('colors.blue.500'),
+               -1px  1px 0px theme('colors.blue.500'),
+                0px  1px 0px theme('colors.blue.500'),
+                1px  1px 0px theme('colors.blue.500');
+}
+
+.text-shadow-heading {
+  -webkit-text-stroke: 1px #fd9999;
+  text-shadow: -1px -1px 0px theme('colors.blue.500'),
+                0px -1px 0px theme('colors.blue.500'),
+                1px -1px 0px theme('colors.blue.500'),
+               -1px  0px 0px theme('colors.blue.500'),
+                1px  0px 0px theme('colors.blue.500'),
+               -1px  1px 0px theme('colors.blue.500'),
+                0px  1px 0px theme('colors.blue.500'),
+                1px  1px 0px theme('colors.blue.500'),
+               -2px -2px 0px theme('colors.blue.500'),
+               -1px -2px 0px theme('colors.blue.500'),
+                0px -2px 0px theme('colors.blue.500'),
+                1px -2px 0px theme('colors.blue.500'),
+                2px -2px 0px theme('colors.blue.500'),
+                2px -1px 0px theme('colors.blue.500'),
+                2px  0px 0px theme('colors.blue.500'),
+                2px  1px 0px theme('colors.blue.500'),
+                2px  2px 0px theme('colors.blue.500'),
+                1px  2px 0px theme('colors.blue.500'),
+                0px  2px 0px theme('colors.blue.500'),
+               -1px  2px 0px theme('colors.blue.500'),
+               -2px  2px 0px theme('colors.blue.500'),
+               -2px  1px 0px theme('colors.blue.500'),
+               -2px  0px 0px theme('colors.blue.500'),
+               -2px -1px 0px theme('colors.blue.500');
+}
+
+.text-shadow-heading-darker {
+  -webkit-text-stroke: 1px #fd9999;
+  text-shadow: -1px -1px 0px theme('colors.blue.700'),
+                0px -1px 0px theme('colors.blue.700'),
+                1px -1px 0px theme('colors.blue.700'),
+               -1px  0px 0px theme('colors.blue.700'),
+                1px  0px 0px theme('colors.blue.700'),
+               -1px  1px 0px theme('colors.blue.700'),
+                0px  1px 0px theme('colors.blue.700'),
+                1px  1px 0px theme('colors.blue.700'),
+               -2px -2px 0px theme('colors.blue.700'),
+               -1px -2px 0px theme('colors.blue.700'),
+                0px -2px 0px theme('colors.blue.700'),
+                1px -2px 0px theme('colors.blue.700'),
+                2px -2px 0px theme('colors.blue.700'),
+                2px -1px 0px theme('colors.blue.700'),
+                2px  0px 0px theme('colors.blue.700'),
+                2px  1px 0px theme('colors.blue.700'),
+                2px  2px 0px theme('colors.blue.700'),
+                1px  2px 0px theme('colors.blue.700'),
+                0px  2px 0px theme('colors.blue.700'),
+               -1px  2px 0px theme('colors.blue.700'),
+               -2px  2px 0px theme('colors.blue.700'),
+               -2px  1px 0px theme('colors.blue.700'),
+               -2px  0px 0px theme('colors.blue.700'),
+               -2px -1px 0px theme('colors.blue.700');
+}
+
+.text-stroke-subheading {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.75);
+  -webkit-text-fill-color: currentColor;
+  text-shadow: -1px -1px 0px currentColor,
+                0px -1px 0px currentColor,
+                1px -1px 0px currentColor,
+               -1px  0px 0px currentColor,
+                1px  0px 0px currentColor,
+               -1px  1px 0px currentColor,
+                0px  1px 0px currentColor,
+                1px  1px 0px currentColor;
+}

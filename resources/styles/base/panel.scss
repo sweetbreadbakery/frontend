@@ -1,0 +1,19 @@
+.panel {
+  @apply relative block p-3 text-gray-900 bg-gray-400 border border-gray-900 rounded-lg;
+
+  box-shadow: inset 0px 0px 0px 1px theme('colors.lighten.800');
+}
+
+.panel--card {
+  @apply relative block p-[1.125rem] text-blue-800 bg-blue-500 border-blue-900;
+
+  box-shadow: inset 0px 0px 0px 1px theme('colors.teal.300');
+  transform-style: preserve-3d;
+
+  &::before {
+    @apply absolute inset-1.5 block bg-teal-300 border border-teal-900 rounded-md;
+
+    content: '';
+    z-index: -1;
+  }
+}

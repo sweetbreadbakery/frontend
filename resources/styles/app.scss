@@ -9,7 +9,9 @@
  */
 @import 'tailwindcss/base';
 @import 'base/global';
-@import 'base/button';
+@import 'base/backdrop';
+@import 'base/heading-label';
+@import 'base/image-bevel';
 @import 'base/input';
 @import 'base/modal';
 @import 'base/scrollbar';
@@ -23,6 +25,10 @@
 
 @layer utilities {
   @variants responsive {
+    @import 'utilities/button';
+    @import 'utilities/shadow';
+    @import 'utilities/text-shadow';
+
     .bg-inherit {
       background-color: inherit;
     }
@@ -61,6 +67,21 @@
 
     .grid-cols-25 {
       grid-template-columns: repeat(25, minmax(0, 1fr));
+    }
+
+    .text-justify-left {
+      text-align: justify;
+      text-align-last: left;
+    }
+
+    .text-justify-right {
+      text-align: justify;
+      text-align-last: right;
+    }
+
+    .text-justify-center {
+      text-align: justify;
+      text-align-last: center;
     }
 
     .text-shadow {

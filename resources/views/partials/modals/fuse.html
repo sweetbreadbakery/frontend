@@ -1,0 +1,33 @@
+<div class="modal-wrapper" id="fuse-modal" :class="{ 'active': (modal === 'fuse') }" x-on:modal-fuse.window="(modal = 'fuse')">
+  <div class="backdrop backdrop-shaded scroll-unlock" x-show.transition.opacity.duration.600ms="modal" x-on:click="window.location.reload()"></div>
+
+  <div class="p-3 rounded modal-panel" :class="{ 'active': (modal === 'fuse') }">
+    <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
+      <p class="mb-4 text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Avime get!</p>
+      <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
+
+      <div class="p-2 mb-4 overflow-hidden bg-blue-500 border border-black rounded-lg shadow-inset-blue-box" id="fusion-complete">
+        <div class="relative gap-4 p-3 mx-auto overflow-hidden text-black bg-teal-300 border-2 border-blue-600 rounded-lg w-max">
+          <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
+            <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px] rounded">
+              <img
+                class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
+                x-bind:src="('/images/avime/' + $store.avime.selected.sex + '.png')"
+                alt=""
+                draggable="false"
+              >
+
+              <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
+                <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.avime.selected.traits[trait][$store.avime.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mb-4">Your new Avime has been fused!</p>
+
+      <button class="inline-flex items-center justify-center px-5 py-2 text-base font-medium text-white uppercase bg-red-500 border border-black rounded hover:bg-red-600 shadow-inset-white scroll-unlock" x-on:click="window.location.reload()">Close</button>
+    </div>
+  </div>
+</div>

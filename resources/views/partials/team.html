@@ -1,0 +1,31 @@
+<section class="py-16 sm:py-20" id="team" x-data>
+  <div class="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="space-y-12 text-center">
+      <div class="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-4xl">
+        <h2 class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">Meet the team</h2>
+      </div>
+
+      <ul role="list" class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 w-max lg:grid-cols-3 xl:grid-cols-5">
+        <template x-for="staff in $store.avime.content.staff">
+          <li x-bind:id="`staff-${(staff.name === 'Derp Herpenstein') ? 'derp' : staff.name.toLowerCase()}`">
+            <a class="block p-1 text-black bg-blue-500 border border-black rounded-md shadow-inset-blue-100" target="_blank" rel="noopener" x-bind:href="staff.url">
+              <div class="z-10 px-2 pt-2 pb-0 bg-teal-300 border border-blue-600 rounded">
+                <picture class="block mx-auto mb-2 border border-black rounded shadow-inset-white w-max">
+                  <img
+                    class="w-[160px] h-[160px] rounded-sm"
+                    draggable="false"
+                    x-bind:src="staff.image"
+                    x-bind:alt="('Photo of ' + staff.name)"
+                  >
+                </picture>
+
+                <h3 class="bg-yellow-400 border border-black rounded shadow-inset-white" x-text="staff.name">Name</h3>
+                <p class="relative z-10 inline-block px-2 py-1 tracking-wide text-white uppercase heading-label text-shadow-blue" x-text="staff.title">Title</p>
+              </div>
+            </a>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </div>
+</section>
