@@ -1,18 +1,18 @@
-<dl class="mt-12 uppercase bg-blue-500 border-2 border-blue-800 rounded-lg lg:grid lg:grid-cols-3 shadow-inset-thin-blue-box" x-init="fetch('https://api.avime.moe/mintData').then(response => response.json()).then(data => { $store.avime.mintData.fusion = data.fusion; $store.avime.mintData.s01 = data.s01; });">
-  <div class="flex flex-col p-6 text-center border-r border-r-teal-300">
-    <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Mint Price</dt>
+<dl class="p-4 mt-6 uppercase bg-blue-500 border border-blue-800 rounded-lg md:grid md:grid-cols-3 md:p-6 shadow-inset-thin-blue-box" x-init="fetch('https://api.avime.moe/mintData').then(response => response.json()).then(data => { $store.avime.mintData.fusion = data.fusion; $store.avime.mintData.s01 = data.s01; });">
+  <div class="flex flex-col pb-4 text-center lg:pb-0 md:border-r md:border-r-teal-300">
+    <dt class="order-2 mt-2 text-base font-normal leading-none text-white">Mint Price</dt>
     <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">0.09 ETH</dd>
   </div>
 
-  <div class="flex flex-col p-6 text-center border-l border-r border-l-blue-800 border-r-teal-300">
-    <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Packs Minted</dt>
+  <div class="flex flex-col py-4 text-center border-t border-b md:py-0 border-t-teal-300 md:border-t-0 border-b-blue-800 md:border-b-0 md:border-l md:border-r md:border-l-blue-800 md:border-r-teal-300">
+    <dt class="order-2 mt-2 text-base font-normal leading-none text-white">Packs Minted</dt>
     <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
       <span x-text="(parseInt($store.avime.mintData.s01) / 6)">0</span>/10k
     </dd>
   </div>
 
-  <div class="flex flex-col p-6 text-center border-t border-blue-800 lg:border-0 lg:border-l">
-    <dt class="order-2 mt-2 text-base font-normal leading-6 text-white">Avime Fused</dt>
+  <div class="flex flex-col pt-4 text-center border-t md:pt-0 border-t-teal-300 md:border-t-0 md:border-l-blue-800">
+    <dt class="order-2 mt-2 text-base font-normal leading-none text-white">Avime Fused</dt>
     <dd class="order-1 text-2xl leading-8 tracking-wider text-white lowercase font-heading">
       <span x-text="$store.avime.mintData.fusion">0</span>/10k
     </dd>

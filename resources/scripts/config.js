@@ -20,6 +20,9 @@ export const config = {
       s01: '0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f',
       fusion: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
     },
+    whitelist: [
+      '0xA23270E0fb611896e26617bdFb0cA5D52a00556c',
+    ],
   },
   blankTrait: blankTrait,
   content: {

@@ -45,7 +45,6 @@ mix
     partialRoot: './resources/views/partials',
     minify: {
       collapseBooleanAttributes: true,
-      collapseInlineTagWhitespace: true,
       collapseWhitespace: true,
       minifyCSS: true,
       minifyJS: true,

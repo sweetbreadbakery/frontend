@@ -150,6 +150,9 @@ module.exports = {
               },
               h2: {
                 fontFamily: theme('fontFamily.heading'),
+                fontSize: '2.25rem',
+                letterSpacing: '0.05em',
+                textTransform: 'lowercase',
                 color: theme('colors.yellow.400'),
               },
               h3: {
@@ -234,7 +237,7 @@ module.exports = {
                 fontSize: '85%',
                 wordWrap: 'break-word',
                 backgroundColor: theme('colors.gray.800'),
-                borderRadius: '6px',
+                borderRadius: '4px',
                 color: theme('colors.white'),
               },
               'a code': {

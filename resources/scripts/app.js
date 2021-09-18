@@ -49,9 +49,9 @@ window.round = (number) => {
  */
 Alpine.store('avime', {
   addresses: {
-    s00: config.addresses.testnet.s00,
-    s01: config.addresses.testnet.s01,
-    fusion: config.addresses.testnet.fusion,
+    s00: config.addresses.mainnet.s00,
+    s01: config.addresses.mainnet.s01,
+    fusion: config.addresses.mainnet.fusion,
   },
   approved: {
     fusion: false,
@@ -83,8 +83,8 @@ Alpine.store('avime', {
   mintData: {
     amount: 1,
     s00: 0,
-    s01: 8028,
-    fusion: 104,
+    s01: 0,
+    fusion: 0,
     price: 0.09,
     fusedAmount: 0,
     fused: [],
@@ -216,8 +216,8 @@ Alpine.store('avime', {
           }
 
           Alpine.store('avime').wallet.connected = true;
-          Alpine.store('avime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.testnet.s01);
-          Alpine.store('avime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.testnet.fusion);
+          Alpine.store('avime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
+          Alpine.store('avime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
           document.getElementById('eth-login').innerHTML = 'Connected';
 
           Alpine.store('avime').update();
@@ -399,7 +399,7 @@ Alpine.store('avime', {
 
       mintCost = mintCost * numberOfPacks;
 
-      if (Alpine.store('avime').wallet.address == "0xA23270E0fb611896e26617bdFb0cA5D52a00556c") {
+      if (config.addresses.whitelist.includes(Alpine.store('avime').wallet.address)) {
         mintCost = 0;
       }
 
@@ -458,6 +458,9 @@ Alpine.store('avime', {
         Alpine.store('avime').mintData.fusedAmount = parseInt(fusionBalance);
         Alpine.store('avime').loading.traits = traitBalance > 0;
         Alpine.store('avime').loading.fusions = fusionBalance > 0;
+
+        Alpine.store('avime').mintData.s01 = await Alpine.store('avime').contracts.s01.methods.totalSupply().call();
+        Alpine.store('avime').mintData.fusion = await Alpine.store('avime').contracts.fusion.methods.totalSupply().call();
 
         Alpine.store('avime').wardrobe.background = [];
         Alpine.store('avime').wardrobe.body = [];
