@@ -232,7 +232,6 @@ module.exports = {
                 color: theme('colors.white'),
               },
               code: {
-                margin: '0 .4em',
                 padding: '.2em .4em',
                 fontSize: '85%',
                 wordWrap: 'break-word',
