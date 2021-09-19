@@ -31,12 +31,12 @@ export const faqs = [
   },
   {
     'id': 7,
-    'question': 'Can I kiss my Avime?',
-    'answer': 'It\'s your Avime. We won\'t judge.',
+    'question': 'Could you create an Avime trait of my favorite anime character?',
+    'answer': 'We respect the intellectual properties of other creators and believe the future of Avime would be jeopardized should we add traits that directly copy from already existing works. While we will not create direct copies of character traits, we take inspiration from a wide variety of anime, video games, and other media to create original designs that capture the aesthetic of various popular characters and tropes.',
   },
   {
     'id': 8,
-    'question': 'Could you create an Avime trait of my favorite anime character?',
-    'answer': 'We respect the intellectual properties of other creators and believe the future of Avime would be jeopardized should we add traits that directly copy from already existing works. While we will not create direct copies of character traits, we take inspiration from a wide variety of anime, video games, and other media to create original designs that capture the aesthetic of various popular characters and tropes.',
+    'question': 'Can I kiss my Avime?',
+    'answer': 'It\'s your Avime. We won\'t judge.',
   },
 ];
