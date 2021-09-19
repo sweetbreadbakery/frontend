@@ -55,6 +55,11 @@ button[disabled] {
   overflow: hidden;
 }
 
+.section-heading,
+body .prose .section-heading {
+  @apply text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl font-heading;
+}
+
 [id="hero-bg"] {
   background-image: url('/images/hero_bg.png');
   background-attachment: fixed;
