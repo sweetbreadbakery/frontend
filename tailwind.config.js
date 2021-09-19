@@ -264,6 +264,9 @@ module.exports = {
         'xs': '375px',
         ...defaultTheme.screens,
       },
+      spacing: {
+        18: '4.5rem',
+      },
     },
   },
   variants: {
