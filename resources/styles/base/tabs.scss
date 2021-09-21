@@ -30,14 +30,17 @@
 
     &::before,
     &::after {
-      --tab-grad: calc(68% - 2px);
-      --tab-corner-bg: radial-gradient(circle at var(--circle-pos),
-      transparent var(--tab-grad),
-      theme('colors.black') calc(var(--tab-grad) + 0.6px),
-      theme('colors.black') calc(var(--tab-grad) + 0.6px),
-      theme('colors.teal.300') calc(calc(70% - 2px) + 2px),
-      theme('colors.teal.300') calc(calc(70% - 2px) + 2px),
-      theme('colors.blue.600') calc(var(--tab-grad) + 2px + 0.6px));
+      --tab-corner-bg: radial-gradient(
+        circle at var(--circle-pos),
+        transparent                calc(68% - 2px),
+        transparent                calc(68% - 2px),
+        theme('colors.black')    calc(64% - 2px),
+        theme('colors.black')    calc(64% + 0px),
+        theme('colors.teal.300') calc(70% - 1px),
+        theme('colors.teal.300') calc(70% + 0px),
+        theme('colors.blue.600') calc(68% + 0px),
+        theme('colors.blue.600') calc(68% + 0.6px)
+      );
 
       content: '';
       position: absolute;
