@@ -1,0 +1,125 @@
+.tabs {
+  position: relative;
+  display: none;
+  width: 100%;
+  align-items: flex-end;
+
+  @screen lg {
+    display: flex;
+  }
+}
+
+.tab {
+  position: relative;
+  flex: 1 1 0%;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom: 0;
+  color: theme('colors.white');
+
+  &.tab-active {
+    background-color: theme('colors.blue.600');
+    border-left-color: theme('colors.black');
+    border-right-color: theme('colors.black');
+    border-top-color: theme('colors.black');
+    box-shadow: inset -1px 0px 0px 0px theme('colors.teal.300'),
+                inset  1px 0px 0px 0px theme('colors.teal.300'),
+                inset  0px 1px 0px 0px theme('colors.teal.300');
+    color: theme('colors.white');
+
+    &::before,
+    &::after {
+      --tab-grad: calc(68% - 2px);
+      --tab-corner-bg: radial-gradient(circle at var(--circle-pos),
+      transparent var(--tab-grad),
+      theme('colors.black') calc(var(--tab-grad) + 0.6px),
+      theme('colors.black') calc(var(--tab-grad) + 0.6px),
+      theme('colors.teal.300') calc(calc(70% - 2px) + 2px),
+      theme('colors.teal.300') calc(calc(70% - 2px) + 2px),
+      theme('colors.blue.600') calc(var(--tab-grad) + 2px + 0.6px));
+
+      content: '';
+      position: absolute;
+      bottom: -0.14rem;
+      z-index: 1;
+      display: block;
+      height: 0.6rem;
+      width: 0.6rem;
+    }
+
+    &::before {
+      --circle-pos: top left;
+
+      left: -0.52rem;
+      background-image: var(--tab-corner-bg);
+
+      /* RTL quick fix */
+      [dir="rtl"] & {
+        --circle-pos: top right;
+      }
+    }
+
+    &::after {
+      --circle-pos: top right;
+
+      right: -0.52rem;
+      background-image: var(--tab-corner-bg);
+
+      /* RTL quick fix */
+      [dir="rtl"] & {
+        --circle-pos: top left;
+      }
+    }
+
+    &:first-child::before,
+    &:first-of-type::before {
+      background: none;
+    }
+
+    &:last-child::after,
+    &:last-of-type::after {
+      background: none;
+    }
+  }
+
+  &.tab-active + &.tab-active {
+    &:before {
+      background: none;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px currentColor inset;
+  }
+}
+
+.tab-label {
+  position: relative;
+  display: flex;
+  padding: calc(0.5rem + 1px) 1rem 0.5rem;
+  align-items: center;
+  flex: 1 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  line-height: 1.5rem;
+
+  .tab-active &::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -2px;
+    left: 0;
+    z-index: 0;
+    height: 2px;
+    background-color: theme('colors.blue.600');
+  }
+}
+
+.tab-panel {
+  box-shadow: inset 0 1px 0 0 theme('colors.teal.300');
+}
