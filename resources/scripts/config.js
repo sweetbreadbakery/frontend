@@ -16,8 +16,8 @@ export const config = {
       fusion: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
     },
     testnet: {
-      s00: '0x10fE2787a8a8d191fB4389A71083Fc0CC2dC1E35',
-      s01: '0x6CD79b5fe03cf8Cb462fC8fA0914EBCfe5DD4C5f',
+      s00: '0x0B60303f941E7EBCe46F09aFbA2f30a5D20ED281',
+      s01: '0x0B60303f941E7EBCe46F09aFbA2f30a5D20ED281',
       fusion: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
     },
     whitelist: [
