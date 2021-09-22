@@ -206,3 +206,22 @@ body .prose .section-heading {
   position: relative;
   z-index: 9999;
 }
+
+.mint-label {
+  @apply absolute py-1 px-1.5 text-xs font-heading lowercase tracking-wide bg-red-500 border border-red-900 rounded text-white;
+
+  bottom: -22px;
+  right: -71px;
+  transform: rotate(-5deg);
+
+  @screen md {
+    top: -22px;
+    right: -24px;
+    bottom: auto;
+    transform: rotate(5deg);
+  }
+
+  @screen lg {
+    right: -71px;
+  }
+}

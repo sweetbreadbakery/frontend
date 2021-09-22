@@ -10,9 +10,9 @@
   <div class="">
     <p class="mb-1 text-sm">Number of packs (Max 10)</p>
 
-    <div class="flex items-center justify-center w-full space-x-2 sm:space-x-4">
+    <div class="relative flex items-center justify-center w-full space-x-2 sm:space-x-4">
       <input class="p-2 text-black border border-black rounded shadow-inner lg:p-3" type="number" value="1" min="1" max="10" maxlength="2" pattern="\d*" x-model="$store.avime.mintData.amount">
-      <button class="button button--lg button--success lg:button--xl" x-on:click="$store.avime.mint($store.avime.mintData.amount)" x-bind:disabled="$store.avime.currently.minting">Mint <span class="mx-1" x-text="($store.avime.mintData.amount * 6)"></span> Traits (Price: <span class="mx-1" x-text="round($store.avime.mintData.amount * $store.avime.mintData.price)"></span> ETH)</button>
+      <button class="button button--lg button--success lg:button--xl" x-on:click="$store.avime.mint($store.avime.mintData.amount)" x-bind:disabled="$store.avime.currently.minting">Mint <span class="mx-1" x-text="($store.avime.mintData.amount * 6)"></span> Traits (Price: <span class="mx-1" x-text="round($store.avime.mintData.amount * $store.avime.mintData.price)"></span> ETH) <span class="mint-label">That's <span x-text="($store.avime.mintData.amount * 6)"></span> NFTs, baka!</span></button>
     </div>
   </div>
 </header>
