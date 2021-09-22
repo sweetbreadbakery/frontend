@@ -21,11 +21,7 @@ export const config = {
       fusion: '0xd92Cc219AcF2199DeadAC2b965B35B9e84FA7F0A',
     },
     whitelist: [
-      '0x34aE7ACe92ED790cEf0147e0A366AAdD8D8CB6db', // sweetbread
-      '0x59F8CDFBE5a5E793FF8CB34e6a91DCe8119fC294', // madotsuki
-      '0x893587F9bDaC8b299abBa713a9eAa56758d98fE7', // accell
-      '0xA23270E0fb611896e26617bdFb0cA5D52a00556c', // rawdawg
-      '0x81a5F4c1718BC4C177E9F4b362Ddf2CEa53D7C63', // derpherpenstein
+      '0xA23270E0fb611896e26617bdFb0cA5D52a00556c',
     ],
   },
   blankTrait: blankTrait,
