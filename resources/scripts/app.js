@@ -517,56 +517,60 @@ Alpine.store('avime', {
             break;
           }
 
-          let currentAvime = await Alpine.store('avime').contracts.s01.methods.tokenOfOwnerByIndex(Alpine.store('avime').wallet.address, i).call();
-          let traitNumber = await Alpine.store('avime').contracts.s01.methods.getTrait(currentAvime).call();
-          let traitType = parseInt(currentAvime) % 6;
+          Alpine.store('avime').contracts.s01.methods
+            .tokenOfOwnerByIndex(Alpine.store('avime').wallet.address, i)
+            .call()
+            .then(async function (currentAvime) {
+              let traitNumber = await Alpine.store('avime').contracts.s01.methods.getTrait(currentAvime).call();
+              let traitType = parseInt(currentAvime) % 6;
 
-          switch (traitType) {
-            case 0:
-              Alpine.store('avime').wardrobe.background.push({
-                ID: parseInt(currentAvime),
-                type: parseInt(currentAvime) % 6,
-                tnum: parseInt(traitNumber),
-                name: traitName[traitType][traitNumber],
-                desc:  traitDesc[traitType][traitNumber],
-                female: traitMale[traitType][traitNumber],
-                male: traitMale[traitType][traitNumber],
-                thumb: traitThumb[traitType][traitNumber],
-                cardImg: cardImg[traitType],
-              });
+              switch (traitType) {
+                case 0:
+                  Alpine.store('avime').wardrobe.background.push({
+                    ID: parseInt(currentAvime),
+                    type: parseInt(currentAvime) % 6,
+                    tnum: parseInt(traitNumber),
+                    name: traitName[traitType][traitNumber],
+                    desc:  traitDesc[traitType][traitNumber],
+                    female: traitMale[traitType][traitNumber],
+                    male: traitMale[traitType][traitNumber],
+                    thumb: traitThumb[traitType][traitNumber],
+                    cardImg: cardImg[traitType],
+                  });
 
-              break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-              currentTable = 'body';
+                  break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                  currentTable = 'body';
 
-              if (parseInt(currentAvime) % 6 === 2) {
-                currentTable = 'face';
-              } else if (parseInt(currentAvime) % 6 === 3) {
-                currentTable = 'clothes';
-              } else if (parseInt(currentAvime) % 6 === 4) {
-                currentTable = 'hair';
-              } else if (parseInt(currentAvime) % 6 === 5) {
-                currentTable = 'accessory';
+                  if (parseInt(currentAvime) % 6 === 2) {
+                    currentTable = 'face';
+                  } else if (parseInt(currentAvime) % 6 === 3) {
+                    currentTable = 'clothes';
+                  } else if (parseInt(currentAvime) % 6 === 4) {
+                    currentTable = 'hair';
+                  } else if (parseInt(currentAvime) % 6 === 5) {
+                    currentTable = 'accessory';
+                  }
+
+                  Alpine.store('avime').wardrobe[currentTable].push({
+                    ID:  parseInt(currentAvime),
+                    type: parseInt(currentAvime) % 6,
+                    tnum:  parseInt(traitNumber),
+                    name: traitName[traitType][traitNumber],
+                    desc:  traitDesc[traitType][traitNumber],
+                    female: traitFemale[traitType][traitNumber],
+                    male: traitMale[traitType][traitNumber],
+                    thumb: traitThumb[traitType][traitNumber],
+                    cardImg: cardImg[traitType],
+                  });
+
+                  break;
               }
-
-              Alpine.store('avime').wardrobe[currentTable].push({
-                ID:  parseInt(currentAvime),
-                type: parseInt(currentAvime) % 6,
-                tnum:  parseInt(traitNumber),
-                name: traitName[traitType][traitNumber],
-                desc:  traitDesc[traitType][traitNumber],
-                female: traitFemale[traitType][traitNumber],
-                male: traitMale[traitType][traitNumber],
-                thumb: traitThumb[traitType][traitNumber],
-                cardImg: cardImg[traitType],
-              });
-
-              break;
-          }
+            });
         }
 
         Alpine.store('avime').loading.traits = false;
