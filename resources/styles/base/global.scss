@@ -211,8 +211,13 @@ body .prose .section-heading {
   @apply absolute py-1 px-1.5 text-xs font-heading lowercase tracking-wide bg-red-500 border border-red-900 rounded text-white;
 
   bottom: -22px;
-  right: -71px;
-  transform: rotate(-5deg);
+  right: -10px;
+  transform: rotate(-4deg);
+
+  @screen xs {
+    right: -24px;
+    transform: rotate(-5deg);
+  }
 
   @screen md {
     top: -22px;

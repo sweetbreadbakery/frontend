@@ -9,12 +9,12 @@
 
       <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.avime.mintData.fused && $store.avime.mintData.fused.length > 0">
         <template x-for="avime in $store.avime.mintData.fused">
-          <div class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200">
+          <a class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200" target="_blank" x-bind:href="`https://opensea.io/assets/${$store.avime.addresses.fusion}/${avime.ID}`">
             <span class="flex items-center justify-between mb-2 leading-none">
               <span x-text="(`ID: ${avime.ID}`)"></span>
               <span x-text="(avime.unique === true ? 'Original' : `Dupe: ${avime.unique}`)"></span>
             </span>
-            <span class="block mx-auto overflow-hidden border-2 border-black rounded w-max">
+            <span class="block mx-auto mb-2 overflow-hidden border-2 border-black rounded w-max">
               <span class="relative block overflow-hidden rounded-sm h-[160px] w-[160px]">
                 <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[0]">
                 <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[1]">
@@ -24,7 +24,8 @@
                 <img class="absolute w-full h-full" alt draggable="false" x-bind:src="avime.traits[5]">
               </span>
             </span>
-          </div>
+            <span class="block text-xs leading-none text-center">View on OpenSea</span>
+          </a>
         </template>
       </div>
 
