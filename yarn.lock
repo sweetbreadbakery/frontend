@@ -1423,17 +1423,17 @@
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
 
-"@vue/reactivity@^3.0.2":
-  version "3.2.11"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.11.tgz#ec04d33acaf2b92cca2960535bec81b26cc5772b"
-  integrity sha512-hEQstxPQbgGZq5qApzrvbDmRdK1KP96O/j4XrwT8fVkT1ytkFs4fH2xNEh9QKwXfybbQkLs77W7OfXCv5o6qbA==
+"@vue/reactivity@~3.1.1":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.1.5.tgz#dbec4d9557f7c8f25c2635db1e23a78a729eb991"
+  integrity sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==
   dependencies:
-    "@vue/shared" "3.2.11"
+    "@vue/shared" "3.1.5"
 
-"@vue/shared@3.2.11":
-  version "3.2.11"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.11.tgz#01899f54949caf1ac241de397bd17069632574de"
-  integrity sha512-ovfXAsSsCvV9JVceWjkqC/7OF5HbgLOtCWjCIosmPGG8lxbPuavhIxRH1dTx4Dg9xLgRTNLvI3pVxG4ItQZekg==
+"@vue/shared@3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.5.tgz#74ee3aad995d0a3996a6bb9533d4d280514ede03"
+  integrity sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==
 
 "@walletconnect/browser-utils@^1.6.5":
   version "1.6.5"
@@ -1857,12 +1857,12 @@ alphanum-sort@^1.0.2:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-alpinejs@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.3.3.tgz#966c94b6847f3d6840c5750e0b14caec82214e56"
-  integrity sha512-OkTHYz+DUXcGliDj2W45Q+sAxd4AAEsvyaczuPgp2+vFWl8uGRxPk1G7ySe1snbajJoGMjU6mbdaCQpXvdWPBw==
+alpinejs@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.4.1.tgz#1ba46d7d3814e0d9f054c78d0ae5dbad3a3f1651"
+  integrity sha512-nbHeIJQBn9ji/MWV8ueG4U1B9rPvn2e5/NcM4fHmGNDsmouu1NLzFQtq0cK6Jbj+IbkXU/UlxZB83gUReaw01w==
   dependencies:
-    "@vue/reactivity" "^3.0.2"
+    "@vue/reactivity" "~3.1.1"
 
 ansi-colors@^4.1.1:
   version "4.1.1"
