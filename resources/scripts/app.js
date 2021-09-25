@@ -72,6 +72,26 @@ Alpine.store('avime', {
     fusing: false,
     minting: false,
   },
+  demo: {
+    active: true,
+    inventory: {
+      background: [],
+      body: [],
+      face: [],
+      clothes: [],
+      hair: [],
+      accessory: [],
+    },
+    selected: {
+      background: config.blankTrait,
+      body: config.blankTrait,
+      face: config.blankTrait,
+      clothes: config.blankTrait,
+      hair: config.blankTrait,
+      accessory: config.blankTrait,
+    },
+    sex: 'female',
+  },
   display: {
     uniqueCheck: false,
     isUnique: true,
@@ -107,14 +127,7 @@ Alpine.store('avime', {
     },
     traitIds: [0, 0, 0, 0, 0, 0],
   },
-  wardrobe: {
-    background: [],
-    body: [],
-    face: [],
-    clothes: [],
-    hair: [],
-    accessory: [],
-  },
+  wardrobe: JSON.parse(JSON.stringify(config.demo.wardrobe)),
   traits: {
     background: [],
     body: [],
@@ -215,6 +228,7 @@ Alpine.store('avime', {
             Alpine.store('avime').wallet.address = account;
           }
 
+          Alpine.store('avime').demo.active = false;
           Alpine.store('avime').wallet.connected = true;
           Alpine.store('avime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
           Alpine.store('avime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
@@ -251,8 +265,27 @@ Alpine.store('avime', {
 
         break;
       case 'wallet':
+        Alpine.store('avime').demo.active = true;
         Alpine.store('avime').wallet.address = '';
         Alpine.store('avime').wallet.connected = false;
+
+        (async function() {
+          Alpine.store('avime').wardrobe = await {
+            background: [],
+            body: [],
+            face: [],
+            clothes: [],
+            hair: [],
+            accessory: [],
+          };
+        })().then(() => {
+          Alpine.store('avime').wardrobe.background = config.demo.wardrobe.background;
+          Alpine.store('avime').wardrobe.body = config.demo.wardrobe.body;
+          Alpine.store('avime').wardrobe.face = config.demo.wardrobe.face;
+          Alpine.store('avime').wardrobe.clothes = config.demo.wardrobe.clothes;
+          Alpine.store('avime').wardrobe.hair = config.demo.wardrobe.hair;
+          Alpine.store('avime').wardrobe.accessory = config.demo.wardrobe.accessory;
+        });
 
         break;
     }

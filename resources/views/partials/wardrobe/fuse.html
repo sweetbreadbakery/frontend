@@ -1,4 +1,4 @@
-<div class="w-full mx-auto sm:max-w-[387px] lg:max-w-[732px]" id="wardrobe-fuse">
+<div class="w-full mx-auto mt-4 lg:mt-8 sm:max-w-[387px] lg:max-w-[732px]" id="wardrobe-fuse" x-show="$store.avime.wallet.connected && !$store.avime.demo.active" x-cloak style="display: none;">
   <div class="mx-auto lg:w-max">
     <p class="p-2 mb-4 text-sm text-white normal-case bg-green-500 border-black rounded shadow-inset-white" x-show="$store.avime.display.uniqueCheck && $store.avime.display.isUnique">This combination of traits is unique. Nice!</p>
     <p class="p-2 mb-4 text-sm text-white normal-case bg-red-500 border-black rounded shadow-inset-white" x-show="$store.avime.display.uniqueCheck && !$store.avime.display.isUnique">Uh-oh. This combination of traits is NOT unique.</p>
