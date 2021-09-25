@@ -477,7 +477,7 @@ Alpine.store('avime', {
       }
     }
 
-    if (Alpine.store('avime').selected.all) {
+    if (Alpine.store('avime').selected.all && !Alpine.store('avime').demo.active) {
       await Alpine.store('avime').checkUniquness(Alpine.store('avime').selected.sex === 'female' ? 0 : 1);
     }
   },
