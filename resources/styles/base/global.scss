@@ -4,10 +4,12 @@
 
 html {
   cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAAACVBMVEUAAAAAAAD///+D3c/SAAAAAXRSTlMAQObYZgAAAE5JREFUeAFdzAEGBQEIRdGg/QVB+wvuKv/jG9ObiMNVkRXR2hez0ayBZigDgyFB3Bf/toaGxTCDWBfP/dhHLtQW6iJbjAtF6gsVR5bhOz8DolGvuUNlQAAAAABJRU5ErkJggg=='), auto;
-  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-pixelated;
   image-rendering: pixelated;
   shape-rendering: crispEdges;
-  -ms-interpolation-mode: nearest-neighbor;
 }
 
 body {
@@ -120,11 +122,6 @@ body .prose .section-heading {
   background-attachment: fixed;
 }
 
-[id="wardrobe-inventory-tabs"] label:last-child {
-  border-right: 0;
-  border-bottom: 0;
-}
-
 // [id="staff-derp"] {
 //   z-index: 10;
 //   transform: translate(82px, 90px) rotate(-24deg);
@@ -208,4 +205,28 @@ body .prose .section-heading {
 [id='WEB3_CONNECT_MODAL_ID'] {
   position: relative;
   z-index: 9999;
+}
+
+.mint-label {
+  @apply absolute py-1 px-1.5 text-xs font-heading lowercase tracking-wide bg-red-500 border border-red-900 rounded text-white;
+
+  bottom: -22px;
+  right: -10px;
+  transform: rotate(-4deg);
+
+  @screen xs {
+    right: -24px;
+    transform: rotate(-5deg);
+  }
+
+  @screen md {
+    top: -22px;
+    right: -24px;
+    bottom: auto;
+    transform: rotate(5deg);
+  }
+
+  @screen lg {
+    right: -71px;
+  }
 }

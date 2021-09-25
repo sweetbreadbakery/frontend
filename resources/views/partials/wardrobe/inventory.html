@@ -1,4 +1,4 @@
-<div class="relative mx-auto mb-4 lg:mb-8 sm:max-w-[387px] lg:max-w-[732px]" id="wardrobe-inventory">
+<div class="relative mx-auto sm:max-w-[387px] lg:max-w-[732px]" id="wardrobe-inventory">
   <div class="lg:hidden" id="wardrobe-inventory-select">
     <label for="tabs" class="sr-only">Select a trait</label>
 
@@ -9,9 +9,11 @@
     </select>
   </div>
 
-  <nav class="relative hidden overflow-hidden border-t border-l border-r border-blue-100 rounded-t lg:flex shadow-black" id="wardrobe-inventory-tabs" aria-label="Inventory Tabs">
+  <nav class="tabs" id="wardrobe-inventory-tabs" aria-label="Inventory Tabs">
     <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-      <label class="flex items-center justify-center flex-1 px-5 py-2 text-base font-medium uppercase bg-blue-500 border-l border-r hover:bg-blue-400 border-r-blue-100 border-l-blue-900" :class="{ 'bg-blue-600 hover:bg-blue-600': $store.avime.tabs.wardrobe === trait }" x-on:click="$store.avime.tabs.wardrobe = trait" x-text="trait"></label>
+      <div class="tab" :class="{ 'tab-active': $store.avime.tabs.wardrobe === trait }">
+        <label class="tab-label" x-on:click="$store.avime.tabs.wardrobe = trait" x-text="trait"></label>
+      </div>
     </template>
   </nav>
 

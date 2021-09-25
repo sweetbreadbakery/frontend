@@ -1,4 +1,5 @@
 import { blankTrait } from './util/blankTrait';
+import { demoWardrobe } from './util/demoWardrobe';
 import { faqs } from './util/faqs';
 import { fusionAbi } from './util/fusionAbi';
 import { s01Abi } from './util/s01Abi';
@@ -33,6 +34,9 @@ export const config = {
     bubbles: true,
     composed: true,
     cancelable: true,
+  },
+  demo: {
+    wardrobe: demoWardrobe,
   },
   wallet: {
     blankAddress: '000000000000000000000000000000000000000000',
