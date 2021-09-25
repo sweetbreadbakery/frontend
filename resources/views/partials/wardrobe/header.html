@@ -1,6 +1,6 @@
 <header class="flex flex-col items-center justify-between text-center md:flex-row md:text-left" id="wardrobe-header">
   <div class="mb-4 md:mb-0 w-max">
-    <h2 class="mb-3 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading">Your Wardrobe</h2>
+    <h2 class="mb-3 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading-darker font-heading"><span x-text="(($store.avime.demo.active) ? 'Demo' : 'Your')"></span> Wardrobe</h2>
 
     <p class="leading-none normal-case" x-show="!$store.avime.wallet.connected && $store.avime.demo.active">Connect your wallet to mint and view Trait Cards.</p>
 
