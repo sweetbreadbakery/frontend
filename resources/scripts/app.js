@@ -60,6 +60,7 @@ Alpine.store('avime', {
     faqs: config.content.faqs,
     roadmap: '',
     staff: config.content.staff,
+    traits: config.content.traits,
   },
   contracts: {
     ids: [1, 1, 1, 1, 1, 1],

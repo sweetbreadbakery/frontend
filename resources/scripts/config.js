@@ -1,3 +1,4 @@
+import { aboutTraits } from './util/aboutTraits';
 import { blankTrait } from './util/blankTrait';
 import { demoWardrobe } from './util/demoWardrobe';
 import { faqs } from './util/faqs';
@@ -29,6 +30,7 @@ export const config = {
   content: {
     faqs: faqs,
     staff: staff,
+    traits: aboutTraits,
   },
   customEventInit: {
     bubbles: true,

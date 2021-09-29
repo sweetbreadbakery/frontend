@@ -1,19 +1,27 @@
-<section class="pt-10 text-justify-center lg:pt-20" id="about" x-data>
+<section class="pt-10 lg:pt-20" id="about" x-data>
   <div class="relative px-4 mx-auto max-w-7xl lg:px-8">
-    <h2 class="mb-8 text-3xl leading-8 tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">What is Avime???</h2>
-    <p class="max-w-3xl mx-auto mb-6 leading-7">Avime is the first fully on-chain customizable NFT project, featuring artwork heavily inspired by anime. Our custom built contract, on-chain provenance, and customization mechanics make Avime truly stand out in the world of NFTs. With a plethora of customization options, the ability to choose between two body types, and more options planned for release in future updates, Avime gives you the ability to create an avatar that you truly resonate with.</p>
+    <h2 class="mb-8 text-3xl leading-8 tracking-wider text-center text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">What is Avime???</h2>
+    <p class="max-w-3xl mx-auto mb-6 leading-7 text-justify-center">Avime is the first fully on-chain customizable NFT project, featuring artwork heavily inspired by anime. Our custom built contract, on-chain provenance, and customization mechanics make Avime truly stand out in the world of NFTs. With a plethora of customization options, the ability to choose between two body types, and more options planned for release in future updates, Avime gives you the ability to create an avatar that you truly resonate with.</p>
     <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-center text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">Each Avime mint will give you 6 different Avime Trait Cards of varying rarities, one from each of these categories:</h3>
 
     <div class="grid grid-cols-1 gap-2 mx-auto my-8 overflow-hidden md:grid-cols-2 lg:my-12 xl:grid-cols-3 xs:w-max">
-      <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-        <button class="text-center" x-on:click="$store.avime.tabs.gallery = trait; $dispatch('modal-gallery')">
-          <img class="block mx-auto w-full h-auto xs:w-[362px] xs:h-[361px]" alt="" draggable="false" x-bind:src="(`/images/traits/${trait}/${trait}.png`)" x-bind:alt="trait">
+      <template x-for="trait in $store.avime.content.traits">
+        <button class="text-left" x-on:click="$store.avime.tabs.gallery = trait.type; $dispatch('modal-gallery')">
+          <span class="relative overflow-hidden block w-[362px] h-[361px] rounded-[11px] text-sm leading-tight text-left">
+            <img class="absolute inset-0 object-cover w-full h-full" alt="" x-bind:src="trait.cardImg">
+            <img class="absolute top-[20px] right-[21px] block w-[43px] h-[43px]" alt="" x-bind:src="trait.thumb">
+            <img class="absolute top-[76px] block w-[160px] h-[160px]" :class="{ 'left-[101px]': (trait.type === 'background'), 'left-[21px]': (trait.type !== 'background') }" alt="" x-bind:src="trait.female">
+            <img class="absolute top-[76px] right-[21px] block w-[160px] h-[160px]" alt="" x-bind:src="trait.male" x-show="(trait.type !== 'background')">
+            <span class="absolute top-[20px] left-[21px] flex items-center w-[265px] h-[43px] px-2 py-3 normal-case leading-none text-sm text-black" x-text="trait.name"></span>
+            <span class="absolute bottom-[48px] left-[21px] flex items-start w-[320px] h-[64px] p-2 normal-case text-sm text-black" x-text="trait.desc"></span>
+            <span class="absolute bottom-[7px] right-[36px] block w-[63px] text-center text-[0.7rem] text-blue-500 uppercase">ID: 00</span>
+          </span>
         </button>
       </template>
     </div>
 
-    <p class="max-w-3xl mx-auto mb-6 leading-7">Avime Trait Cards are ERC721 NFTs that can be traded on secondary markets, and can be combined in the Wardrobe to create a completed Avime. All Trait Cards combined will be burned upon fusion, meaning the total circulating supply of traits will reduce over time.</p>
+    <p class="max-w-3xl mx-auto mb-6 leading-7 text-justify-center">Avime Trait Cards are ERC721 NFTs that can be traded on secondary markets, and can be combined in the Wardrobe to create a completed Avime. All Trait Cards combined will be burned upon fusion, meaning the total circulating supply of traits will reduce over time.</p>
     <h3 class="max-w-3xl mx-auto text-2xl leading-8 tracking-wider text-center text-blue-500 lowercase lg:text-2xl font-heading text-stroke-subheading">You will need one trait for EACH category in order to create an Avime.</h3>
-    <p class="max-w-3xl mx-auto mt-6 leading-7">There will only ever be enough Trait Cards to create 10k total Avime. Future expansion packs are planned to add more options to customization, but an exchange of already existing Avime Trait Cards will be required to redeem newly introduced ones.</p>
+    <p class="max-w-3xl mx-auto mt-6 leading-7 text-justify-center">There will only ever be enough Trait Cards to create 10k total Avime. Future expansion packs are planned to add more options to customization, but an exchange of already existing Avime Trait Cards will be required to redeem newly introduced ones.</p>
   </div>
 </section>
