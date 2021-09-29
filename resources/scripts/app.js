@@ -701,3 +701,12 @@ Alpine.effect(() => {
  */
 window.Alpine = Alpine;
 Alpine.start();
+
+/**
+ * Handle images that don't load
+ */
+document.querySelectorAll('img').forEach(function (img) {
+  img.addEventListener('error', function () {
+    this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
+  });
+});

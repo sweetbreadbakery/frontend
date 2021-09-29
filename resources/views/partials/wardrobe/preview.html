@@ -6,7 +6,7 @@
           <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded" x-bind:src="('/images/avime/' + $store.avime.selected.sex + '.png')" alt="" draggable="false">
 
           <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-            <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.avime.selected.traits[trait][$store.avime.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
+            <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.avime.selected.traits[trait][$store.avime.selected.sex]" alt="" draggable="false">
           </template>
         </div>
       </div>
@@ -17,11 +17,24 @@
         <p class="mb-[0.35rem] text-xs leading-none lg:mb-2 lg:text-base">Traits</p>
 
         <div class="grid grid-cols-3 gap-2 mx-auto lg:gap-4 w-max">
-          <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-            <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`" x-on:click="$store.avime.deselect(trait)">
-              <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits[trait].thumb" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
-            </button>
-          </template>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/background/thumbnails/default.png');`" x-on:click="$store.avime.deselect('background')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.background.thumb" alt="" draggable="false">
+          </button>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/body/thumbnails/default.png');`" x-on:click="$store.avime.deselect('body')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.body.thumb" alt="" draggable="false">
+          </button>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/face/thumbnails/default.png');`" x-on:click="$store.avime.deselect('face')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.face.thumb" alt="" draggable="false">
+          </button>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/clothes/thumbnails/default.png');`" x-on:click="$store.avime.deselect('clothes')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.clothes.thumb" alt="" draggable="false">
+          </button>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/hair/thumbnails/default.png');`" x-on:click="$store.avime.deselect('hair')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.hair.thumb" alt="" draggable="false">
+          </button>
+          <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/accessory/thumbnails/default.png');`" x-on:click="$store.avime.deselect('accessory')">
+            <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits.accessory.thumb" alt="" draggable="false">
+          </button>
         </div>
       </div>
 
@@ -29,9 +42,8 @@
         <p class="mb-[0.35rem] text-xs leading-none lg:mb-2 lg:text-base">Gender</p>
 
         <p class="grid grid-cols-2 gap-2 lg:gap-4">
-          <template x-for="gender in ['female', 'male']">
-            <button class="button button--xs button--gender lg:button--lg" :class="{ 'button--active': $store.avime.selected.sex === gender}" x-on:click="($store.avime.selected.sex = gender)" x-text="gender"></button>
-          </template>
+          <button class="button button--xs button--gender lg:button--lg" :class="{ 'button--active': $store.avime.selected.sex === 'female' }" x-on:click="($store.avime.selected.sex = 'female')">Female</button>
+          <button class="button button--xs button--gender lg:button--lg" :class="{ 'button--active': $store.avime.selected.sex === 'male' }" x-on:click="($store.avime.selected.sex = 'male')">Male</button>
         </p>
       </div>
     </div>
