@@ -41,7 +41,7 @@
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.5",
     "alpinejs": "^3.4.1",
-    "web3": "^1.5.3",
+    "web3": "^1.6.0",
     "web3modal": "^1.9.4"
   }
 }
