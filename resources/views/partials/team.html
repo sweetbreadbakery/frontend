@@ -5,7 +5,7 @@
         <h2 class="text-3xl tracking-wider text-yellow-400 lowercase lg:text-4xl text-shadow-heading font-heading">Meet the team</h2>
       </div>
 
-      <ul role="list" class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 w-max lg:grid-cols-3 xl:grid-cols-5">
+      <ul role="list" class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 w-max lg:grid-cols-3">
         <template x-for="staff in $store.sweetbread.content.staff">
           <li x-bind:id="`staff-${(staff.name === 'Derp Herpenstein') ? 'derp' : staff.name.toLowerCase()}`">
             <a class="block p-1 text-black bg-blue-500 border border-black rounded-md shadow-inset-blue-100" target="_blank" rel="noopener" x-bind:href="staff.url">
