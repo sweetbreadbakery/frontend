@@ -3,10 +3,10 @@
     <div class="relative w-full p-4 border-b rounded-t border-b-black sm:border-r sm:border-r-blue-300 sm:border-b-0 sm:rounded-l sm:rounded-t-none sm:w-max" id="wardrobe-preview-avime">
       <div class="mx-auto overflow-hidden border-2 border-black rounded-md w-max">
         <div class="relative w-[160px] h-[160px] mx-auto bg-gray-500 lg:w-[320px] lg:h-[320px]">
-          <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded" x-bind:src="('/images/avime/' + $store.avime.selected.sex + '.png')" alt="" draggable="false">
+          <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded" x-bind:src="('/images/sweetbread/' + $store.sweetbread.selected.sex + '.png')" alt="" draggable="false">
 
           <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-            <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.avime.selected.traits[trait][$store.avime.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
+            <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.sweetbread.selected.traits[trait][$store.sweetbread.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
           </template>
         </div>
       </div>
@@ -18,8 +18,8 @@
 
         <div class="grid grid-cols-3 gap-2 mx-auto lg:gap-4 w-max">
           <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-            <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`" x-on:click="$store.avime.deselect(trait)">
-              <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.avime.selected.traits[trait].thumb" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
+            <button class="bg-center bg-no-repeat bg-cover image-bevel" x-bind:style="`background-image: url('/images/traits/${trait}/thumbnails/default.png');`" x-on:click="$store.sweetbread.deselect(trait)">
+              <img class="rounded w-[43px] h-[43px] lg:w-[86px] lg:h-[86px]" x-bind:src="$store.sweetbread.selected.traits[trait].thumb" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
             </button>
           </template>
         </div>
@@ -30,7 +30,7 @@
 
         <p class="grid grid-cols-2 gap-2 lg:gap-4">
           <template x-for="gender in ['female', 'male']">
-            <button class="button button--xs button--gender lg:button--lg" :class="{ 'button--active': $store.avime.selected.sex === gender}" x-on:click="($store.avime.selected.sex = gender)" x-text="gender"></button>
+            <button class="button button--xs button--gender lg:button--lg" :class="{ 'button--active': $store.sweetbread.selected.sex === gender}" x-on:click="($store.sweetbread.selected.sex = gender)" x-text="gender"></button>
           </template>
         </p>
       </div>

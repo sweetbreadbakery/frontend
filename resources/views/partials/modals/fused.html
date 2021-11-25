@@ -5,11 +5,11 @@
     <div class="relative p-6 overflow-hidden text-center text-white bg-blue-500 border border-black rounded-lg shadow-inset-blue-box">
       <p class="text-2xl tracking-wider text-yellow-400 lowercase lg:text-3xl text-shadow-heading-darker font-heading">Your fused Avime</p>
       <hr class="mt-4 mb-3 border-t border-b lg:mt-6 lg:mb-5 border-b-blue-200 border-t-blue-900">
-      <p class="mb-8" x-text="$store.avime.loading.fusions ? 'Loading...' : 'No fused Avime found!'" x-show="!$store.avime.loaded.fusions"></p>
+      <p class="mb-8" x-text="$store.sweetbread.loading.fusions ? 'Loading...' : 'No fused Avime found!'" x-show="!$store.sweetbread.loaded.fusions"></p>
 
-      <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.avime.mintData.fused && $store.avime.mintData.fused.length > 0">
-        <template x-for="avime in $store.avime.mintData.fused">
-          <a class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200" target="_blank" x-bind:href="`https://opensea.io/assets/${$store.avime.addresses.fusion}/${avime.ID}`">
+      <div class="grid grid-cols-2 gap-4 mb-8 text-sm sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" x-show="$store.sweetbread.mintData.fused && $store.sweetbread.mintData.fused.length > 0">
+        <template x-for="avime in $store.sweetbread.mintData.fused">
+          <a class="p-2 uppercase border border-blue-900 rounded-md shadow-inset-blue-200" target="_blank" x-bind:href="`https://opensea.io/assets/${$store.sweetbread.addresses.fusion}/${avime.ID}`">
             <span class="flex items-center justify-between mb-2 leading-none">
               <span x-text="(`ID: ${avime.ID}`)"></span>
               <span x-text="(avime.unique === true ? 'Original' : `Dupe: ${avime.unique}`)"></span>

@@ -12,13 +12,13 @@
             <div class="relative w-[160px] h-[160px] bg-gray-500 lg:w-[320px] lg:h-[320px] rounded">
               <img
                 class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded"
-                x-bind:src="('/images/avime/' + $store.avime.selected.sex + '.png')"
+                x-bind:src="('/images/sweetbread/' + $store.sweetbread.selected.sex + '.png')"
                 alt=""
                 draggable="false"
               >
 
               <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-                <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.avime.selected.traits[trait][$store.avime.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
+                <img class="absolute inset-0 block w-[160px] h-[160px] max-w-none max-h-none lg:w-[320px] lg:h-[320px] rounded-sm" x-bind:src="$store.sweetbread.selected.traits[trait][$store.sweetbread.selected.sex]" alt="" onerror="(this.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=')" draggable="false">
               </template>
             </div>
           </div>

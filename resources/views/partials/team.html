@@ -6,7 +6,7 @@
       </div>
 
       <ul role="list" class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 w-max lg:grid-cols-3 xl:grid-cols-5">
-        <template x-for="staff in $store.avime.content.staff">
+        <template x-for="staff in $store.sweetbread.content.staff">
           <li x-bind:id="`staff-${(staff.name === 'Derp Herpenstein') ? 'derp' : staff.name.toLowerCase()}`">
             <a class="block p-1 text-black bg-blue-500 border border-black rounded-md shadow-inset-blue-100" target="_blank" rel="noopener" x-bind:href="staff.url">
               <div class="z-10 px-2 pt-2 pb-0 bg-teal-300 border border-blue-600 rounded">

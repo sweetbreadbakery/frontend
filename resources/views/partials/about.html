@@ -6,7 +6,7 @@
 
     <div class="grid grid-cols-1 gap-2 mx-auto my-8 overflow-hidden md:grid-cols-2 lg:my-12 xl:grid-cols-3 xs:w-max">
       <template x-for="trait in ['background', 'body', 'face', 'clothes', 'hair', 'accessory']">
-        <button class="text-center" x-on:click="$store.avime.tabs.gallery = trait; $dispatch('modal-gallery')">
+        <button class="text-center" x-on:click="$store.sweetbread.tabs.gallery = trait; $dispatch('modal-gallery')">
           <img class="block mx-auto w-full h-auto xs:w-[362px] xs:h-[361px]" alt="" draggable="false" x-bind:src="(`/images/traits/${trait}/${trait}.png`)" x-bind:alt="trait">
         </button>
       </template>
