@@ -47,7 +47,7 @@ window.round = (number) => {
 /**
  * Set Alpine.js store data
  */
-Alpine.store('avime', {
+Alpine.store('sweetbread', {
   addresses: {
     s00: config.addresses.mainnet.s00,
     s01: config.addresses.mainnet.s01,
@@ -149,7 +149,7 @@ Alpine.store('avime', {
 
     if (web3Modal.cachedProvider) {
       try {
-        await Alpine.store('avime').connect();
+        await Alpine.store('sweetbread').connect();
       } catch (err) {
         console.error(err);
         await web3Modal.clearCachedProvider();
@@ -159,11 +159,11 @@ Alpine.store('avime', {
   },
   async approve(choice) {
     try {
-      let approve = await Alpine.store('avime').contracts.s01.methods
-        .setApprovalForAll(Alpine.store('avime').addresses.fusion, choice)
-        .send({ from: Alpine.store('avime').wallet.address });
+      let approve = await Alpine.store('sweetbread').contracts.s01.methods
+        .setApprovalForAll(Alpine.store('sweetbread').addresses.fusion, choice)
+        .send({ from: Alpine.store('sweetbread').wallet.address });
 
-      Alpine.store('avime').approved.fusion = approve;
+      Alpine.store('sweetbread').approved.fusion = approve;
     } catch (err) {
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
@@ -173,27 +173,27 @@ Alpine.store('avime', {
     }
   },
   async checkUniquness(sex) {
-    Alpine.store('avime').display.uniqueCheck = false;
+    Alpine.store('sweetbread').display.uniqueCheck = false;
 
     try {
       let traits = [
-        Alpine.store('avime').selected.traits.background.ID,
-        Alpine.store('avime').selected.traits.body.ID,
-        Alpine.store('avime').selected.traits.face.ID,
-        Alpine.store('avime').selected.traits.clothes.ID,
-        Alpine.store('avime').selected.traits.hair.ID,
-        Alpine.store('avime').selected.traits.accessory.ID,
+        Alpine.store('sweetbread').selected.traits.background.ID,
+        Alpine.store('sweetbread').selected.traits.body.ID,
+        Alpine.store('sweetbread').selected.traits.face.ID,
+        Alpine.store('sweetbread').selected.traits.clothes.ID,
+        Alpine.store('sweetbread').selected.traits.hair.ID,
+        Alpine.store('sweetbread').selected.traits.accessory.ID,
       ];
       let contractIds = [1, 1, 1, 1, 1, 1];
-      let hash = await Alpine.store('avime').contracts.fusion.methods
+      let hash = await Alpine.store('sweetbread').contracts.fusion.methods
         .getAvimeHash(sex, contractIds, traits)
         .call();
-      let unique = Alpine.store('avime').contracts.fusion.methods
+      let unique = Alpine.store('sweetbread').contracts.fusion.methods
         .checkAvimeHash(hash)
         .call()
         .then(result => {
-          Alpine.store('avime').display.isUnique = (result === '0') ? true : false;
-          Alpine.store('avime').display.uniqueCheck = true;
+          Alpine.store('sweetbread').display.isUnique = (result === '0') ? true : false;
+          Alpine.store('sweetbread').display.uniqueCheck = true;
         });
 
       console.info(unique);
@@ -208,56 +208,56 @@ Alpine.store('avime', {
         const account = currentAccounts[0];
 
         document.getElementById('eth-login').innerHTML = 'Please check Web3 wallet';
-        Alpine.store('avime').wallet.address = account;
+        Alpine.store('sweetbread').wallet.address = account;
 
         if (account) {
-          if (account !== Alpine.store('avime').wallet.address) {
-            Alpine.store('avime').wallet.address = account;
+          if (account !== Alpine.store('sweetbread').wallet.address) {
+            Alpine.store('sweetbread').wallet.address = account;
           }
 
-          Alpine.store('avime').wallet.connected = true;
-          Alpine.store('avime').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
-          Alpine.store('avime').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
+          Alpine.store('sweetbread').wallet.connected = true;
+          Alpine.store('sweetbread').contracts.s01 = new web3.eth.Contract(config.abi.s01, config.addresses.mainnet.s01);
+          Alpine.store('sweetbread').contracts.fusion = new web3.eth.Contract(config.abi.fusion, config.addresses.mainnet.fusion);
           document.getElementById('eth-login').innerHTML = 'Connected';
 
-          Alpine.store('avime').update();
+          Alpine.store('sweetbread').update();
         } else {
           await web3Modal.clearCachedProvider();
-          await Alpine.store('avime').clear('wallet');
+          await Alpine.store('sweetbread').clear('wallet');
           document.getElementById('eth-login').innerHTML = 'Connect Wallet';
         }
       } else {
         await web3Modal.clearCachedProvider();
-        await Alpine.store('avime').clear('wallet');
+        await Alpine.store('sweetbread').clear('wallet');
         document.getElementById('eth-login').innerHTML = 'Error loading Web3';
       }
     } catch (err) {
       await web3Modal.clearCachedProvider();
-      await Alpine.store('avime').clear('wallet');
+      await Alpine.store('sweetbread').clear('wallet');
       console.error(err);
     }
   },
   async clear(what) {
     switch (what) {
       case 'selected':
-        Alpine.store('avime').selected.traits.background = config.blankTrait;
-        Alpine.store('avime').selected.traits.body = config.blankTrait;
-        Alpine.store('avime').selected.traits.face = config.blankTrait;
-        Alpine.store('avime').selected.traits.clothes = config.blankTrait;
-        Alpine.store('avime').selected.traits.hair = config.blankTrait;
-        Alpine.store('avime').selected.traits.accessory = config.blankTrait;
-        Alpine.store('avime').display.uniqueCheck = false;
-        Alpine.store('avime').selected.all = false;
+        Alpine.store('sweetbread').selected.traits.background = config.blankTrait;
+        Alpine.store('sweetbread').selected.traits.body = config.blankTrait;
+        Alpine.store('sweetbread').selected.traits.face = config.blankTrait;
+        Alpine.store('sweetbread').selected.traits.clothes = config.blankTrait;
+        Alpine.store('sweetbread').selected.traits.hair = config.blankTrait;
+        Alpine.store('sweetbread').selected.traits.accessory = config.blankTrait;
+        Alpine.store('sweetbread').display.uniqueCheck = false;
+        Alpine.store('sweetbread').selected.all = false;
 
         break;
       case 'wallet':
-        Alpine.store('avime').wallet.address = '';
-        Alpine.store('avime').wallet.connected = false;
+        Alpine.store('sweetbread').wallet.address = '';
+        Alpine.store('sweetbread').wallet.connected = false;
 
         break;
     }
 
-    Alpine.store('avime').update();
+    Alpine.store('sweetbread').update();
   },
   async connect() {
     try {
@@ -265,32 +265,32 @@ Alpine.store('avime', {
 
       provider.on('disconnect', async () => {
         await web3Modal.clearCachedProvider();
-        await Alpine.store('avime').clear('wallet');
+        await Alpine.store('sweetbread').clear('wallet');
       });
 
       provider.on('accountsChanged', async (accounts) => {
         if (accounts.length === 0) {
           await web3Modal.clearCachedProvider();
-          await Alpine.store('avime').clear('wallet');
+          await Alpine.store('sweetbread').clear('wallet');
         }
 
-        Alpine.store('avime').fetchAccountData(provider);
+        Alpine.store('sweetbread').fetchAccountData(provider);
       });
 
       provider.on('chainChanged', () => {
-        Alpine.store('avime').fetchAccountData(provider);
+        Alpine.store('sweetbread').fetchAccountData(provider);
       });
     } catch (err) {
       console.error(err);
     }
 
-    await Alpine.store('avime').fetchAccountData(provider);
+    await Alpine.store('sweetbread').fetchAccountData(provider);
   },
   async deselect(trait) {
-    Alpine.store('avime').tabs.wardrobe = trait;
-    Alpine.store('avime').selected.traits[trait] = config.blankTrait;
-    Alpine.store('avime').display.uniqueCheck = false;
-    Alpine.store('avime').selected.all = false;
+    Alpine.store('sweetbread').tabs.wardrobe = trait;
+    Alpine.store('sweetbread').selected.traits[trait] = config.blankTrait;
+    Alpine.store('sweetbread').display.uniqueCheck = false;
+    Alpine.store('sweetbread').selected.all = false;
   },
   async disconnect() {
     if (provider.close) {
@@ -300,7 +300,7 @@ Alpine.store('avime', {
       provider = null;
     }
 
-    await Alpine.store('avime').clear('wallet');
+    await Alpine.store('sweetbread').clear('wallet');
   },
   async fetchAccountData(provider) {
     try {
@@ -310,7 +310,7 @@ Alpine.store('avime', {
         selectedAccount = accounts[0];
 
         if (selectedAccount) {
-          Alpine.store('avime').wallet.address = selectedAccount;
+          Alpine.store('sweetbread').wallet.address = selectedAccount;
         }
       }
     } catch (err) {
@@ -318,7 +318,7 @@ Alpine.store('avime', {
       console.error(err);
     }
 
-    Alpine.store('avime').checkWeb3(provider);
+    Alpine.store('sweetbread').checkWeb3(provider);
   },
   async fuse(sex) {
     try {
@@ -328,30 +328,30 @@ Alpine.store('avime', {
       let traits = [0, 0, 0, 0, 0, 0];
       let feePerGas = await web3.eth.getGasPrice();
 
-      Alpine.store('avime').currently.fusing = true;
+      Alpine.store('sweetbread').currently.fusing = true;
 
-      for (let selected in Alpine.store('avime').selected.traits) {
-        if (Alpine.store('avime').selected.traits[selected].ID !== -1) {
-          Alpine.store('avime').selected.all = true;
+      for (let selected in Alpine.store('sweetbread').selected.traits) {
+        if (Alpine.store('sweetbread').selected.traits[selected].ID !== -1) {
+          Alpine.store('sweetbread').selected.all = true;
         } else {
-          Alpine.store('avime').selected.all = false;
+          Alpine.store('sweetbread').selected.all = false;
         }
       }
 
-      if (Alpine.store('avime').selected.all) {
+      if (Alpine.store('sweetbread').selected.all) {
        traits = [
-          Alpine.store('avime').selected.traits.background.ID,
-          Alpine.store('avime').selected.traits.body.ID,
-          Alpine.store('avime').selected.traits.face.ID,
-          Alpine.store('avime').selected.traits.clothes.ID,
-          Alpine.store('avime').selected.traits.hair.ID,
-          Alpine.store('avime').selected.traits.accessory.ID,
+          Alpine.store('sweetbread').selected.traits.background.ID,
+          Alpine.store('sweetbread').selected.traits.body.ID,
+          Alpine.store('sweetbread').selected.traits.face.ID,
+          Alpine.store('sweetbread').selected.traits.clothes.ID,
+          Alpine.store('sweetbread').selected.traits.hair.ID,
+          Alpine.store('sweetbread').selected.traits.accessory.ID,
         ];
 
-        mint = await Alpine.store('avime').contracts.fusion.methods
+        mint = await Alpine.store('sweetbread').contracts.fusion.methods
           .mint(seasons, traits, sex)
           .send({
-            from: Alpine.store('avime').wallet.address,
+            from: Alpine.store('sweetbread').wallet.address,
             value: mintCost,
             maxFeePerGas: Math.max(feePerGas, 2000000000),
             maxPriorityFeePerGas: 2000000000,
@@ -359,7 +359,7 @@ Alpine.store('avime', {
           });
 
         if (mint) {
-          Alpine.store('avime').currently.fusing = Alpine.store('avime').loading.fusions = Alpine.store('avime').loaded.fusions = false;
+          Alpine.store('sweetbread').currently.fusing = Alpine.store('sweetbread').loading.fusions = Alpine.store('sweetbread').loaded.fusions = false;
           window.dispatchEvent(new CustomEvent('modal-fuse'), {
             bubbles: true,
             composed: true,
@@ -367,11 +367,11 @@ Alpine.store('avime', {
           });
         }
       } else {
-        Alpine.store('avime').currently.fusing = false;
+        Alpine.store('sweetbread').currently.fusing = false;
         console.error('Select 6 traits, baka!');
       }
     } catch (err) {
-      Alpine.store('avime').currently.fusing = false;
+      Alpine.store('sweetbread').currently.fusing = false;
 
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
@@ -387,7 +387,7 @@ Alpine.store('avime', {
       let numberOfPacks = amount;
       let feePerGas = await web3.eth.getGasPrice();
 
-      Alpine.store('avime').currently.minting = true;
+      Alpine.store('sweetbread').currently.minting = true;
 
       if (numberOfPacks < 1) {
         numberOfPacks = 1;
@@ -399,14 +399,14 @@ Alpine.store('avime', {
 
       mintCost = mintCost * numberOfPacks;
 
-      if (config.addresses.whitelist.includes(Alpine.store('avime').wallet.address)) {
+      if (config.addresses.whitelist.includes(Alpine.store('sweetbread').wallet.address)) {
         mintCost = 0;
       }
 
-      mint = await Alpine.store('avime').contracts.s01.methods
+      mint = await Alpine.store('sweetbread').contracts.s01.methods
         .mint(numberOfPacks)
         .send({
-          from: Alpine.store('avime').wallet.address,
+          from: Alpine.store('sweetbread').wallet.address,
           value: mintCost,
           maxFeePerGas: Math.max(feePerGas, 2000000000),
           maxPriorityFeePerGas: 2000000000,
@@ -414,7 +414,7 @@ Alpine.store('avime', {
         });
 
       if (mint) {
-        Alpine.store('avime').currently.minting = false;
+        Alpine.store('sweetbread').currently.minting = false;
         window.dispatchEvent(new CustomEvent('modal-mint'), {
           bubbles: true,
           composed: true,
@@ -422,7 +422,7 @@ Alpine.store('avime', {
         });
       }
     } catch (err) {
-      Alpine.store('avime').currently.minting = false;
+      Alpine.store('sweetbread').currently.minting = false;
 
       if (err.code === -32000) {
         alert('Error: Execution reverted. Do you have enough funds in your wallet?');
@@ -432,46 +432,46 @@ Alpine.store('avime', {
     }
   },
   async select(trait, item) {
-    Alpine.store('avime').selected.traitIds[trait.tnum] = trait.ID;
-    Alpine.store('avime').selected.seasons[trait.tnum] = 1;
-    Alpine.store('avime').selected.traits[trait] = item;
+    Alpine.store('sweetbread').selected.traitIds[trait.tnum] = trait.ID;
+    Alpine.store('sweetbread').selected.seasons[trait.tnum] = 1;
+    Alpine.store('sweetbread').selected.traits[trait] = item;
 
-    for (let selected in Alpine.store('avime').selected.traits) {
-      if (Alpine.store('avime').selected.traits[selected].ID !== -1) {
-        Alpine.store('avime').selected.all = true;
+    for (let selected in Alpine.store('sweetbread').selected.traits) {
+      if (Alpine.store('sweetbread').selected.traits[selected].ID !== -1) {
+        Alpine.store('sweetbread').selected.all = true;
       } else {
-        Alpine.store('avime').selected.all = false;
+        Alpine.store('sweetbread').selected.all = false;
       }
     }
 
-    if (Alpine.store('avime').selected.all) {
-      await Alpine.store('avime').checkUniquness(Alpine.store('avime').selected.sex === 'female' ? 0 : 1);
+    if (Alpine.store('sweetbread').selected.all) {
+      await Alpine.store('sweetbread').checkUniquness(Alpine.store('sweetbread').selected.sex === 'female' ? 0 : 1);
     }
   },
   async update() {
     try {
-      if (Alpine.store('avime').wallet.address && Alpine.store('avime').wallet.connected) {
-        let traitBalance  = await Alpine.store('avime').contracts.s01.methods.balanceOf(Alpine.store('avime').wallet.address).call();
-        let fusionBalance = await Alpine.store('avime').contracts.fusion.methods.balanceOf(Alpine.store('avime').wallet.address).call();
+      if (Alpine.store('sweetbread').wallet.address && Alpine.store('sweetbread').wallet.connected) {
+        let traitBalance  = await Alpine.store('sweetbread').contracts.s01.methods.balanceOf(Alpine.store('sweetbread').wallet.address).call();
+        let fusionBalance = await Alpine.store('sweetbread').contracts.fusion.methods.balanceOf(Alpine.store('sweetbread').wallet.address).call();
 
-        Alpine.store('avime').approved.fusion = Alpine.store('avime').contracts.s01.methods.isApprovedForAll(Alpine.store('avime').wallet.address, Alpine.store('avime').addresses.fusion);
-        Alpine.store('avime').mintData.fusedAmount = parseInt(fusionBalance);
-        Alpine.store('avime').loading.traits = traitBalance > 0;
-        Alpine.store('avime').loading.fusions = fusionBalance > 0;
+        Alpine.store('sweetbread').approved.fusion = Alpine.store('sweetbread').contracts.s01.methods.isApprovedForAll(Alpine.store('sweetbread').wallet.address, Alpine.store('sweetbread').addresses.fusion);
+        Alpine.store('sweetbread').mintData.fusedAmount = parseInt(fusionBalance);
+        Alpine.store('sweetbread').loading.traits = traitBalance > 0;
+        Alpine.store('sweetbread').loading.fusions = fusionBalance > 0;
 
-        Alpine.store('avime').mintData.s01 = await Alpine.store('avime').contracts.s01.methods.totalSupply().call();
-        Alpine.store('avime').mintData.fusion = await Alpine.store('avime').contracts.fusion.methods.totalSupply().call();
+        Alpine.store('sweetbread').mintData.s01 = await Alpine.store('sweetbread').contracts.s01.methods.totalSupply().call();
+        Alpine.store('sweetbread').mintData.fusion = await Alpine.store('sweetbread').contracts.fusion.methods.totalSupply().call();
 
-        Alpine.store('avime').wardrobe.background = [];
-        Alpine.store('avime').wardrobe.body = [];
-        Alpine.store('avime').wardrobe.face = [];
-        Alpine.store('avime').wardrobe.clothes = [];
-        Alpine.store('avime').wardrobe.hair = [];
-        Alpine.store('avime').wardrobe.accessory = [];
-        Alpine.store('avime').mintData.fused = [];
+        Alpine.store('sweetbread').wardrobe.background = [];
+        Alpine.store('sweetbread').wardrobe.body = [];
+        Alpine.store('sweetbread').wardrobe.face = [];
+        Alpine.store('sweetbread').wardrobe.clothes = [];
+        Alpine.store('sweetbread').wardrobe.hair = [];
+        Alpine.store('sweetbread').wardrobe.accessory = [];
+        Alpine.store('sweetbread').mintData.fused = [];
 
-        let traitHashes = await Alpine.store('avime').contracts.s01.methods.getTraitHashes().call();
-        let cardHash = await Alpine.store('avime').contracts.s01.methods.getCardHash().call();
+        let traitHashes = await Alpine.store('sweetbread').contracts.s01.methods.getTraitHashes().call();
+        let cardHash = await Alpine.store('sweetbread').contracts.s01.methods.getCardHash().call();
         let hashHex;
         let input_data;
         let params;
@@ -486,7 +486,7 @@ Alpine.store('avime', {
         let traitFemale = [];
 
         for (let i = 0; i < 6; i++) {
-          if (!Alpine.store('avime').wallet.connected) {
+          if (!Alpine.store('sweetbread').wallet.connected) {
             break;
           }
 
@@ -513,20 +513,20 @@ Alpine.store('avime', {
         cardImg = params[3];
 
         for (let i = 0; i < traitBalance; i++) {
-          if (!Alpine.store('avime').wallet.connected) {
+          if (!Alpine.store('sweetbread').wallet.connected) {
             break;
           }
 
-          Alpine.store('avime').contracts.s01.methods
-            .tokenOfOwnerByIndex(Alpine.store('avime').wallet.address, i)
+          Alpine.store('sweetbread').contracts.s01.methods
+            .tokenOfOwnerByIndex(Alpine.store('sweetbread').wallet.address, i)
             .call()
             .then(async function (currentAvime) {
-              let traitNumber = await Alpine.store('avime').contracts.s01.methods.getTrait(currentAvime).call();
+              let traitNumber = await Alpine.store('sweetbread').contracts.s01.methods.getTrait(currentAvime).call();
               let traitType = parseInt(currentAvime) % 6;
 
               switch (traitType) {
                 case 0:
-                  Alpine.store('avime').wardrobe.background.push({
+                  Alpine.store('sweetbread').wardrobe.background.push({
                     ID: parseInt(currentAvime),
                     type: parseInt(currentAvime) % 6,
                     tnum: parseInt(traitNumber),
@@ -556,7 +556,7 @@ Alpine.store('avime', {
                     currentTable = 'accessory';
                   }
 
-                  Alpine.store('avime').wardrobe[currentTable].push({
+                  Alpine.store('sweetbread').wardrobe[currentTable].push({
                     ID:  parseInt(currentAvime),
                     type: parseInt(currentAvime) % 6,
                     tnum:  parseInt(traitNumber),
@@ -573,18 +573,18 @@ Alpine.store('avime', {
             });
         }
 
-        Alpine.store('avime').loading.traits = false;
-        Alpine.store('avime').loaded.traits  = true;
+        Alpine.store('sweetbread').loading.traits = false;
+        Alpine.store('sweetbread').loaded.traits  = true;
 
         for (let i = 0; i < fusionBalance; i++) {
-          if (!Alpine.store('avime').wallet.connected) {
+          if (!Alpine.store('sweetbread').wallet.connected) {
             break;
           }
 
-          let currentAvimeId = await Alpine.store('avime').contracts.fusion.methods.tokenOfOwnerByIndex(Alpine.store('avime').wallet.address, i).call();
-          let currentAvime = await Alpine.store('avime').contracts.fusion.methods.getAvime(currentAvimeId).call();
-          let aviHash = await Alpine.store('avime').contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
-          let uniqueAvimeId = await Alpine.store('avime').contracts.fusion.methods.checkAvimeHash(aviHash).call();
+          let currentAvimeId = await Alpine.store('sweetbread').contracts.fusion.methods.tokenOfOwnerByIndex(Alpine.store('sweetbread').wallet.address, i).call();
+          let currentAvime = await Alpine.store('sweetbread').contracts.fusion.methods.getAvime(currentAvimeId).call();
+          let aviHash = await Alpine.store('sweetbread').contracts.fusion.methods.getAvimeHash(currentAvime.sex, currentAvime.contractId, currentAvime.traitId).call();
+          let uniqueAvimeId = await Alpine.store('sweetbread').contracts.fusion.methods.checkAvimeHash(aviHash).call();
           let isUnique = (uniqueAvimeId == currentAvimeId) ? true : uniqueAvimeId;
 
           let fusedData = {
@@ -594,11 +594,11 @@ Alpine.store('avime', {
           };
 
           for (let j = 0; j < 6; j++) {
-            if (!Alpine.store('avime').wallet.connected) {
+            if (!Alpine.store('sweetbread').wallet.connected) {
               break;
             }
 
-            let seasonContractAddress = await Alpine.store('avime').contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
+            let seasonContractAddress = await Alpine.store('sweetbread').contracts.fusion.methods.getAvimeContract(currentAvime.contractId[j]).call();
             let seasonContract = new web3.eth.Contract(config.abi.s01, seasonContractAddress);
             let currentTraitNumber = await seasonContract.methods.getTrait(currentAvime.traitId[j]).call();
             traitHashes = await seasonContract.methods.getTraitHashes().call();
@@ -610,7 +610,7 @@ Alpine.store('avime', {
             let traitFemale = [];
 
             for (let k = 0; k < 6; k++) {
-              if (!Alpine.store('avime').wallet.connected) {
+              if (!Alpine.store('sweetbread').wallet.connected) {
                 break;
               }
 
@@ -636,11 +636,11 @@ Alpine.store('avime', {
             }
           }
 
-          Alpine.store('avime').mintData.fused.push(fusedData);
+          Alpine.store('sweetbread').mintData.fused.push(fusedData);
         }
 
-        Alpine.store('avime').loading.fusions = false;
-        Alpine.store('avime').loaded.fusions = true;
+        Alpine.store('sweetbread').loading.fusions = false;
+        Alpine.store('sweetbread').loaded.fusions = true;
       }
     } catch (err) {
       window.dispatchEvent(new CustomEvent('modal-error'), {
@@ -654,12 +654,12 @@ Alpine.store('avime', {
 });
 
 Alpine.effect(() => {
-  const mintAmount = Alpine.store('avime').mintData.amount;
+  const mintAmount = Alpine.store('sweetbread').mintData.amount;
 
   if (mintAmount > 10) {
-    Alpine.store('avime').mintData.amount = 10;
+    Alpine.store('sweetbread').mintData.amount = 10;
   } else if (mintAmount < 0) {
-    Alpine.store('avime').mintData.amount = 1;
+    Alpine.store('sweetbread').mintData.amount = 1;
   }
 });
 

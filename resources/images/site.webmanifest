@@ -1,6 +1,6 @@
 {
-  "name": "Avime",
-  "short_name": "Avime",
+  "name": "SweetBread",
+  "short_name": "SweetBread",
   "icons": [
     {
       "src": "/images/android-chrome-192x192.png",
@@ -18,6 +18,6 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#62d0ff",
-  "description": "Ten thousand entirely customizable anime inspired NFT avatars. Fully encoded on the Ethereum blockchain. No IPFS Baka!",
+  "description": "Avime 2: Electric Boogaloo",
   "prefer_related_applications": false
 }

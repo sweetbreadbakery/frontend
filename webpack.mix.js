@@ -16,7 +16,7 @@ mix
   .setPublicPath('./public')
   .browserSync({
     https: true,
-    proxy: 'avime.test',
+    proxy: 'sweetbread.test',
   });
 
 mix
