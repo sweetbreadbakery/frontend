@@ -36,7 +36,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.15",
-    "webpack": "^5.54.0"
+    "webpack": "^5.68.0"
   },
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.5",
